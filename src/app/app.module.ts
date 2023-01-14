@@ -6,11 +6,13 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
+import { JsPreloaderComponent } from './components/js-preloader/js-preloader.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    JsPreloaderComponent
   ],
   imports: [
     BrowserModule,
