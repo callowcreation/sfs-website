@@ -1,5 +1,48 @@
 /* You can add global styles to this file, and also import other style files */
-section {
+
+/* 
+---------------------------------------------
+global styles
+--------------------------------------------- 
+*/
+html,
+body {
+    background: #fff;
+    font-family: sans-serif;
+}
+
+::selection {
+    background: #03a4ed;
+    color: #fff;
+}
+
+::-moz-selection {
+    background: #03a4ed;
+    color: #fff;
+}
+
+@media (max-width: 991px) {
+
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
+    .mobile-top-fix {
+        margin-top: 30px;
+        margin-bottom: 0px;
+    }
+
+    .mobile-bottom-fix {
+        margin-bottom: 30px;
+    }
+
+    .mobile-bottom-fix-big {
+        margin-bottom: 60px;
+    }
+}
+
+.page-section {
+    margin-top: 120px;
     position: relative;
-    top: 100px;
 }
