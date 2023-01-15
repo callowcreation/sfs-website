@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { Database, objectVal, ref } from '@angular/fire/database';
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -10,7 +10,18 @@ export class AppComponent {
 
     loading: boolean = true;
 
+    constructor(database: Database) {
+
+        const doc = ref(database, '75987197/posted_by');
+        const v = objectVal(doc).subscribe(o => console.log({'----------------': o}));
+
+        console.log({ val: v });
+    }
+
     ngOnInit() {
+
+        //const listRef = this.db.list('75987197/posted_by');
+
         setTimeout(() => {
             this.loading = false;
         }, 1000);
