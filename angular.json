@@ -49,7 +49,14 @@
                   "maximumError": "4kb"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "optimization": {
+                "fonts": true,
+                "styles": {
+                    "minify": true,
+                    "inlineCritical": false
+                }
+              }
             },
             "development": {
               "buildOptimizer": false,
