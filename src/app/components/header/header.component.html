@@ -10,12 +10,12 @@
                     </a>
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
-                    <ul class="nav">
+                    <ul class="nav" [ngClass]="{'show': showMenu === true, 'hide': showMenu !== true}">
                         <li><a [routerLink]="['/']">Home</a></li>
                         <li><a [routerLink]="['/features']">Features</a></li>
                         <li><a [routerLink]="['/configuration']">Configuration</a></li>
                     </ul>
-                    <a class='menu-trigger'>
+                    <a class='menu-trigger' (click)="showMenu = !showMenu">
                         <span>Menu</span>
                     </a>
                     <!-- ***** Menu End ***** -->

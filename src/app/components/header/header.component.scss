@@ -337,7 +337,7 @@ header
     }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 830px) {
 
     .header-area .main-nav .logo {
         color: #1e1e1e;
@@ -457,7 +457,7 @@ header
     }
 }
 
-@media (min-width: 767px) {
+@media (min-width: 830px) {
     .header-area .main-nav .nav {
         display: flex !important;
     }
@@ -480,7 +480,7 @@ responsive
     }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 830px) {
     .header-area .main-nav .logo h4 {
         font-size: 26px;
     }
@@ -496,4 +496,13 @@ responsive
         font-size: 32px;
         margin-left: -35px;
     }
+}
+
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: flex !important;
 }
