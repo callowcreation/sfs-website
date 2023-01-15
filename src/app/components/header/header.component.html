@@ -1,27 +1,21 @@
-<!-- ***** Header Area Start ***** -->
 <header class="_h">
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <nav class="_n">
-                    <!-- ***** Logo Start ***** -->
                     <a href="index.html" class="logo">
                         <h4><img src="logo_1.svg" /> Shoutouts for Streamers</h4>
                     </a>
-                    <!-- ***** Logo End ***** -->
-                    <!-- ***** Menu Start ***** -->
                     <ul class="nav" [ngClass]="{'show': showMenu === true, 'hide': showMenu !== true}">
-                        <li><a [routerLink]="['/']" (click)="showMenu = false">Home</a></li>
-                        <li><a [routerLink]="['/features']" (click)="showMenu = false">Features</a></li>
-                        <li><a [routerLink]="['/configuration']" (click)="showMenu = false">Configuration</a></li>
+                        <li *ngFor="let route of routes">
+                            <a [routerLink]="[route.path]" (click)="showMenu = false">{{route.title}}</a>
+                        </li>
                     </ul>
                     <a class='_m' (click)="showMenu = !showMenu">
                         <span>Menu</span>
                     </a>
-                    <!-- ***** Menu End ***** -->
                 </nav>
             </div>
         </div>
     </div>
 </header>
-<!-- ***** Header Area End ***** -->

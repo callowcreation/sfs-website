@@ -11,6 +11,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { FeaturesComponent } from './components/features/features.component';
 import { ConfigurationComponent } from './components/configuration/configuration.component';
+import { SupportComponent } from './components/support/support.component';
 import { AuthGuardService } from './services/auth-guard.service';
 
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
@@ -28,6 +29,7 @@ import { environment } from '../environments/environment';
         FooterComponent,
         FeaturesComponent,
         ConfigurationComponent,
+        SupportComponent,
     ],
     imports: [
         BrowserModule,
