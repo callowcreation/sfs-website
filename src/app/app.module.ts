@@ -13,28 +13,33 @@ import { FeaturesComponent } from './components/features/features.component';
 import { ConfigurationComponent } from './components/configuration/configuration.component';
 import { AuthGuardService } from './services/auth-guard.service';
 
-import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideDatabase, getDatabase } from '@angular/fire/database';
+
 import { environment } from '../environments/environment';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    JsPreloaderComponent,
-    HeaderComponent,
-    FooterComponent,
-    FeaturesComponent,
-    ConfigurationComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideDatabase(() => getDatabase()) 
-  ],
-  providers: [AuthGuardService],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        HomeComponent,
+        JsPreloaderComponent,
+        HeaderComponent,
+        FooterComponent,
+        FeaturesComponent,
+        ConfigurationComponent,
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+
+        provideFirebaseApp(() => initializeApp(environment.firebase)),
+        
+        provideAuth(() => getAuth()),
+        provideDatabase(() => getDatabase())
+    ],
+    providers: [AuthGuardService],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

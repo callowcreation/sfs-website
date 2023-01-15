@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Database, objectVal, ref } from '@angular/fire/database';
+import { Auth } from '@angular/fire/auth';
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -10,12 +11,13 @@ export class AppComponent {
 
     loading: boolean = true;
 
-    constructor(database: Database) {
+    constructor(auth: Auth, database: Database) {
 
         const doc = ref(database, '75987197/posted_by');
         const v = objectVal(doc).subscribe(o => console.log({'----------------': o}));
 
-        console.log({ val: v });
+        console.log({ val: v, auth });
+
     }
 
     ngOnInit() {
