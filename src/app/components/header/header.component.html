@@ -11,9 +11,9 @@
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav" [ngClass]="{'show': showMenu === true, 'hide': showMenu !== true}">
-                        <li><a [routerLink]="['/']">Home</a></li>
-                        <li><a [routerLink]="['/features']">Features</a></li>
-                        <li><a [routerLink]="['/configuration']">Configuration</a></li>
+                        <li><a [routerLink]="['/']" (click)="showMenu = false">Home</a></li>
+                        <li><a [routerLink]="['/features']" (click)="showMenu = false">Features</a></li>
+                        <li><a [routerLink]="['/configuration']" (click)="showMenu = false">Configuration</a></li>
                     </ul>
                     <a class='menu-trigger' (click)="showMenu = !showMenu">
                         <span>Menu</span>
