@@ -11,7 +11,7 @@ import { StorageService } from './services/storage.service';
 
 const routes: Routes = [
     { data: { menu: false }, title: 'Home', path: '', redirectTo: 'home', pathMatch: 'full' }, 
-    { data: { menu: true }, title: 'Home', path: '', component: HomeComponent }, 
+    { data: { menu: true }, title: 'Home', path: 'home', component: HomeComponent }, 
     { data: { menu: true }, title: 'Features', path: 'features', component: FeaturesComponent },
     { data: { menu: true }, title: 'Help', path: 'support', component: SupportComponent },
     { data: { menu: !StorageService.HasAuth() }, title: 'Login', path: 'login', component: LoginComponent, canActivate: [LoginGuardService] },

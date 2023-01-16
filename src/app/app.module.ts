@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -45,7 +46,7 @@ import { MatIconModule } from '@angular/material/icon';
         FormsModule,
 
         provideFirebaseApp(() => initializeApp(environment.firebase)),
-        
+
         provideAuth(() => getAuth()),
         provideDatabase(() => getDatabase()),
         BrowserAnimationsModule,
@@ -53,7 +54,10 @@ import { MatIconModule } from '@angular/material/icon';
         MatMenuModule,
         MatIconModule
     ],
-    providers: [AuthGuardService],
+    providers: [
+        AuthGuardService,
+        { provide: LocationStrategy, useClass: HashLocationStrategy }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
