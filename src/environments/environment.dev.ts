@@ -14,6 +14,11 @@ export const environment = {
         apiKey: 'AIzaSyCzNPQfEAGXvbPNxa0XVDG0jwJeQV7wUVE',
         authDomain: 'shoutoutsdev-38a1d.firebaseapp.com',
         messagingSenderId: '755014112663',
+    },
+    twitch: {
+        client_id: 'l86frxm6zlfuj2sd7a8i7r751vuc7o',
+        redirect_uri: 'http://localhost:4200',
+        scopes: 'user:edit'
     }
 };
 
