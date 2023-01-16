@@ -18,3 +18,9 @@ footer p a {
 footer p a:hover {
     color: #4771cb;
 }
+
+.footer-container {
+    position: fixed; 
+    bottom: 0; 
+    width: 100%;
+}

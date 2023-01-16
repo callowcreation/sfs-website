@@ -1,16 +1,8 @@
 import { Component } from '@angular/core';
-import { Route, Router, Routes } from '@angular/router';
-import { MenuName } from 'src/app/enums/menu-name';
+import { Router } from '@angular/router';
+import { MenuRoute } from 'src/app/interfaces/menu-route';
 import { StorageService } from 'src/app/services/storage.service';
 import { environment } from 'src/environments/environment';
-export interface MetaData {
-    menu: boolean;
-    name: MenuName;
-    icon: string | null;
-}
-export interface MenuRoute extends Route {
-    data: MetaData
-}
 
 @Component({
   selector: 'app-header',
@@ -32,7 +24,7 @@ export class HeaderComponent {
             this.routes[route.data.name].push(route);
         }
         this.showProfile = StorageService.HasAuth();
-        
+
         console.log({environment, routes: this.routes});
     }
 

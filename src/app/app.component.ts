@@ -13,10 +13,10 @@ export class AppComponent {
 
     constructor(auth: Auth, database: Database) {
 
-        const doc = ref(database, '75987197/posted_by');
-        const v = objectVal(doc).subscribe(o => console.log({'----------------': o}));
+        // const doc = ref(database, '75987197/posted_by');
+        // const v = objectVal(doc).subscribe(o => console.log({'----------------': o}));
 
-        console.log({ val: v, auth });
+        // console.log({ val: v, auth });
 
     }
 

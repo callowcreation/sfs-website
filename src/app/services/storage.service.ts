@@ -6,7 +6,10 @@ import { AuthPayload } from '../interfaces/auth-payload';
 })
 export class StorageService {
 
-    constructor() { }
+    static UpdateAuth(payload: AuthPayload) {
+        //console.log({ payload });
+        localStorage.setItem('auth', JSON.stringify(payload));
+    }
 
     static HasAuth(): boolean {
         const value = localStorage.getItem('auth');
@@ -14,7 +17,7 @@ export class StorageService {
 
         const auth: AuthPayload = JSON.parse(value) as AuthPayload;
 
-        console.log({ auth });
+        //console.log({ value, auth });
 
         return true;
     }
@@ -22,4 +25,7 @@ export class StorageService {
     static RevokeAuth(): void {
         localStorage.removeItem('auth');
     }
+
+    constructor() { }
+
 }

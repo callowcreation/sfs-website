@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthPayload } from 'src/app/interfaces/auth-payload';
+import { StorageService } from 'src/app/services/storage.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -26,7 +27,8 @@ export class LoginComponent {
             `redirect_uri=${encodeURIComponent(redirect_uri)}`,
             `response_type=token`,
             `scope=${encodeURIComponent(scope.join(' '))}`,
-            `state=${state}`
+            `state=${state}`,
+            `force_verify=true`
         ];
 
         const urlQuery: string = urlParams.join('&');
@@ -36,7 +38,7 @@ export class LoginComponent {
         this.open(url).then(payload => {
             console.log({ payload: payload });
             if(payload) {
-                localStorage.setItem('auth', JSON.stringify(payload));
+                StorageService.UpdateAuth(payload);
                 location.href = '/';
             }
         });
@@ -85,12 +87,14 @@ export class LoginComponent {
                         }
 
                         if (popup.location && popup.location?.href) {
+                            //console.log({...popup.location});
+
                             const payload: AuthPayload = popup.location.hash.substring(1)
                                 .split("&")
                                 .map(v => v.split("="))
                                 .reduce((pre, [key, value]) => ({ ...pre, [key]: value }), {}) as AuthPayload;
 
-                            console.log(payload);
+                            //console.log(payload);
                             popup?.close();
                             clearInterval(interval);
                             resolve(payload);
