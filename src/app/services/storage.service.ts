@@ -2,20 +2,24 @@ import { Injectable } from '@angular/core';
 import { AuthPayload } from '../interfaces/auth-payload';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class StorageService {
 
-  constructor() { }
+    constructor() { }
 
-  static HasAuth(): boolean {
-    const value = localStorage.getItem('auth');
-    if (!value) return false;
+    static HasAuth(): boolean {
+        const value = localStorage.getItem('auth');
+        if (!value) return false;
 
-    const auth: AuthPayload = JSON.parse(value) as AuthPayload;
+        const auth: AuthPayload = JSON.parse(value) as AuthPayload;
 
-    console.log({ auth });
+        console.log({ auth });
 
-    return true;
-  }
+        return true;
+    }
+    
+    static RevokeAuth(): void {
+        localStorage.removeItem('auth');
+    }
 }

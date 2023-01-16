@@ -3,18 +3,24 @@
         <div class="row">
             <div class="col-12">
                 <div class="profile-container">
-                    <div class="profile-menu">
+                    <div class="profile-menu" *ngIf="showProfile == true">
                         <button mat-icon-button [matMenuTriggerFor]="menu">
                             <mat-icon class="user-icon">account_circle</mat-icon>
                         </button>
                         <mat-menu #menu="matMenu">
-                            <button mat-menu-item [disabled]="true" class="btn-txt-align-center">
+                            <!-- <button mat-menu-item [disabled]="true" class="btn-txt-align-center">
                                 <mat-icon class="user-icon">account_circle</mat-icon>
-                            </button>
+                            </button> -->
                             <button mat-menu-item [disabled]="true" class="btn-txt-align-center">
                                 <span>Welcome to Terra</span>
                             </button>
-                            <button mat-menu-item>
+                            <span *ngFor="let route of routes['Profile']">
+                                <button mat-menu-item [routerLink]="[route.path]">
+                                    <mat-icon *ngIf="route.data.icon">{{route.data.icon}}</mat-icon>
+                                    <span>{{route.title}}</span>
+                                </button>  
+                            </span>
+                            <button mat-menu-item (click)="logout()">
                                 <mat-icon>exit_to_app</mat-icon>
                                 <span>Logout</span>
                             </button>
@@ -26,7 +32,7 @@
                         <h4><img src="logo_1.svg" /> Shoutouts for Streamers</h4>
                     </a>
                     <ul class="nav" [ngClass]="{'show': showMenu === true, 'hide': showMenu !== true}">
-                        <li *ngFor="let route of routes">
+                        <li *ngFor="let route of routes['Navigation']">
                             <a [routerLink]="[route.path]" (click)="showMenu = false">{{route.title}}</a>
                         </li>
                     </ul>
