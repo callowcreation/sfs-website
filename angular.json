@@ -56,7 +56,13 @@
                     "minify": true,
                     "inlineCritical": false
                 }
-              }
+              },
+              "fileReplacements": [
+                  {
+                      "replace": "src/environments/environment.dev.ts",
+                      "with": "src/environments/environment.ts"
+                  }
+              ]
             },
             "development": {
               "buildOptimizer": false,
@@ -64,7 +70,13 @@
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true
+              "namedChunks": true,
+              "fileReplacements": [
+                  {
+                      "replace": "src/environments/environment.ts",
+                      "with": "src/environments/environment.dev.ts"
+                  }
+              ]
             }
           },
           "defaultConfiguration": "production"
