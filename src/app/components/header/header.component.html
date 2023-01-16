@@ -2,6 +2,25 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
+                <div class="profile-container">
+                    <div class="profile-menu">
+                        <button mat-icon-button [matMenuTriggerFor]="menu">
+                            <mat-icon class="user-icon">account_circle</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item [disabled]="true" class="btn-txt-align-center">
+                                <mat-icon class="user-icon">account_circle</mat-icon>
+                            </button>
+                            <button mat-menu-item [disabled]="true" class="btn-txt-align-center">
+                                <span>Welcome to Terra</span>
+                            </button>
+                            <button mat-menu-item>
+                                <mat-icon>exit_to_app</mat-icon>
+                                <span>Logout</span>
+                            </button>
+                        </mat-menu>
+                    </div>
+                </div>
                 <nav class="_n">
                     <a href="index.html" class="logo">
                         <h4><img src="logo_1.svg" /> Shoutouts for Streamers</h4>

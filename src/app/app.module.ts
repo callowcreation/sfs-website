@@ -20,6 +20,12 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
 
 import { environment } from '../environments/environment';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+
 
 @NgModule({
     declarations: [
@@ -41,7 +47,11 @@ import { environment } from '../environments/environment';
         provideFirebaseApp(() => initializeApp(environment.firebase)),
         
         provideAuth(() => getAuth()),
-        provideDatabase(() => getDatabase())
+        provideDatabase(() => getDatabase()),
+        BrowserAnimationsModule,
+        MatButtonModule,
+        MatMenuModule,
+        MatIconModule
     ],
     providers: [AuthGuardService],
     bootstrap: [AppComponent]

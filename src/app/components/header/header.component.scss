@@ -193,6 +193,7 @@ header
     transform-origin: 33% 0;
     top: 10px;
 }
+
 /*_h=header _n=main-nav _m=menu-trigger*/
 ._h ._n ._m.active span,
 ._h ._n ._m.active span:before,
@@ -334,4 +335,29 @@ responsive
 
 .show {
     display: flex !important;
+}
+
+.profile-containe { 
+    position: relative;
+}
+
+.btn-txt-align-center {
+    text-align: center;
+}
+
+.profile-menu {
+    color: white;
+    float: right;
+    position: relative;
+    top: 24px;
+}
+
+.user-icon {
+    margin-right: 0px !important;
+    transform: scale(2);
+}
+
+.logo-container {
+    margin: auto;
+    margin-left: -25vh;
 }
