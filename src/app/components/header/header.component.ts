@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Route, Router, Routes } from '@angular/router';
 import { MenuName } from 'src/app/enums/menu-name';
 import { StorageService } from 'src/app/services/storage.service';
+import { environment } from 'src/environments/environment';
 export interface MetaData {
     menu: boolean;
     name: MenuName;
@@ -31,7 +32,8 @@ export class HeaderComponent {
             this.routes[route.data.name].push(route);
         }
         this.showProfile = StorageService.HasAuth();
-        console.log({routes: this.routes})
+        
+        console.log({environment, routes: this.routes});
     }
 
     logout(): void {
