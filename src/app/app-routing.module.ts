@@ -6,14 +6,16 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { SupportComponent } from './components/support/support.component';
 import { AuthGuardService } from './services/auth-guard.service';
+import { LoginGuardService } from './services/login-guard.service';
+import { StorageService } from './services/storage.service';
 
 const routes: Routes = [
     { data: { menu: false }, title: 'Home', path: '', redirectTo: 'home', pathMatch: 'full' }, 
     { data: { menu: true }, title: 'Home', path: 'home', component: HomeComponent }, 
     { data: { menu: true }, title: 'Features', path: 'features', component: FeaturesComponent },
     { data: { menu: true }, title: 'Help', path: 'support', component: SupportComponent },
-    { data: { menu: true }, title: 'Login', path: 'login', component: LoginComponent },
-    { data: { menu: false }, title: 'Configuration', path: 'configuration', component: ConfigurationComponent, canActivate: [AuthGuardService] },
+    { data: { menu: !StorageService.HasAuth() }, title: 'Login', path: 'login', component: LoginComponent, canActivate: [LoginGuardService] },
+    { data: { menu: StorageService.HasAuth() }, title: 'Configuration', path: 'configuration', component: ConfigurationComponent, canActivate: [AuthGuardService] },
 ];
 
 @NgModule({

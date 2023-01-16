@@ -18,7 +18,7 @@ export const environment = {
     twitch: {
         client_id: 'l86frxm6zlfuj2sd7a8i7r751vuc7o',
         redirect_uri: 'http://localhost:4200',
-        scopes: 'user:edit'
+        scopes: 'user:edit clips:edit'
     }
 };
 

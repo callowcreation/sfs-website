@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthPayload } from 'src/app/interfaces/auth-payload';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -8,6 +9,10 @@ import { environment } from 'src/environments/environment';
 })
 export class LoginComponent {
 
+    // constructor(auth: Auth) {
+        
+    // }
+    
     login(): void {
         console.log('Send login to provider...');
 
@@ -28,10 +33,16 @@ export class LoginComponent {
 
         const url: string = `https://id.twitch.tv/oauth2/authorize?${urlQuery}`;
 
-        this.open(url);
+        this.open(url).then(payload => {
+            console.log({ payload: payload });
+            if(payload) {
+                localStorage.setItem('auth', JSON.stringify(payload));
+                location.href = '/';
+            }
+        });
     }
 
-    private open(url: string): void {
+    private async open(url: string): Promise<AuthPayload | null> {
         const popupCenter = (url: string, title: string, w: number, h: number) => {
             // Fixes dual-screen position                             Most browsers      Firefox
             const dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : window.screenX;
@@ -53,56 +64,64 @@ export class LoginComponent {
               `
             );
 
-            handle?.focus();
+            if (!handle) {
+                console.log(`The window wasn't allowed to open... This is likely caused by built-in popup blockers.`);
+                return null;
+            }
+
+            handle.focus();
             return handle;
         }
 
-        const popup = popupCenter(url, 'Login with Twitch', 500, 800);
+        return new Promise((resolve, reject) => {
+            const popup = popupCenter(url, 'Login with Twitch', 500, 800);
+            const interval = setInterval(() => {
+                try {
+                    if (popup) {
+                        if (popup.closed) {
+                            clearInterval(interval);
+                            resolve(null);
+                            return;
+                        }
 
-        //const handle = window.open(url, '_blank', 'left=100,top=100,width=500,height=800');
-        if (!popup) {
-            console.log(`The window wasn't allowed to open... This is likely caused by built-in popup blockers.`);
-        }
+                        if (popup.location && popup.location?.href) {
+                            const payload: AuthPayload = popup.location.hash.substring(1)
+                                .split("&")
+                                .map(v => v.split("="))
+                                .reduce((pre, [key, value]) => ({ ...pre, [key]: value }), {}) as AuthPayload;
 
-        const interval = setInterval(() => {
-            try {
-                if(popup) {
-                    if(popup.closed) {
-                        clearInterval(interval);
-                        return;
-                    }
-
-                    if (popup.location && popup.location?.href) {
-                        const hash2Obj = popup.location.hash.substring(1)
-                            .split("&")
-                            .map(v => v.split("="))
-                            .reduce((pre, [key, value]) => ({ ...pre, [key]: value }), {});
-    
-                        console.log(hash2Obj);
-                        popup?.close();
-                        clearInterval(interval);
+                            console.log(payload);
+                            popup?.close();
+                            clearInterval(interval);
+                            resolve(payload);
+                        }
                     } else {
-                        console.log(`8888888888888888888888888888888888888888888888888888888888888888888888888888`);
+                        reject(null);
                     }
-                }
-            } catch (e) {
-                //console.log(`***********************************************************************`, popup?.location?.href);
+                } catch (e) {
+                    /*--------------------------------------
+                     DO NOT REJECT - this method checks for the process to be completed
+                    --------------------------------------*/
 
-                /*  error generated during dev on the hash property
-DOMException: Blocked a frame with origin "http://localhost:4200" from accessing a cross-origin frame.
-    at http://localhost:4200/main.js:621:43
-    at timer (http://localhost:4200/polyfills.js:9553:27)
-    at _ZoneDelegate.invokeTask (http://localhost:4200/polyfills.js:7602:171)
-    at http://localhost:4200/vendor.js:69966:49
-    at AsyncStackTaggingZoneSpec.onInvokeTask (http://localhost:4200/vendor.js:69966:30)
-    at _ZoneDelegate.invokeTask (http://localhost:4200/polyfills.js:7602:54)
-    at Object.onInvokeTask (http://localhost:4200/vendor.js:70268:25)
-    at _ZoneDelegate.invokeTask (http://localhost:4200/polyfills.js:7602:54)
-    at Zone.runTask (http://localhost:4200/polyfills.js:7404:37)
-    at invokeTask (http://localhost:4200/polyfills.js:7679:26)
-                */
-            }
-        }, 500);
+                    //console.log(`***********************************************************************`, popup?.location?.href);
+
+                    /*  error generated during dev on the hash property
+        DOMException: Blocked a frame with origin "http://localhost:4200" from accessing a cross-origin frame.
+        at http://localhost:4200/main.js:621:43
+        at timer (http://localhost:4200/polyfills.js:9553:27)
+        at _ZoneDelegate.invokeTask (http://localhost:4200/polyfills.js:7602:171)
+        at http://localhost:4200/vendor.js:69966:49
+        at AsyncStackTaggingZoneSpec.onInvokeTask (http://localhost:4200/vendor.js:69966:30)
+        at _ZoneDelegate.invokeTask (http://localhost:4200/polyfills.js:7602:54)
+        at Object.onInvokeTask (http://localhost:4200/vendor.js:70268:25)
+        at _ZoneDelegate.invokeTask (http://localhost:4200/polyfills.js:7602:54)
+        at Zone.runTask (http://localhost:4200/polyfills.js:7404:37)
+        at invokeTask (http://localhost:4200/polyfills.js:7679:26)
+                    */
+                }
+            }, 500);
+        });
+
     }
 
 }

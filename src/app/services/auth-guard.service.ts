@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { AuthPayload } from '../interfaces/auth-payload';
 
 @Injectable()
 export class AuthGuardService implements CanActivate {
@@ -7,6 +8,13 @@ export class AuthGuardService implements CanActivate {
     constructor() { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-        return false;
+        const value = localStorage.getItem('auth');
+        if (!value) return false;
+
+        const auth: AuthPayload = JSON.parse(value) as AuthPayload;
+
+        console.log({ auth });
+
+        return true;
     }
 }

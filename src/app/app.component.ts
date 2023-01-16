@@ -9,7 +9,7 @@ import { Auth } from '@angular/fire/auth';
 export class AppComponent {
     title = 'sfs-website';
 
-    loading: boolean = true;
+    loading: boolean = false;
 
     constructor(auth: Auth, database: Database) {
 
@@ -24,8 +24,8 @@ export class AppComponent {
 
         //const listRef = this.db.list('75987197/posted_by');
 
-        setTimeout(() => {
-            this.loading = false;
-        }, 1000);
+        // setTimeout(() => {
+        //     this.loading = false;
+        // }, 1000);
     }
 }
