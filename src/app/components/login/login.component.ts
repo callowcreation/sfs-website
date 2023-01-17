@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthPayload } from 'src/app/interfaces/auth-payload';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { environment } from 'src/environments/environment';
 
@@ -10,10 +11,9 @@ import { environment } from 'src/environments/environment';
 })
 export class LoginComponent {
 
-    // constructor(auth: Auth) {
-        
-    // }
-    
+    constructor(private authService: AuthenticationService) {
+
+    }
     login(): void {
         console.log('Send login to provider...');
 
@@ -25,7 +25,7 @@ export class LoginComponent {
         const urlParams: string[] = [
             `client_id=${client_id}`,
             `redirect_uri=${encodeURIComponent(redirect_uri)}`,
-            `response_type=token`,
+            `response_type=code`,
             `scope=${encodeURIComponent(scope.join(' '))}`,
             `state=${state}`,
             `force_verify=true`
@@ -37,9 +37,10 @@ export class LoginComponent {
 
         this.open(url).then(payload => {
             console.log({ payload: payload });
-            if(payload && payload.access_token) {
-                StorageService.UpdateAuth(payload);
-                location.href = '/';
+            if (payload && payload.access_token) {
+                this.authService.login(payload.access_token);
+                //StorageService.UpdateAuth(payload);
+                //location.href = '/';
             }
         });
     }
@@ -95,7 +96,7 @@ export class LoginComponent {
                                 .reduce((pre, [key, value]) => ({ ...pre, [key]: value }), {}) as AuthPayload;
 
                             //console.log(payload);
-                            popup?.close();
+                            //popup?.close();
                             clearInterval(interval);
                             resolve(payload);
                         }
