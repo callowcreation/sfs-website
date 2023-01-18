@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AuthPayload } from '../interfaces/auth-payload';
+import { User } from '../interfaces/user';
 
 @Injectable({
     providedIn: 'root'
@@ -24,6 +25,11 @@ export class StorageService {
     
     static RevokeAuth(): void {
         localStorage.removeItem('auth');
+    }
+    
+    static UpdateUser(user: User) {
+        //console.log({ payload });
+        localStorage.setItem('user', JSON.stringify(user));
     }
 
     constructor() { }
