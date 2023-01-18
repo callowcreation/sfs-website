@@ -25,7 +25,7 @@ export class LoginComponent {
         const urlParams: string[] = [
             `client_id=${client_id}`,
             `redirect_uri=${encodeURIComponent(redirect_uri)}`,
-            `response_type=code`,
+            `response_type=token`,
             `scope=${encodeURIComponent(scope.join(' '))}`,
             `state=${state}`,
             `force_verify=true`
@@ -34,7 +34,7 @@ export class LoginComponent {
         const urlQuery: string = urlParams.join('&');
 
         const url: string = `https://id.twitch.tv/oauth2/authorize?${urlQuery}`;
-
+        // location.href = url;
         this.open(url).then(payload => {
             console.log({ payload: payload });
             if(payload) {
@@ -87,7 +87,7 @@ export class LoginComponent {
                         }
 
                         if (popup.location && popup.location?.href) {
-                            //console.log({...popup.location});
+                            console.log({...popup.location});
 
                             const payload: AuthPayload = popup.location.hash.substring(1)
                                 .split("&")
