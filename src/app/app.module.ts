@@ -57,7 +57,7 @@ import { LoggingInterceptor } from './interceptors/logging.interceptor';
     ],
     providers: [
         AuthGuardService,
-        { provide: LocationStrategy, useClass: PathLocationStrategy },
+        PathLocationStrategy,
         { provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true }
     ],
     bootstrap: [AppComponent]
