@@ -35,16 +35,18 @@ export class LoginComponent {
         const urlQuery: string = urlParams.join('&');
 
         const url: string = `https://id.twitch.tv/oauth2/authorize?${urlQuery}`;
+
         // const result = this.http.get(url).subscribe();
         // console.log({ result });
-        location.href = url;
-        // this.open(url).then(payload => {
-        //     console.log({ payload: payload });
-        //     if(payload) {
-        //         StorageService.UpdateAuth(payload);
-        //         //location.href = '/';
-        //     }
-        // });
+
+        // location.href = url;
+        this.open(url).then(payload => {
+            console.log({ payload: payload });
+            if(payload) {
+                StorageService.UpdateAuth(payload);
+                location.href = '/';
+            }
+        });
     }
 
     private async open(url: string): Promise<AuthPayload | null> {
@@ -98,7 +100,7 @@ export class LoginComponent {
                                 .reduce((pre, [key, value]) => ({ ...pre, [key]: value }), {}) as AuthPayload;
 
                             console.log(popup.location?.href);
-                            //popup?.close();
+                            popup?.close();
                             clearInterval(interval);
                             resolve(payload);
                         }
