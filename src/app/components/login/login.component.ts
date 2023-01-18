@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { AuthPayload } from 'src/app/interfaces/auth-payload';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -11,7 +12,7 @@ import { environment } from 'src/environments/environment';
 })
 export class LoginComponent {
 
-    constructor(private authService: AuthenticationService) {
+    constructor(private authService: AuthenticationService, private http: HttpClient) {
 
     }
     login(): void {
@@ -25,7 +26,7 @@ export class LoginComponent {
         const urlParams: string[] = [
             `client_id=${client_id}`,
             `redirect_uri=${encodeURIComponent(redirect_uri)}`,
-            `response_type=code`,
+            `response_type=token`,
             `scope=${encodeURIComponent(scope.join(' '))}`,
             `state=${state}`,
             `force_verify=true`
@@ -34,7 +35,8 @@ export class LoginComponent {
         const urlQuery: string = urlParams.join('&');
 
         const url: string = `https://id.twitch.tv/oauth2/authorize?${urlQuery}`;
-
+        // const result = this.http.get(url).subscribe();
+        // console.log({ result });
         this.open(url).then(payload => {
             console.log({ payload: payload });
             if (payload && payload.access_token) {

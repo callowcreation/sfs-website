@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -26,6 +26,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoggingInterceptor } from './interceptors/logging.interceptor';
 
 @NgModule({
     declarations: [
@@ -43,7 +45,7 @@ import { MatIconModule } from '@angular/material/icon';
         BrowserModule,
         AppRoutingModule,
         FormsModule,
-
+        HttpClientModule,
         provideFirebaseApp(() => initializeApp(environment.firebase)),
 
         provideAuth(() => getAuth()),
@@ -55,7 +57,8 @@ import { MatIconModule } from '@angular/material/icon';
     ],
     providers: [
         AuthGuardService,
-        { provide: LocationStrategy, useClass: HashLocationStrategy }
+        { provide: LocationStrategy, useClass: PathLocationStrategy },
+        { provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true }
     ],
     bootstrap: [AppComponent]
 })
