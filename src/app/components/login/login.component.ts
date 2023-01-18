@@ -37,10 +37,9 @@ export class LoginComponent {
 
         this.open(url).then(payload => {
             console.log({ payload: payload });
-            if (payload && payload.access_token) {
-                this.authService.login(payload.access_token);
-                //StorageService.UpdateAuth(payload);
-                //location.href = '/';
+            if(payload) {
+                StorageService.UpdateAuth(payload);
+                location.href = '/';
             }
         });
     }
