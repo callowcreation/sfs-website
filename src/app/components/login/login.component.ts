@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
 })
 export class LoginComponent {
 
-    constructor(private authService: AuthenticationService, private http: HttpClient) {
+    constructor(private authService: AuthenticationService) {
 
     }
     login(): void {
@@ -36,17 +36,7 @@ export class LoginComponent {
 
         const url: string = `https://id.twitch.tv/oauth2/authorize?${urlQuery}`;
 
-        // const result = this.http.get(url).subscribe();
-        // console.log({ result });
-
-        // location.href = url;
-        this.open(url).then(payload => {
-            console.log({ payload: payload });
-            if(payload) {
-                StorageService.UpdateAuth(payload);
-                location.href = '/';
-            }
-        });
+        this.open(url).then(payload => this.authService.login(payload));
     }
 
     private async open(url: string): Promise<AuthPayload | null> {
@@ -92,14 +82,14 @@ export class LoginComponent {
                         }
 
                         if (popup.location && popup.location?.href) {
-                            console.log({...popup.location});
+                            //console.log({...popup.location});
 
                             const payload: AuthPayload = popup.location.hash.substring(1)
                                 .split("&")
                                 .map(v => v.split("="))
                                 .reduce((pre, [key, value]) => ({ ...pre, [key]: value }), {}) as AuthPayload;
 
-                            console.log(popup.location?.href);
+                            //console.log(popup.location?.href);
                             popup?.close();
                             clearInterval(interval);
                             resolve(payload);
