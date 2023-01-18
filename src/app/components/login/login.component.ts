@@ -37,12 +37,12 @@ export class LoginComponent {
         const url: string = `https://id.twitch.tv/oauth2/authorize?${urlQuery}`;
         // const result = this.http.get(url).subscribe();
         // console.log({ result });
+        // location.href = url;
         this.open(url).then(payload => {
             console.log({ payload: payload });
-            if (payload && payload.access_token) {
-                this.authService.login(payload.access_token);
-                //StorageService.UpdateAuth(payload);
-                //location.href = '/';
+            if(payload) {
+                StorageService.UpdateAuth(payload);
+                location.href = '/';
             }
         });
     }
@@ -90,7 +90,7 @@ export class LoginComponent {
                         }
 
                         if (popup.location && popup.location?.href) {
-                            //console.log({...popup.location});
+                            console.log({...popup.location});
 
                             const payload: AuthPayload = popup.location.hash.substring(1)
                                 .split("&")
