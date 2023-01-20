@@ -5,7 +5,7 @@
                 <div class="profile-container">
                     <div class="profile-menu" *ngIf="showProfile == true">
                         <button mat-icon-button [matMenuTriggerFor]="menu">
-                            <mat-icon class="user-icon">account_circle</mat-icon>
+                            <img [src]="profilePic" class="user-icon" />
                         </button>
                         <mat-menu #menu="matMenu">
                             <!-- <button mat-menu-item [disabled]="true" class="btn-txt-align-center">

@@ -4,13 +4,13 @@ import { AuthPayload } from '../interfaces/auth-payload';
 import { StorageService } from './storage.service';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class LoginGuardService {
 
-  constructor() { }    
-  
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    return !StorageService.HasAuth();
-}
+    constructor() { }
+
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+        return !StorageService.HasAuth();
+    }
 }

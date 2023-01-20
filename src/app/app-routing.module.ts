@@ -10,7 +10,6 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { LoginGuardService } from './services/login-guard.service';
 import { StorageService } from './services/storage.service';
 
-
 const routes: Routes = [
     { data: { menu: false, name: MenuName.None, icon: null }, title: 'Home', path: '', redirectTo: 'home', pathMatch: 'full' }, 
     { data: { menu: true, name: MenuName.Navigation, icon: null }, title: 'Home', path: 'home', component: HomeComponent }, 

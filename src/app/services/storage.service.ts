@@ -32,6 +32,15 @@ export class StorageService {
         localStorage.setItem('user', JSON.stringify(user));
     }
 
+    static ProfileImage(): string | null {
+        const value = localStorage.getItem('user');
+        if (!value) return null;
+
+        const user: User = JSON.parse(value) as User;
+
+        return user.profile_image_url;
+    }
+
     constructor() { }
 
 }

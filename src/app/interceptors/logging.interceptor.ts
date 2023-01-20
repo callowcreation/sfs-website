@@ -8,8 +8,7 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { finalize, map, tap } from 'rxjs/operators';
-import { User } from '../interfaces/user';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class LoggingInterceptor implements HttpInterceptor {
@@ -25,11 +24,11 @@ export class LoggingInterceptor implements HttpInterceptor {
             return event;
         }));
     }
-
-    modifyBody(body: any): User {
-        console.log({ body });
-        const { id, login, email } = body.data[0];
-        return { id, login, email };
+    
+    modifyBody(body: any): any {
+        //console.log({ body });
+        const { id, login, email, profile_image_url } = body.data[0];
+        return { id, login, email, profile_image_url };
         //throw new Error('Method not implemented.');
     }
     // intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<unknown>> {

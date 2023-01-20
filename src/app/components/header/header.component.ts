@@ -15,6 +15,10 @@ export class HeaderComponent {
     showMenu: boolean = false;
     showProfile = false;
 
+    get profilePic(): string | null {
+        return StorageService.ProfileImage();
+    }
+
     constructor(public router: Router) {
 
         for (let i = 0; i < router.config.length; i++) {
