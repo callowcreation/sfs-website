@@ -15,11 +15,11 @@ export class HeaderComponent {
     showMenu: boolean = false;
     showProfile = false;
 
-    get profilePic(): string | null {
-        return StorageService.ProfileImage();
+    get profilePic(): string {
+        return this.storageService.twitchUser?.profile_image_url || '';
     }
 
-    constructor(public router: Router) {
+    constructor(public router: Router, private storageService: StorageService) {
 
         for (let i = 0; i < router.config.length; i++) {
             const route = router.config[i] as MenuRoute;

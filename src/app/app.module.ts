@@ -28,6 +28,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoggingInterceptor } from './interceptors/logging.interceptor';
+import { StorageService } from './services/storage.service';
 
 @NgModule({
     declarations: [
@@ -57,6 +58,7 @@ import { LoggingInterceptor } from './interceptors/logging.interceptor';
     ],
     providers: [
         AuthGuardService,
+        StorageService,
         { provide: LocationStrategy, useClass: PathLocationStrategy },
         { provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true }
     ],

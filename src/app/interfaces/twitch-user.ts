@@ -1,4 +1,4 @@
-export interface User {    
+export interface TwitchUser {    
     id: string;
     login: string;
     email: string;

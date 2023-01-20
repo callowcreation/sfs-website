@@ -1,6 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { map } from 'rxjs';
 import { AuthPayload } from 'src/app/interfaces/auth-payload';
+import { TwitchUser } from 'src/app/interfaces/twitch-user';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { environment } from 'src/environments/environment';
@@ -12,7 +14,7 @@ import { environment } from 'src/environments/environment';
 })
 export class LoginComponent {
 
-    constructor(private authService: AuthenticationService) {
+    constructor(private http: HttpClient, private authService: AuthenticationService) {
 
     }
     login(): void {
@@ -36,7 +38,29 @@ export class LoginComponent {
 
         const url: string = `https://id.twitch.tv/oauth2/authorize?${urlQuery}`;
 
-        this.open(url).then(payload => this.authService.login(payload));
+
+        this.open(url).then(payload => {
+            //this.authService.login(payload)
+            if(payload === null) return;
+            
+            StorageService.UpdateAuth(payload);
+            const httpOptions = {
+                headers: new HttpHeaders({
+                    'Client-Id': environment.twitch.client_id,
+                    'Authorization': 'Bearer ' + payload.access_token
+                })
+            };
+            this.http.get<TwitchUser>('https://api.twitch.tv/helix/users', httpOptions).pipe(map(x => {
+                console.log(x);
+                return x;
+            })).subscribe(result => {
+                console.log({ ...result });
+                StorageService.UpdateUser(result);
+                // TODO:
+                // - send token to firebase to create user from custom token
+                this.authService.login(result);
+            });
+        });
     }
 
     private async open(url: string): Promise<AuthPayload | null> {

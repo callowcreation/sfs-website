@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AuthPayload } from '../interfaces/auth-payload';
-import { User } from '../interfaces/user';
+import { TwitchUser } from '../interfaces/twitch-user';
 
 @Injectable({
     providedIn: 'root'
@@ -27,18 +27,21 @@ export class StorageService {
         localStorage.removeItem('auth');
     }
     
-    static UpdateUser(user: User) {
+    static UpdateUser(user: TwitchUser) {
         //console.log({ payload });
         localStorage.setItem('user', JSON.stringify(user));
     }
 
-    static ProfileImage(): string | null {
+    get auth(): AuthPayload | null {
+        const value = localStorage.getItem('auth');
+        if (!value) return null;
+        return JSON.parse(value) as AuthPayload;
+    }
+
+    get twitchUser(): TwitchUser | null {
         const value = localStorage.getItem('user');
         if (!value) return null;
-
-        const user: User = JSON.parse(value) as User;
-
-        return user.profile_image_url;
+        return JSON.parse(value) as TwitchUser;
     }
 
     constructor() { }
