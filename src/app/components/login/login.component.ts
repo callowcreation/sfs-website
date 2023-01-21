@@ -43,13 +43,8 @@ export class LoginComponent {
             if(payload === null) return;
             
             this.storage.update('auth', payload);
-            const httpOptions = {
-                headers: new HttpHeaders({
-                    'Client-Id': environment.twitch.client_id,
-                    'Authorization': 'Bearer ' + payload.access_token
-                })
-            };
-            this.http.get<User>('https://api.twitch.tv/helix/users', httpOptions).pipe(map(x => {
+
+            this.http.get<User>('https://api.twitch.tv/helix/users').pipe(map(x => {
                 // console.log(x);
                 return x;
             })).subscribe(result => {

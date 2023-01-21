@@ -1,5 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { Auth } from '@angular/fire/auth';
+import { Database, objectVal, ref } from '@angular/fire/database';
 import { map } from 'rxjs';
 import { StorageService } from 'src/app/services/storage.service';
 import { environment } from 'src/environments/environment';
@@ -10,9 +12,22 @@ import { environment } from 'src/environments/environment';
     styleUrls: ['./configuration.component.scss']
 })
 export class ConfigurationComponent {
-    constructor(private http: HttpClient, private storage: StorageService) {
 
+    constructor(auth: Auth, database: Database) {
+
+        const doc = ref(database, '75987197/posted_by');
+        objectVal(doc).subscribe(value => console.log({ value }));
     }
+
+    ngOnInit() {
+
+        //const listRef = this.db.list('75987197/posted_by');
+
+        // setTimeout(() => {
+        //     this.loading = false;
+        // }, 1000);
+    }
+
     /*backgroundColor: string;
     color: string;
     borderColor: string;

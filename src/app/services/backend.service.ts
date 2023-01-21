@@ -15,24 +15,18 @@ export enum Endpoints {
 })
 export class BackendService {
 
-    headers: HttpHeaders;
-
-    constructor(private http: HttpClient, storage: StorageService) {
-        this.headers = new HttpHeaders({
-            'Authorization': 'Bearer ' + storage.id_token
-        });
-    }
+    constructor(private http: HttpClient) { }
 
     get<T>(endpoint: string): Observable<T> {
-        return this.http.get<T>(`${environment.api}${endpoint}`, { headers: this.headers });
+        return this.http.get<T>(`${environment.api}${endpoint}`);
     }
 
     post<T>(endpoint: string, payload: any): Observable<T> {
-        return this.http.post<T>(`${environment.api}${endpoint}`, payload, { headers: this.headers });
+        return this.http.post<T>(`${environment.api}${endpoint}`, payload);
     }
     
     delete<T>(endpoint: string): Observable<T> {
-        return this.http.delete<T>(`${environment.api}${endpoint}`, { headers: this.headers });
+        return this.http.delete<T>(`${environment.api}${endpoint}`);
     }
 
     createUser(user: any): Observable<string> {

@@ -21,7 +21,7 @@ export class HeaderComponent {
         return this.storage.user?.profile_image_url || '';
     }
 
-    constructor(public router: Router, private storage: StorageService, private backend: BackendService, private auth: Auth) {
+    constructor(public router: Router, private storage: StorageService, private auth: Auth) {
 
         for (let i = 0; i < router.config.length; i++) {
             const route = router.config[i] as MenuRoute;
@@ -33,10 +33,8 @@ export class HeaderComponent {
     }
 
     logout(): void {
-        if (!this.storage.user) return;
-        this.backend.deleteUser(this.storage.user.id).subscribe(() => {
-            signOut(this.auth);
-            this.storage.clear();
+        this.storage.clear();
+        signOut(this.auth).then(() => {
             location.href = '/';
         });
     }

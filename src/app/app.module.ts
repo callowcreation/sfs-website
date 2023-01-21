@@ -31,6 +31,7 @@ import { UserInterceptor } from './interceptors/user.interceptor';
 import { StorageService } from './services/storage.service';
 import { LoaderService } from './services/loader.service';
 import { LoaderInterceptor } from './interceptors/loader.interceptor';
+import { TokenHeaderInterceptor } from './interceptors/token-header.interceptor';
 
 @NgModule({
     declarations: [
@@ -64,6 +65,7 @@ import { LoaderInterceptor } from './interceptors/loader.interceptor';
         LoaderService,
         { provide: LocationStrategy, useClass: PathLocationStrategy },
         { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: TokenHeaderInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: UserInterceptor, multi: true }
     ],
     bootstrap: [AppComponent]
