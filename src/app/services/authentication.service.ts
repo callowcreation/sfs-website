@@ -35,7 +35,7 @@ export class AuthenticationService {
             return token;
         })).subscribe(result => {
             console.log({ result });
-            //location.href = '/';
+            location.href = '/';
         });
     }
 }
