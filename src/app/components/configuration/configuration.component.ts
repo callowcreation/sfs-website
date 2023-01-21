@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
     styleUrls: ['./configuration.component.scss']
 })
 export class ConfigurationComponent {
-    constructor(private http: HttpClient, private storageService: StorageService) {
+    constructor(private http: HttpClient, private storage: StorageService) {
 
     }
     /*backgroundColor: string;

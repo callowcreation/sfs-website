@@ -1,41 +1,29 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Auth, signInWithCustomToken, getIdToken } from '@angular/fire/auth';
 import { Injectable } from '@angular/core';
-import { Auth, signInWithCredential } from '@angular/fire/auth';
-import { map } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { AuthPayload } from '../interfaces/auth-payload';
-import { User } from '../interfaces/user';
-import { StorageService } from './storage.service';
-
-interface Header {
-    headers: HttpHeaders;
-}
+import { BackendService } from './backend.service';
+import { Keys, StorageService } from './storage.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthenticationService {
 
-    constructor(private http: HttpClient, private storageService: StorageService) {
+    constructor(private auth: Auth, private backend: BackendService, private storage: StorageService) {
 
     }
 
     authenticte() {
-        const { auth, user } = this.storageService;
-        if(!auth || !user) return;
-        
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'Client-Id': environment.twitch.client_id,
-                'Authorization': 'Bearer ' + auth.access_token
-            })
-        };
-        this.http.post<string>(`${environment.api}/v3/api/user`, user, httpOptions).pipe(map(token => {
-            this.storageService.update('token', token);
-            return token;
-        })).subscribe(result => {
-            console.log({ result });
-            location.href = '/';
+        const { user } = this.storage;
+        if (!user) return;
+
+        this.backend.createUser(user).subscribe(token => {
+            signInWithCustomToken(this.auth, token)
+                .then(async (credential: any) => {
+                    console.log({credential})
+                    const idToken = await getIdToken(credential.user);
+                    this.storage.update(Keys.ID_TOKEN, idToken);
+                    location.href = '/';
+                })
         });
     }
 }

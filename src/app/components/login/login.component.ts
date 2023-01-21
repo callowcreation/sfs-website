@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { map, throwIfEmpty } from 'rxjs';
+import { map } from 'rxjs';
 import { AuthPayload } from 'src/app/interfaces/auth-payload';
 import { User } from 'src/app/interfaces/user';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -14,7 +14,7 @@ import { environment } from 'src/environments/environment';
 })
 export class LoginComponent {
 
-    constructor(private http: HttpClient, private authService: AuthenticationService, private storageService: StorageService) {
+    constructor(private http: HttpClient, private authentication: AuthenticationService, private storage: StorageService) {
 
     }
     login(): void {
@@ -42,7 +42,7 @@ export class LoginComponent {
             //this.authService.login(payload)
             if(payload === null) return;
             
-            this.storageService.update('auth', payload);
+            this.storage.update('auth', payload);
             const httpOptions = {
                 headers: new HttpHeaders({
                     'Client-Id': environment.twitch.client_id,
@@ -53,8 +53,8 @@ export class LoginComponent {
                 // console.log(x);
                 return x;
             })).subscribe(result => {
-                this.storageService.update('user', result);
-                this.authService.authenticte();
+                this.storage.update('user', result);
+                this.authentication.authenticte();
             });
         });
     }

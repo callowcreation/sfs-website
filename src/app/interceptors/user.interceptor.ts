@@ -10,16 +10,21 @@ import { Observable } from 'rxjs';
 
 import { map } from 'rxjs/operators';
 import { User } from 'firebase/auth';
+import { BackendService } from '../services/backend.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class UserInterceptor implements HttpInterceptor {
 
-    constructor() { }
+    constructor(private backend: BackendService) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<User>> {
+
+        console.log(req.url);
+        if(req.url.includes(environment.api)) return next.handle(req);
+
         return next.handle(req).pipe(map((event: HttpEvent<User>) => {
             if (event instanceof HttpResponse) {
-                console.log(event.body);
                 event = event.clone({ body: this.modifyBody(event.body) });
             }
             return event;

@@ -10,10 +10,10 @@ export class HomeComponent {
 
     topic: string = "";
 
-    constructor(storageService: StorageService) {
-        console.log({ '-a': storageService.auth });
-        console.log({ '-u': storageService.user });
-        console.log({ '-t': storageService.token });
+    constructor(storage: StorageService) {
+        console.log({ '-a': storage.auth });
+        console.log({ '-u': storage.user });
+        console.log({ '-t': storage.id_token });
     }
 
     search(): void {
