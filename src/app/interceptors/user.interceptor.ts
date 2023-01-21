@@ -12,7 +12,7 @@ import { map } from 'rxjs/operators';
 import { User } from 'firebase/auth';
 
 @Injectable()
-export class LoggingInterceptor implements HttpInterceptor {
+export class UserInterceptor implements HttpInterceptor {
 
     constructor() { }
 

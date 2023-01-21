@@ -27,8 +27,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { LoggingInterceptor } from './interceptors/logging.interceptor';
+import { UserInterceptor } from './interceptors/user.interceptor';
 import { StorageService } from './services/storage.service';
+import { LoaderService } from './services/loader.service';
+import { LoaderInterceptor } from './interceptors/loader.interceptor';
 
 @NgModule({
     declarations: [
@@ -59,8 +61,10 @@ import { StorageService } from './services/storage.service';
     providers: [
         AuthGuardService,
         StorageService,
+        LoaderService,
         { provide: LocationStrategy, useClass: PathLocationStrategy },
-        { provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true }
+        { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: UserInterceptor, multi: true }
     ],
     bootstrap: [AppComponent]
 })

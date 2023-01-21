@@ -9,8 +9,6 @@ import { Auth } from '@angular/fire/auth';
 export class AppComponent {
     title = 'sfs-website';
 
-    loading: boolean = false;
-
     constructor(auth: Auth, database: Database) {
 
         // const doc = ref(database, '75987197/posted_by');
