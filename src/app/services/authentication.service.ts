@@ -30,7 +30,7 @@ export class AuthenticationService {
                 'Authorization': 'Bearer ' + auth.access_token
             })
         };
-        this.http.post<string>('http://localhost:5000/v3/api/user', user, httpOptions).pipe(map(token => {
+        this.http.post<string>(`${environment.api}/v3/api/user`, user, httpOptions).pipe(map(token => {
             this.storageService.update('token', token);
             return token;
         })).subscribe(result => {

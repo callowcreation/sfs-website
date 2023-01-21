@@ -5,7 +5,7 @@
 export const environment = {
     production: false,
     version: '0.3.1',
-    api: 'http:localhost:5000',
+    api: 'http://localhost:5000',
     firebase: {
         projectId: 'shoutoutsdev-38a1d',
         appId: '1:755014112663:web:457a853890bd93a56220d2',
