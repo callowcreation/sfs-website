@@ -16,7 +16,7 @@ export class HeaderComponent {
     showProfile = false;
 
     get profilePic(): string {
-        return this.storageService.twitchUser?.profile_image_url || '';
+        return this.storageService.user?.profile_image_url || '';
     }
 
     constructor(public router: Router, private storageService: StorageService) {
@@ -27,13 +27,11 @@ export class HeaderComponent {
             if(!this.routes[route.data.name]) this.routes[route.data.name] = [];
             this.routes[route.data.name].push(route);
         }
-        this.showProfile = StorageService.HasAuth();
-
-        console.log({environment, routes: this.routes});
+        this.showProfile = this.storageService.hasAuth;
     }
 
     logout(): void {
-        StorageService.RevokeAuth();
+        this.storageService.clear();
         location.href = '/';
     }
 }

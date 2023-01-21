@@ -9,14 +9,15 @@ import {
 import { Observable } from 'rxjs';
 
 import { map } from 'rxjs/operators';
+import { User } from 'firebase/auth';
 
 @Injectable()
 export class LoggingInterceptor implements HttpInterceptor {
 
     constructor() { }
 
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        return next.handle(req).pipe(map((event: HttpEvent<any>) => {
+    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<User>> {
+        return next.handle(req).pipe(map((event: HttpEvent<User>) => {
             if (event instanceof HttpResponse) {
                 console.log(event.body);
                 event = event.clone({ body: this.modifyBody(event.body) });
@@ -25,10 +26,9 @@ export class LoggingInterceptor implements HttpInterceptor {
         }));
     }
     
-    modifyBody(body: any): any {
+    modifyBody(body: any): User | null {
         //console.log({ body });
-        const { id, login, email, profile_image_url } = body.data[0];
-        return { id, login, email, profile_image_url };
+        return body.data ? body.data[0] : body;
         //throw new Error('Method not implemented.');
     }
     // intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<unknown>> {

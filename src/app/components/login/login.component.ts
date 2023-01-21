@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { map } from 'rxjs';
+import { map, throwIfEmpty } from 'rxjs';
 import { AuthPayload } from 'src/app/interfaces/auth-payload';
-import { TwitchUser } from 'src/app/interfaces/twitch-user';
+import { User } from 'src/app/interfaces/user';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { environment } from 'src/environments/environment';
@@ -14,17 +14,16 @@ import { environment } from 'src/environments/environment';
 })
 export class LoginComponent {
 
-    constructor(private http: HttpClient, private authService: AuthenticationService) {
+    constructor(private http: HttpClient, private authService: AuthenticationService, private storageService: StorageService) {
 
     }
     login(): void {
-        console.log('Send login to provider...');
 
         const client_id: string = environment.twitch.client_id;
         const redirect_uri: string = environment.twitch.redirect_uri;
         const scope: string[] = environment.twitch.scopes.split(' ');
         const state: string = window.crypto.randomUUID();
-        console.log({ environment });
+
         const urlParams: string[] = [
             `client_id=${client_id}`,
             `redirect_uri=${encodeURIComponent(redirect_uri)}`,
@@ -43,22 +42,19 @@ export class LoginComponent {
             //this.authService.login(payload)
             if(payload === null) return;
             
-            StorageService.UpdateAuth(payload);
+            this.storageService.update('auth', payload);
             const httpOptions = {
                 headers: new HttpHeaders({
                     'Client-Id': environment.twitch.client_id,
                     'Authorization': 'Bearer ' + payload.access_token
                 })
             };
-            this.http.get<TwitchUser>('https://api.twitch.tv/helix/users', httpOptions).pipe(map(x => {
-                console.log(x);
+            this.http.get<User>('https://api.twitch.tv/helix/users', httpOptions).pipe(map(x => {
+                // console.log(x);
                 return x;
             })).subscribe(result => {
-                console.log({ ...result });
-                StorageService.UpdateUser(result);
-                // TODO:
-                // - send token to firebase to create user from custom token
-                this.authService.login(result);
+                this.storageService.update('user', result);
+                this.authService.authenticte();
             });
         });
     }

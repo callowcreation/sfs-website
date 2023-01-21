@@ -1,11 +1,18 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { map } from 'rxjs';
+import { StorageService } from 'src/app/services/storage.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-configuration',
-  templateUrl: './configuration.component.html',
-  styleUrls: ['./configuration.component.scss']
+    selector: 'app-configuration',
+    templateUrl: './configuration.component.html',
+    styleUrls: ['./configuration.component.scss']
 })
 export class ConfigurationComponent {
+    constructor(private http: HttpClient, private storageService: StorageService) {
+
+    }
     /*backgroundColor: string;
     color: string;
     borderColor: string;
@@ -64,7 +71,7 @@ export class ConfigurationComponent {
             this.pinToTopBitsAmount = pinToTopAmount[this.bitsTier];
         });
     }*/
-    
+
     getDefaultSettings() {
         return {
             'background-color': '#6441A5',

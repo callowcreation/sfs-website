@@ -1,10 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword } from '@angular/fire/auth';
+import { Auth, signInWithCredential } from '@angular/fire/auth';
 import { map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthPayload } from '../interfaces/auth-payload';
-import { TwitchUser } from '../interfaces/twitch-user';
+import { User } from '../interfaces/user';
 import { StorageService } from './storage.service';
 
 interface Header {
@@ -20,11 +20,22 @@ export class AuthenticationService {
 
     }
 
-    login(twitchUser: TwitchUser | null) {
-        const { auth } = this.storageService;
-        if (!auth) return;
-
-        // TODO:
-        // - send token to firebase to create user from custom token
+    authenticte() {
+        const { auth, user } = this.storageService;
+        if(!auth || !user) return;
+        
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Client-Id': environment.twitch.client_id,
+                'Authorization': 'Bearer ' + auth.access_token
+            })
+        };
+        this.http.post<string>('http://localhost:5000/v3/api/user', user, httpOptions).pipe(map(token => {
+            this.storageService.update('token', token);
+            return token;
+        })).subscribe(result => {
+            console.log({ result });
+            location.href = '/';
+        });
     }
 }
