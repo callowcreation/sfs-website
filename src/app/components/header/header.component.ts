@@ -2,9 +2,7 @@ import { Component } from '@angular/core';
 import { Auth, signOut } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { MenuRoute } from 'src/app/interfaces/menu-route';
-import { BackendService } from 'src/app/services/backend.service';
 import { StorageService, Keys } from 'src/app/services/storage.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'app-header',

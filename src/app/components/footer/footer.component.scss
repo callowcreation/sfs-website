@@ -20,7 +20,7 @@ footer p a:hover {
 }
 
 .footer-container {
-    position: fixed; 
-    bottom: 0; 
+    position: relative; 
+    bottom: -100px; 
     width: 100%;
 }

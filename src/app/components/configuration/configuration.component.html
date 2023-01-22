@@ -1,4 +1,74 @@
 <section class="page-section">
+    <form [formGroup]="settingsForm" (ngSubmit)="onSubmit()">
+        <mat-card>
+            <div style="text-align: center;">
+                <mat-card-title>
+                    <h3>Configuration</h3>
+                </mat-card-title>
+            </div>
+        </mat-card>
+        <mat-divider [ngStyle]="{'border-color': settingsForm.value['border-color']}"></mat-divider>
+        <mat-card class="card-margins">
+            <mat-card-title>
+                <div class="header">Appearance</div>
+            </mat-card-title>
+            <mat-card-content>
+                <mat-form-field class="example-form">
+                    <mat-label>Font Color</mat-label>
+                    <input type="color" matInput name="color-font" formControlName="color">
+                    <mat-hint>Select a font color.</mat-hint>
+                </mat-form-field>
+                <mat-form-field class="example-form">
+                    <mat-label>Background Color</mat-label>
+                    <input type="color" matInput name="color-background" formControlName="background-color">
+                    <mat-hint>Select a background color.</mat-hint>
+                </mat-form-field>
+                <mat-form-field class="example-form">
+                    <mat-label>Borders Color</mat-label>
+                    <input type="color" matInput name="color-borders" formControlName="border-color">
+                    <mat-hint>Select a border color.</mat-hint>
+                </mat-form-field>
+            </mat-card-content>
+        </mat-card>
+        <mat-divider [ngStyle]="{'border-color': settingsForm.value['border-color']}"></mat-divider>
+        <mat-card class="card-margins">
+            <mat-card-title>
+                <div class="header">Behaviour</div>
+            </mat-card-title>
+            <mat-checkbox class="example-form" [checked]="settingsForm.value['auto-shoutouts']"
+                formControlName="auto-shoutouts">Auto
+                Shoutouts</mat-checkbox>
+        </mat-card>
+        <mat-divider [ngStyle]="{'border-color': settingsForm.value['border-color']}"></mat-divider>
+        <mat-card class="card-margins">
+            <mat-card-title>
+                <div class="header">Bits</div>
+            </mat-card-title>
+            <mat-checkbox class="example-form" [checked]="settingsForm.value['enable-bits']"
+                formControlName="enable-bits">Enable
+                Bits</mat-checkbox>
+
+            <mat-form-field *ngIf="settingsForm.value['enable-bits'] === true">
+                <mat-label>Select a Tier</mat-label>
+                <mat-select formControlName="bits-tier">
+                    <mat-option *ngFor="let option of options" [value]="option">
+                        {{option}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div class="example-form">
+                <mat-label>Pin Days ({{settingsForm.value['pin-days']}} days)</mat-label>
+                <mat-slider style="text-align: center; min-width: 95%;" min="1" max="5" step="1"
+                    *ngIf="settingsForm.value['enable-bits'] === true">
+                    <input matSliderThumb formControlName="pin-days">
+                </mat-slider>
+            </div>
+        </mat-card>
+        <mat-divider [ngStyle]="{'border-color': settingsForm.value['border-color']}"></mat-divider>
+        <div style="text-align: right; margin: 10px;">
+            <button mat-stroked-button mat-raised-button type="submit" [disabled]="!settingsForm.valid">Update</button>
+        </div>
+    </form>
     <!-- <div>
         <span *ngIf="isConfig === false">
             <div style="text-align: center; padding: 3px 0px 3px 0px;">
