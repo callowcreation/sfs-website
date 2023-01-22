@@ -33,6 +33,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatCardModule } from '@angular/material/card';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserInterceptor } from './interceptors/user.interceptor';
@@ -73,7 +74,8 @@ import { TokenHeaderInterceptor } from './interceptors/token-header.interceptor'
         MatCheckboxModule,
         MatSelectModule,
         MatSliderModule,
-        MatCardModule
+        MatCardModule,
+        MatExpansionModule
     ],
     providers: [
         AuthGuardService,

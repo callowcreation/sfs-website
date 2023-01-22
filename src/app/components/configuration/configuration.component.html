@@ -8,47 +8,66 @@
             </div>
         </mat-card>
         <mat-divider [ngStyle]="{'border-color': settingsForm.value['border-color']}"></mat-divider>
-        <mat-card class="card-margins">
-            <mat-card-title>
-                <div class="header">Appearance</div>
-            </mat-card-title>
-            <mat-card-content>
-                <mat-form-field class="example-form">
-                    <mat-label>Font Color</mat-label>
-                    <input type="color" matInput name="color-font" formControlName="color">
-                    <mat-hint>Select a font color.</mat-hint>
-                </mat-form-field>
-                <mat-form-field class="example-form">
-                    <mat-label>Background Color</mat-label>
-                    <input type="color" matInput name="color-background" formControlName="background-color">
-                    <mat-hint>Select a background color.</mat-hint>
-                </mat-form-field>
-                <mat-form-field class="example-form">
-                    <mat-label>Borders Color</mat-label>
-                    <input type="color" matInput name="color-borders" formControlName="border-color">
-                    <mat-hint>Select a border color.</mat-hint>
-                </mat-form-field>
-            </mat-card-content>
-        </mat-card>
+
+        <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <div class="header">Appearance</div>
+                </mat-panel-title>
+                <mat-panel-description>
+                    Modify branding colors.
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-divider [ngStyle]="{'border-color': settingsForm.value['border-color']}"></mat-divider>
+            <mat-form-field class="form-fit">
+                <mat-label>Font Color</mat-label>
+                <input type="color" matInput name="color-font" formControlName="color">
+                <mat-hint>Select a font color.</mat-hint>
+            </mat-form-field>
+            <mat-form-field class="form-fit">
+                <mat-label>Background Color</mat-label>
+                <input type="color" matInput name="color-background" formControlName="background-color">
+                <mat-hint>Select a background color.</mat-hint>
+            </mat-form-field>
+            <mat-form-field class="form-fit">
+                <mat-label>Borders Color</mat-label>
+                <input type="color" matInput name="color-borders" formControlName="border-color">
+                <mat-hint>Select a border color.</mat-hint>
+            </mat-form-field>
+        </mat-expansion-panel>
         <mat-divider [ngStyle]="{'border-color': settingsForm.value['border-color']}"></mat-divider>
-        <mat-card class="card-margins">
+        <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <div class="header">Behaviour</div>
+                </mat-panel-title>
+                <mat-panel-description>
+                    Modify bot functionality.
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-divider [ngStyle]="{'border-color': settingsForm.value['border-color']}"></mat-divider>
             <mat-card-title>
                 <div class="header">Behaviour</div>
             </mat-card-title>
-            <mat-checkbox class="example-form" [checked]="settingsForm.value['auto-shoutouts']"
+            <mat-checkbox class="form-fit" [checked]="settingsForm.value['auto-shoutouts']"
                 formControlName="auto-shoutouts">Auto
                 Shoutouts</mat-checkbox>
-        </mat-card>
+        </mat-expansion-panel>
         <mat-divider [ngStyle]="{'border-color': settingsForm.value['border-color']}"></mat-divider>
-        <mat-card class="card-margins">
-            <mat-card-title>
-                <div class="header">Bits</div>
-            </mat-card-title>
-            <mat-checkbox class="example-form" [checked]="settingsForm.value['enable-bits']"
+        <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <div class="header">Bits</div>
+                </mat-panel-title>
+                <mat-panel-description>
+                    Bits to move items.
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-divider [ngStyle]="{'border-color': settingsForm.value['border-color']}"></mat-divider>
+            <mat-checkbox class="form-fit" [checked]="settingsForm.value['enable-bits']"
                 formControlName="enable-bits">Enable
                 Bits</mat-checkbox>
-
-            <mat-form-field *ngIf="settingsForm.value['enable-bits'] === true">
+            <mat-form-field class="form-fit" *ngIf="settingsForm.value['enable-bits'] === true">
                 <mat-label>Select a Tier</mat-label>
                 <mat-select formControlName="bits-tier">
                     <mat-option *ngFor="let option of options" [value]="option">
@@ -56,13 +75,13 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-            <div class="example-form" *ngIf="settingsForm.value['enable-bits'] === true">
+            <div class="form-fit" *ngIf="settingsForm.value['enable-bits'] === true">
                 <mat-label>Pin Days ({{settingsForm.value['pin-days']}} days)</mat-label>
                 <mat-slider style="text-align: center; min-width: 95%;" min="1" max="5" step="1">
                     <input matSliderThumb formControlName="pin-days">
                 </mat-slider>
             </div>
-        </mat-card>
+        </mat-expansion-panel>
         <mat-divider [ngStyle]="{'border-color': settingsForm.value['border-color']}"></mat-divider>
         <div style="text-align: right; margin: 10px;">
             <button mat-stroked-button mat-raised-button type="submit" [disabled]="!settingsForm.valid">Update</button>
