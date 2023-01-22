@@ -57,6 +57,7 @@
               ],
               "outputHashing": "all",
               "optimization": {
+                "scripts": true,
                 "fonts": true,
                 "styles": {
                     "minify": true,
