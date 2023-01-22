@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { AuthPayload } from '../interfaces/auth-payload';
 import { User } from '../interfaces/user';
 
-export type StorageKey = 'auth'| 'user' | 'id_token';
+export type StorageKey = 'auth'| 'user' | 'id_token' | 'settings';
 export enum Keys {
     AUTH = 'auth',
     USER = 'user',
-    ID_TOKEN = 'id_token'
+    ID_TOKEN = 'id_token',
+    SETTINGS = 'settings'
 }
 
 @Injectable({
@@ -40,6 +41,12 @@ export class StorageService {
 
     has(key: StorageKey): boolean {
         return localStorage.getItem(key) === null ? false : true;
+    }
+
+    value<T>(key: StorageKey): T | null{
+        const item = localStorage.getItem(key);
+        if(!item) return null;
+        return JSON.parse(item) as T;
     }
 
     update(key: StorageKey, value: any) {

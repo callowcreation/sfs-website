@@ -8,25 +8,25 @@
             </div>
         </mat-card>
         <mat-divider [ngStyle]="{'border-color': settingsForm.value['border-color']}"></mat-divider>
-
-        <mat-expansion-panel hideToggle>
+        <mat-expansion-panel hideToggle
+            [ngStyle]="{'color': settingsForm.value['color'], 'background-color': settingsForm.value['background-color']}">
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    <div class="header">Appearance</div>
+                    <div class="header" [ngStyle]="{'color': settingsForm.value['color']}">Appearance</div>
                 </mat-panel-title>
-                <mat-panel-description>
+                <mat-panel-description [ngStyle]="{'color': settingsForm.value['color']}">
                     Modify branding colors.
                 </mat-panel-description>
             </mat-expansion-panel-header>
-            <mat-divider [ngStyle]="{'border-color': settingsForm.value['border-color']}"></mat-divider>
+            <mat-divider [ngStyle]="{'border-color': settingsForm.value['border-color']}" style="border-width: 3px;"></mat-divider>
             <mat-form-field class="form-fit">
                 <mat-label>Font Color</mat-label>
-                <input type="color" matInput name="color-font" formControlName="color">
+                <input type="color" matInput name="color-font" formControlName="color" />
                 <mat-hint>Select a font color.</mat-hint>
             </mat-form-field>
             <mat-form-field class="form-fit">
                 <mat-label>Background Color</mat-label>
-                <input type="color" matInput name="color-background" formControlName="background-color">
+                <input type="color" matInput name="color-background" formControlName="background-color" />
                 <mat-hint>Select a background color.</mat-hint>
             </mat-form-field>
             <mat-form-field class="form-fit">
@@ -35,7 +35,7 @@
                 <mat-hint>Select a border color.</mat-hint>
             </mat-form-field>
         </mat-expansion-panel>
-        <mat-divider [ngStyle]="{'border-color': settingsForm.value['border-color']}"></mat-divider>
+        <mat-divider [ngStyle]="{'border-color': settingsForm.value['border-color']}" style="border-width: 3px;"></mat-divider>
         <mat-expansion-panel hideToggle>
             <mat-expansion-panel-header>
                 <mat-panel-title>

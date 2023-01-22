@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Database, DatabaseReference, getDatabase, objectVal, ref, set, update } from '@angular/fire/database';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { StorageService } from 'src/app/services/storage.service';
+import { Keys, StorageService } from 'src/app/services/storage.service';
 
 interface Settings {
     'background-color': string;
@@ -52,8 +52,11 @@ export class ConfigurationComponent {
     }
 
     constructor(private storage: StorageService) {
+        
+        let settings: Settings = this.storage.value<Settings>(Keys.SETTINGS) || this.defaultSettings;
+        this.settingsForm.setValue(settings);
+
         objectVal<Settings>(this.doc).subscribe((value: any) => {
-            let settings: Settings = this.defaultSettings;
             const vals: any[] = [];
             Object.keys(value).forEach((key: any) => {
                 if (Object.keys(settings).includes(key)) {
@@ -67,5 +70,6 @@ export class ConfigurationComponent {
 
     onSubmit() {
         update(this.doc, this.settingsForm.value);
+        this.storage.update('settings', this.settingsForm.value);
     }
 }
