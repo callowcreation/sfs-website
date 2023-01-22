@@ -1,7 +1,17 @@
 import { Component } from '@angular/core';
-import { Auth } from '@angular/fire/auth';
-import { Database, objectVal, ref } from '@angular/fire/database';
+import { Database, DatabaseReference, getDatabase, objectVal, ref, set, update } from '@angular/fire/database';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { StorageService } from 'src/app/services/storage.service';
+
+interface Settings {
+    'background-color': string;
+    'border-color': string;
+    'color': string;
+    'auto-shoutouts': boolean;
+    'enable-bits': boolean;
+    'bits-tier': string;
+    'pin-days': number;
+}
 
 @Component({
     selector: 'app-configuration',
@@ -9,24 +19,53 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
     styleUrls: ['./configuration.component.scss']
 })
 export class ConfigurationComponent {
+
     settingsForm = new FormGroup({
-        ['background-color']: new FormControl('#6441A5'),
-        ['border-color']: new FormControl('#808080'),
-        ['color']: new FormControl('#6441A5'),
-        ['auto-shoutouts']: new FormControl(false),
-        ['enable-bits']: new FormControl(true),
-        ['bits-tier']: new FormControl('Tier 1'),
-        ['pin-days']: new FormControl(3),
+        'background-color': new FormControl('#6441A5'),
+        'border-color': new FormControl('#808080'),
+        'color': new FormControl('#6441A5'),
+        'auto-shoutouts': new FormControl(false),
+        'enable-bits': new FormControl(true),
+        'bits-tier': new FormControl('Tier 1'),
+        'pin-days': new FormControl(3)
     });
     options = ['Tier 1', 'Tier 2', 'Tier 3'];
 
-    constructor(auth: Auth, database: Database) {
-        //const doc = ref(database, `${auth.currentUser?.uid}/posted_by`);
-        //objectVal(doc).subscribe(value => console.log({ value }));
+    get defaultSettings(): Settings {
+        return {
+            'background-color': '#6441A5',
+            'border-color': '#808080',
+            'color': '#FFFFFF',
+            'auto-shoutouts': false,
+            'enable-bits': true,
+            'bits-tier': 'Tier 1',
+            'pin-days': 3
+        };
+    }
+
+    private get db(): Database {
+        return getDatabase();
+    }
+
+    private get doc(): DatabaseReference {
+        return ref(this.db, `${this.storage.user?.id}/settings`);
+    }
+
+    constructor(private storage: StorageService) {
+        objectVal<Settings>(this.doc).subscribe((value: any) => {
+            let settings: Settings = this.defaultSettings;
+            const vals: any[] = [];
+            Object.keys(value).forEach((key: any) => {
+                if (Object.keys(settings).includes(key)) {
+                    vals[key] = value[key];
+                }
+            })
+            settings = Object.assign(settings, vals);
+            this.settingsForm.setValue(settings);
+        });
     }
 
     onSubmit() {
-        // TODO: Use EventEmitter with form value
-        console.warn(this.settingsForm.value);
+        update(this.doc, this.settingsForm.value);
     }
 }
