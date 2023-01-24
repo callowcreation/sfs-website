@@ -22,17 +22,14 @@ Footer Style
 
 .column-left {
     width: 20%;
-    /* Should be removed. Only for demonstration */
 }
 
 .column-center {
     width: 60%;
-    /* Should be removed. Only for demonstration */
 }
 
 .column-right {
     width: 20%;
-    /* Should be removed. Only for demonstration */
 }
 
 /* Clear floats after the columns */
@@ -76,23 +73,27 @@ footer p a {
     width: 64px;
 }
 
+.socials i {
+    margin: 0 5px 0 5px;
+    padding: 5px;
+}
+
 @media (max-width: 950px) {
-    .column {
-        display: block;
-    }
+
     .column-left {
+        margin-top: 50px;
         width: 100%;
-        /* Should be removed. Only for demonstration */
+        height: 80px;
     }
     
     .column-center {
+        margin-top: 20px;
         width: 100%;
-        /* Should be removed. Only for demonstration */
+        height: 100px;
     }
     
     .column-right {
         width: 100%;
-        /* Should be removed. Only for demonstration */
     }
 
     .logo img {
