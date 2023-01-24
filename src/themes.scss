@@ -1,0 +1,56 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$header-palette: (
+    100: #F5F5F5,
+    500: #cc3333,
+    700: #202020,
+    contrast: (100: rgba(black, 0.87),
+        500: rgba(black, 0.87),
+        700: rgba(black, 0.87))
+);
+
+$primary-palette: (
+    100: #F5F5F5,
+    500: #808080,
+    700: #202020,
+    contrast: (100: rgba(black, 0.87),
+        500: rgba(black, 0.87),
+        700: rgba(black, 0.87))
+);
+
+$accent-palette: (
+    100: #F5F5F5,
+    500: #808080,
+    700: #202020,
+    contrast: (100: rgba(black, 0.87),
+        500: rgba(black, 0.87),
+        700: rgba(black, 0.87))
+);
+
+$my-header: mat.define-palette($header-palette, 500);
+$my-primary: mat.define-palette($primary-palette, 500);
+$my-accent: mat.define-palette($accent-palette, 500);
+
+.my-custom-style {
+    background: mat.get-color-from-palette($my-header, 500);
+    color: mat.get-color-from-palette($my-header, '500-contrast');
+}
+
+footer p a {
+    color: mat.get-color-from-palette($my-header, '500-contrast');
+}
+
+footer p a:hover {
+    color: mat.get-color-from-palette($my-header, 500);
+}
+
+$my-theme: mat.define-light-theme((color: (primary: $my-primary,
+                accent: $my-accent,
+            ),
+            typography: mat.define-typography-config(),
+            density: 0,
+        ));
+
+@include mat.all-component-themes($my-theme);

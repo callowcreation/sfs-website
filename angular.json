@@ -36,7 +36,7 @@
               }
             ],
             "styles": [
-              "@angular/material/prebuilt-themes/purple-green.css",
+              "src/themes.scss",
               "src/styles.scss"
             ],
             "scripts": []
