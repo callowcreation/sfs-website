@@ -33,6 +33,16 @@ $my-header: mat.define-palette($header-palette, 500);
 $my-primary: mat.define-palette($primary-palette, 500);
 $my-accent: mat.define-palette($accent-palette, 500);
 
+$my-theme: mat.define-light-theme((color: (primary: $my-primary,
+accent: $my-accent,
+            ),
+            typography: mat.define-typography-config(),
+            density: 0,
+        ));
+
+@include mat.all-component-themes($my-theme);
+
+
 .my-custom-style {
     background: mat.get-color-from-palette($my-header, 500);
     color: mat.get-color-from-palette($my-header, '500-contrast');
@@ -45,12 +55,3 @@ footer p a {
 footer p a:hover {
     color: mat.get-color-from-palette($my-header, 500);
 }
-
-$my-theme: mat.define-light-theme((color: (primary: $my-primary,
-                accent: $my-accent,
-            ),
-            typography: mat.define-typography-config(),
-            density: 0,
-        ));
-
-@include mat.all-component-themes($my-theme);
