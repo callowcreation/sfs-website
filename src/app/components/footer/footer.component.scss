@@ -3,6 +3,44 @@
 Footer Style
 --------------------------------------------- 
 */
+* {
+    box-sizing: border-box;
+}
+
+/* Create three equal columns that floats next to each other */
+.column {
+    float: left;
+    width: 33.33%;
+    padding: 10px;
+    height: 114px;
+    margin: auto;
+    text-align: center;
+    // background-color: orange;
+    // border: 2px solid rgb(0, 119, 255);
+    /* Should be removed. Only for demonstration */
+}
+
+.column-left {
+    width: 20%;
+    /* Should be removed. Only for demonstration */
+}
+
+.column-center {
+    width: 60%;
+    /* Should be removed. Only for demonstration */
+}
+
+.column-right {
+    width: 20%;
+    /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
 
 footer p {
     text-align: center;
@@ -30,6 +68,34 @@ footer p a {
     height: 114px;
 }
 
-.footer-container {
-    background: orange;
+// .footer-container {
+//     background: orange;
+// }
+
+.logo img {
+    width: 64px;
+}
+
+@media (max-width: 950px) {
+    .column {
+        display: block;
+    }
+    .column-left {
+        width: 100%;
+        /* Should be removed. Only for demonstration */
+    }
+    
+    .column-center {
+        width: 100%;
+        /* Should be removed. Only for demonstration */
+    }
+    
+    .column-right {
+        width: 100%;
+        /* Should be removed. Only for demonstration */
+    }
+
+    .logo img {
+        width: 52px;
+    }
 }
