@@ -7,7 +7,7 @@ export class PopupService {
 
     constructor() { }
 
-    open(title: string, url: string, w: number = 500, h: number = 800) {
+    open(title: string, url: string, w: number = 500, h: number = 800): Window | null {
         const popupCenter = (url: string, title: string, w: number, h: number) => {
             // Fixes dual-screen position                             Most browsers      Firefox
             const dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : window.screenX;
@@ -30,8 +30,8 @@ export class PopupService {
             );
 
             if (!handle) {
-                console.log(`The window wasn't allowed to open... This is likely caused by built-in popup blockers.`);
-                return null;
+                console.warn(`The window '${title}' wasn't allowed to open... This is likely caused by built-in popup blockers.`);
+                return window.open(url);
             }
 
             handle.focus();
