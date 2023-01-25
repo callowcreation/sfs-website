@@ -41,6 +41,7 @@ import { StorageService } from './services/storage.service';
 import { LoaderService } from './services/loader.service';
 import { LoaderInterceptor } from './interceptors/loader.interceptor';
 import { TokenHeaderInterceptor } from './interceptors/token-header.interceptor';
+import { LazyImgDirective } from './directives/lazy-img.directive';
 
 @NgModule({
     declarations: [
@@ -53,6 +54,7 @@ import { TokenHeaderInterceptor } from './interceptors/token-header.interceptor'
         ConfigurationComponent,
         SupportComponent,
         LoginComponent,
+        LazyImgDirective
     ],
     imports: [
         BrowserModule,
