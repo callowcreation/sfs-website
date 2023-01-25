@@ -69,6 +69,23 @@ footer p a {
 //     background: orange;
 // }
 
+.logo {
+    /* border: 1px solid blue; */
+    margin: auto;
+}
+
+.information {
+    /* border: 1px solid green; */
+    font-size: smaller;
+    margin: auto;
+}
+
+.copyright {
+    /* border: 1px solid blue; */
+    font-size: smaller;
+    margin: auto;
+}
+
 .logo img {
     width: 64px;
 }
@@ -77,7 +94,6 @@ footer p a {
     margin: 0 5px 0 5px;
     padding: 5px;
 }
-
 @media (max-width: 950px) {
 
     .column-left {
