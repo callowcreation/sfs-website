@@ -42,6 +42,7 @@ import { LoaderService } from './services/loader.service';
 import { LoaderInterceptor } from './interceptors/loader.interceptor';
 import { TokenHeaderInterceptor } from './interceptors/token-header.interceptor';
 import { LazyImgDirective } from './directives/lazy-img.directive';
+import { PopupService } from './services/popup.service';
 
 @NgModule({
     declarations: [
@@ -83,6 +84,7 @@ import { LazyImgDirective } from './directives/lazy-img.directive';
         AuthGuardService,
         StorageService,
         LoaderService,
+        PopupService,
         { provide: LocationStrategy, useClass: PathLocationStrategy },
         { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: TokenHeaderInterceptor, multi: true },

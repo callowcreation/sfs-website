@@ -4,6 +4,7 @@ import { map } from 'rxjs';
 import { AuthPayload } from 'src/app/interfaces/auth-payload';
 import { User } from 'src/app/interfaces/user';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { PopupService } from 'src/app/services/popup.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { environment } from 'src/environments/environment';
 
@@ -14,7 +15,7 @@ import { environment } from 'src/environments/environment';
 })
 export class LoginComponent {
 
-    constructor(private http: HttpClient, private authentication: AuthenticationService, private storage: StorageService) {
+    constructor(private http: HttpClient, private authentication: AuthenticationService, private storage: StorageService, private popup: PopupService) {
 
     }
     login(): void {
@@ -55,38 +56,8 @@ export class LoginComponent {
     }
 
     private async open(url: string): Promise<AuthPayload | null> {
-        const popupCenter = (url: string, title: string, w: number, h: number) => {
-            // Fixes dual-screen position                             Most browsers      Firefox
-            const dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : window.screenX;
-            const dualScreenTop = window.screenTop !== undefined ? window.screenTop : window.screenY;
-
-            const width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
-            const height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
-
-            const systemZoom = 1;
-            const left = (width - w) / 2 / systemZoom + dualScreenLeft
-            const top = (height - h) / 2 / systemZoom + dualScreenTop
-            const handle = window.open(url, title,
-                `
-              scrollbars=yes,
-              width=${w / systemZoom}, 
-              height=${h / systemZoom}, 
-              top=${top}, 
-              left=${left}
-              `
-            );
-
-            if (!handle) {
-                console.log(`The window wasn't allowed to open... This is likely caused by built-in popup blockers.`);
-                return null;
-            }
-
-            handle.focus();
-            return handle;
-        }
-
         return new Promise((resolve, reject) => {
-            const popup = popupCenter(url, 'Login with Twitch', 500, 800);
+            const popup = this.popup.open('Login with Twitch', url, 500, 800);
             const interval = setInterval(() => {
                 try {
                     if (popup) {

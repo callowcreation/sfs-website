@@ -14,15 +14,10 @@ export class HomeComponent {
     get version(): string {
         return environment.version;
     }
-    
+
     constructor(storage: StorageService) {
         console.log({ '-a': storage.auth });
         console.log({ '-u': storage.user });
         console.log({ '-t': storage.id_token });
     }
-
-    search(): void {
-
-    }
-
 }
