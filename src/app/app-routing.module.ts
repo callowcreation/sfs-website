@@ -4,7 +4,9 @@ import { ConfigurationComponent } from './components/configuration/configuration
 import { FeaturesComponent } from './components/features/features.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
+import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { SupportComponent } from './components/support/support.component';
+import { TermsComponent } from './components/terms/terms.component';
 import { MenuName } from './enums/menu-name';
 import { AuthGuardService } from './services/auth-guard.service';
 import { LoginGuardService } from './services/login-guard.service';
@@ -17,6 +19,8 @@ const routes: Routes = [
     { data: { menu: true, name: MenuName.Navigation, icon: null }, title: 'Help', path: 'support', component: SupportComponent },
     { data: { menu: !StorageService.HasAuth(), name: MenuName.Navigation, icon: null }, title: 'Login', path: 'login', component: LoginComponent, canActivate: [LoginGuardService] },
     { data: { menu: StorageService.HasAuth(), name: MenuName.Profile, icon: 'settings' }, title: 'Configuration', path: 'configuration', component: ConfigurationComponent, canActivate: [AuthGuardService] },
+    { data: { menu: false, name: MenuName.None, icon: null }, title: 'Privacy Policy', path: 'privacy-policy', component: PrivacyPolicyComponent },
+    { data: { menu: false, name: MenuName.None, icon: null }, title: 'Terms and Conditions', path: 'terms-and-conditions', component: TermsComponent },
 ];
 
 @NgModule({

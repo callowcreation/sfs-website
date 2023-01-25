@@ -43,6 +43,8 @@ import { LoaderInterceptor } from './interceptors/loader.interceptor';
 import { TokenHeaderInterceptor } from './interceptors/token-header.interceptor';
 import { LazyImgDirective } from './directives/lazy-img.directive';
 import { PopupService } from './services/popup.service';
+import { TermsComponent } from './components/terms/terms.component';
+import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 
 @NgModule({
     declarations: [
@@ -55,7 +57,9 @@ import { PopupService } from './services/popup.service';
         ConfigurationComponent,
         SupportComponent,
         LoginComponent,
-        LazyImgDirective
+        LazyImgDirective,
+        TermsComponent,
+        PrivacyPolicyComponent
     ],
     imports: [
         BrowserModule,

@@ -18,9 +18,10 @@
                         <a href="https://www.youtube.com/channel/UCL5NfpDUIdddmBUPFiGdG2w" target="_blank"><i class="fab fa-youtube fa-2x" style="color: #ed302f;"></i></a>
                     </div>
                     <div>
-                        <a href="https://callowcreation.com/home/app-privacy-policy" target="_blank">Privacy Policy</a> 
-                        | <a href="https://callowcreation.com/home/terms-and-conditions" target="_blank">Terms and Conditions</a> 
-                        | <a href="#" target="_blank" (click)="contactUs()">Contact Us</a>
+                        | <a [routerLink]="['privacy-policy']">Privacy Policy</a>
+                        | <a [routerLink]="['terms-and-conditions']">Terms and Conditions</a>
+                        | <a href="#" target="_blank" (click)="contactUs()">Contact Us</a> 
+                        |
                     </div>
                 </div>
             </div>
