@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { StorageService } from 'src/app/services/storage.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'app-home',
@@ -10,6 +11,10 @@ export class HomeComponent {
 
     topic: string = "";
 
+    get version(): string {
+        return environment.version;
+    }
+    
     constructor(storage: StorageService) {
         console.log({ '-a': storage.auth });
         console.log({ '-u': storage.user });
