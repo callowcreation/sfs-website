@@ -1,12 +1,6 @@
 <section class="page-section">
     <form [formGroup]="settingsForm" (ngSubmit)="onSubmit()">
-        <mat-card>
-            <div class="page-section-header">
-                <mat-card-title>
-                    <h1>Configuration</h1>
-                </mat-card-title>
-            </div>
-        </mat-card>
+        <app-section-header>Configuration</app-section-header>
         <mat-divider [ngStyle]="{'border-color': settingsForm.value['border-color']}" style="border-width: 3px;"></mat-divider>
         <mat-expansion-panel hideToggle
             [ngStyle]="{'color': settingsForm.value['color'], 'background-color': settingsForm.value['background-color']}">

@@ -45,6 +45,7 @@ import { LazyImgDirective } from './directives/lazy-img.directive';
 import { PopupService } from './services/popup.service';
 import { TermsComponent } from './components/terms/terms.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
+import { SectionHeaderComponent } from './components/section-header/section-header.component';
 
 @NgModule({
     declarations: [
@@ -59,7 +60,8 @@ import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-poli
         LoginComponent,
         LazyImgDirective,
         TermsComponent,
-        PrivacyPolicyComponent
+        PrivacyPolicyComponent,
+        SectionHeaderComponent
     ],
     imports: [
         BrowserModule,
