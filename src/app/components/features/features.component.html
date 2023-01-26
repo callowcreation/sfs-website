@@ -22,7 +22,8 @@
                     {{panelOpenStates[1] ? '!so caLLowCreation' : '!so [username]'}}
                 </mat-panel-description>
             </mat-expansion-panel-header>
-            <p>Shoutouts for Streamers has two built in shoutout commands.  If your community uses another command to give a shoutout, we got you covered.  Add more commands to trigger Shoutouts for Streamers.</p>
+            <p>Shoutouts for Streamers has two built-in shoutout commands. If your community uses another command to
+                give a shoutout, we got you covered. Add more commands to trigger Shoutouts for Streamers.</p>
         </mat-expansion-panel>
         <mat-expansion-panel (opened)="panelOpenStates[2] = true" (closed)="panelOpenStates[2] = false">
             <mat-expansion-panel-header>
@@ -33,7 +34,9 @@
                     {{panelOpenStates[2] ? 'It Just Works' : 'Plug & Play'}}
                 </mat-panel-description>
             </mat-expansion-panel-header>
-            <p>No configuration requred.  Just install Shoutouts for Streamers from your Twitch dashboard and that's it.  You can make modifications but you don't need to do a thing after the installation, it just works.</p>
+            <p>No configuration required. Just install Shoutouts for Streamers from your Twitch dashboard and that's it.
+                You can make modifications but you don't need to do a thing after the installation, it just works.</p>
         </mat-expansion-panel>
     </mat-accordion>
+    <app-embedded></app-embedded>
 </section>

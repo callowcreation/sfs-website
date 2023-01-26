@@ -1,17 +1,8 @@
 import { Component } from '@angular/core';
 import { Database, DatabaseReference, getDatabase, objectVal, ref, set, update } from '@angular/fire/database';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Settings } from 'src/app/interfaces/settings';
 import { Keys, StorageService } from 'src/app/services/storage.service';
-
-interface Settings {
-    'background-color': string;
-    'border-color': string;
-    'color': string;
-    'auto-shoutouts': boolean;
-    'enable-bits': boolean;
-    'bits-tier': string;
-    'pin-days': number;
-}
 
 @Component({
     selector: 'app-configuration',

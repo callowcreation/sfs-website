@@ -47,6 +47,7 @@ import { TermsComponent } from './components/terms/terms.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { SectionHeaderComponent } from './components/section-header/section-header.component';
 import { ScrollToTopComponent } from './components/scroll-to-top/scroll-to-top.component';
+import { EmbeddedComponent } from './components/embedded/embedded.component';
 
 @NgModule({
     declarations: [
@@ -63,7 +64,8 @@ import { ScrollToTopComponent } from './components/scroll-to-top/scroll-to-top.c
         TermsComponent,
         PrivacyPolicyComponent,
         SectionHeaderComponent,
-        ScrollToTopComponent
+        ScrollToTopComponent,
+        EmbeddedComponent
     ],
     imports: [
         BrowserModule,
