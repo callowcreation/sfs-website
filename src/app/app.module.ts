@@ -46,6 +46,7 @@ import { PopupService } from './services/popup.service';
 import { TermsComponent } from './components/terms/terms.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { SectionHeaderComponent } from './components/section-header/section-header.component';
+import { ScrollToTopComponent } from './components/scroll-to-top/scroll-to-top.component';
 
 @NgModule({
     declarations: [
@@ -61,7 +62,8 @@ import { SectionHeaderComponent } from './components/section-header/section-head
         LazyImgDirective,
         TermsComponent,
         PrivacyPolicyComponent,
-        SectionHeaderComponent
+        SectionHeaderComponent,
+        ScrollToTopComponent
     ],
     imports: [
         BrowserModule,
