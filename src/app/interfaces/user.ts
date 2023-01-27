@@ -11,4 +11,7 @@ export interface User {
     offline_image_url?: string;
     type?: string;
     view_count?: number;
+
+    // for shoutout
+    posted_by?: string;
 }
