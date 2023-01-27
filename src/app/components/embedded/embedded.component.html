@@ -1,16 +1,19 @@
-<div _ngcontent-smk-c0="" _nghost-smk-c1="" style="padding-top: 50px; margin: auto;">
+<div _ngcontent-smk-c0="" _nghost-smk-c1="" style="padding-top: 10px; margin: auto;">
 
     <mat-card class="example-card">
         <mat-card-header>
             <div mat-card-avatar class="example-header-image"><img
                     src="{{featured.profile_image_url}}" class="user-icon" /></div>
             <mat-card-title>{{featured.display_name}}</mat-card-title>
-            <mat-card-subtitle>{{featured.description}}</mat-card-subtitle>
+            <mat-card-subtitle style="margin-top: 10px; height: 34px;   display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;  
+            overflow: hidden;">{{featured.description}}</mat-card-subtitle>
         </mat-card-header>
 
         <div _ngcontent-smk-c1=""
             [ngStyle]="{'background-color': settings['background-color'], 'color': settings['color']}"
-            style="margin: auto; height: 300px; width: 300px; margin-top: 20px;">
+            style="margin: auto; height: 300px; width: 300px; margin-top: 20px; margin-bottom: 15px;">
             <header _ngcontent-smk-c1="" _nghost-smk-c2="">
                 <div _ngcontent-smk-c2="" class="container">
                     <h2 _ngcontent-smk-c2="">Shoutouts for Streamers</h2>
