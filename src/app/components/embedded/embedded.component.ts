@@ -15,10 +15,8 @@ import { Keys, StorageService } from 'src/app/services/storage.service';
 export class EmbeddedComponent {
 
     ids: string[] = [];
+    featured: User = {};
     guests: User[] = [];
-    display_name: string = this.storage.user?.display_name || '';
-    profile_image_url: string = this.storage.user?.profile_image_url || '';
-    description: string = this.storage.user?.description || '';
 
     settings: Settings;
 
@@ -28,25 +26,27 @@ export class EmbeddedComponent {
         this.settings = this.storage.value<Settings>(Keys.SETTINGS) || configuration.defaultSettings;
         this.backend.get<any>('/v3/api/embedded').subscribe(({ featured, settings, guests }) => {
             console.log({ featured, settings, guests });
+            this.featured = featured;
             this.guests = guests;
             this.settings = settings;
-            this.display_name = featured.display_name;
-            this.profile_image_url = featured.profile_image_url;
-            this.description = featured.description;
+
         });
         this.interval = setInterval(async () => {
             this.backend.get<any>('/v3/api/embedded').subscribe(({ featured, settings, guests }) => {
                 console.log({ featured, settings, guests });
+                this.featured = featured;
                 this.guests = guests;
                 this.settings = settings;
-                this.display_name = featured.display_name;
-                this.profile_image_url = featured.profile_image_url;
-                this.description = featured.description;
             });
         }, 1000 * 10);
     }
 
     ngOnDestroy() {
         clearInterval(this.interval);
+    }
+
+    visit(username: string | undefined) {
+        if(!username) return;
+        window.open(`https://www.twitch.tv/${username}`);
     }
 }

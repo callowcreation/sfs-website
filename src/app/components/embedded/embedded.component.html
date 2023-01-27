@@ -4,8 +4,8 @@
         <mat-card-header>
             <div mat-card-avatar class="example-header-image"><img
                     src="https://material.angular.io/assets/img/examples/shiba1.jpg" class="user-icon" /></div>
-            <mat-card-title>{{display_name}}</mat-card-title>
-            <mat-card-subtitle>{{description}}</mat-card-subtitle>
+            <mat-card-title>{{featured.display_name}}</mat-card-title>
+            <mat-card-subtitle>{{featured.description}}</mat-card-subtitle>
         </mat-card-header>
 
         <div _ngcontent-smk-c1=""
@@ -23,7 +23,7 @@
                             class="item ng-tns-c8-0 ng-trigger ng-trigger-removeTrigger ng-star-inserted"
                             title="naivebot" [ngStyle]="{'border-color': settings['border-color']}">
                             <div _ngcontent-smk-c8="" class="item-image"><a _ngcontent-smk-c8="" class="ng-tns-c8-0"
-                                    target="_blank" href="https://www.twitch.tv/naivebot"><img _ngcontent-smk-c8=""
+                                    target="_blank" href="https://www.twitch.tv/{{guest.login}}"><img _ngcontent-smk-c8=""
                                         class="ng-tns-c8-0"
                                         src="{{guest.profile_image_url}}"></a>
                             </div>
@@ -38,104 +38,10 @@
                         </div>
                     </div>
                 </li>
-
-                <!-- <li _ngcontent-smk-c4="" class="ng-star-inserted">
-                    <div _ngcontent-smk-c4="" _nghost-smk-c8="" class="ng-tns-c8-0">
-                        <div _ngcontent-smk-c8=""
-                            class="item ng-tns-c8-0 ng-trigger ng-trigger-removeTrigger ng-star-inserted"
-                            title="naivebot" [ngStyle]="{'border-color': settings['border-color']}">
-                            <div _ngcontent-smk-c8="" class="item-image"><a _ngcontent-smk-c8="" class="ng-tns-c8-0"
-                                    target="_blank" href="https://www.twitch.tv/naivebot"><img _ngcontent-smk-c8=""
-                                        class="ng-tns-c8-0"
-                                        src="https://static-cdn.jtvnw.net/jtv_user_pictures/17151829-6597-466f-841b-deef88e73891-profile_image-300x300.png"></a>
-                            </div>
-                            <div _ngcontent-smk-c8="" class="item-info">
-                                <div _ngcontent-smk-c8="" class="item-info-display_name">naivebot
-                                </div>
-                                <div _ngcontent-smk-c8="" class="item-info-description">(of a bot or
-                                    caLLow) showing a lack of experience, wisdom, or judgmen...
-                                </div>
-                                <div _ngcontent-smk-c8="" class="item-info-posted_by ng-tns-c8-0 ng-star-inserted"
-                                    [ngStyle]="{'background-color': settings['background-color'], 'border-color': settings['border-color']}">
-                                    callowcreation</div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li _ngcontent-smk-c4="" class="ng-star-inserted">
-                    <div _ngcontent-smk-c4="" _nghost-smk-c8="" class="ng-tns-c8-1">
-                        <div _ngcontent-smk-c8=""
-                            class="item ng-tns-c8-1 ng-trigger ng-trigger-removeTrigger ng-star-inserted"
-                            title="IrishJohnGames" [ngStyle]="{'border-color': settings['border-color']}">
-                            <div _ngcontent-smk-c8="" class="item-image"><a _ngcontent-smk-c8="" class="ng-tns-c8-1"
-                                    target="_blank" href="https://www.twitch.tv/irishjohngames"><img
-                                        _ngcontent-smk-c8="" class="ng-tns-c8-1"
-                                        src="https://static-cdn.jtvnw.net/jtv_user_pictures/16630846-e4c8-4ff2-82c7-0f02ed2b5ff6-profile_image-300x300.png"></a>
-                            </div>
-                            <div _ngcontent-smk-c8="" class="item-info">
-                                <div _ngcontent-smk-c8="" class="item-info-display_name">
-                                    IrishJohnGames</div>
-                                <div _ngcontent-smk-c8="" class="item-info-description">Hello and
-                                    welcome. I'm IrishJohn and I am a Game Developer / Software...
-                                </div>
-                                <div _ngcontent-smk-c8="" class="item-info-posted_by ng-tns-c8-1 ng-star-inserted"
-                                    [ngStyle]="{'border-color': settings['border-color'], 'background-color': settings['background-color']}">
-                                    callowcreation</div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li _ngcontent-smk-c4="" class="ng-star-inserted">
-                    <div _ngcontent-smk-c4="" _nghost-smk-c8="" class="ng-tns-c8-2">
-                        <div _ngcontent-smk-c8=""
-                            class="item ng-tns-c8-2 ng-trigger ng-trigger-removeTrigger ng-star-inserted"
-                            title="IslandVibingPresents" [ngStyle]="{'border-color': settings['border-color']}">
-                            <div _ngcontent-smk-c8="" class="item-image"><a _ngcontent-smk-c8="" class="ng-tns-c8-2"
-                                    target="_blank" href="https://www.twitch.tv/islandvibingpresents"><img
-                                        _ngcontent-smk-c8="" class="ng-tns-c8-2"
-                                        src="https://static-cdn.jtvnw.net/jtv_user_pictures/c8cb8b63-ce3a-417a-af8e-fcb72e31dda0-profile_image-300x300.png"></a>
-                            </div>
-                            <div _ngcontent-smk-c8="" class="item-info">
-                                <div _ngcontent-smk-c8="" class="item-info-display_name">
-                                    IslandVibingPresents</div>
-                                <div _ngcontent-smk-c8="" class="item-info-description">Join us for
-                                    an hour-ish, each week, as we spotlight streamers from al...
-                                </div>
-                                <div _ngcontent-smk-c8="" class="item-info-posted_by ng-tns-c8-2 ng-star-inserted"
-                                    [ngStyle]="{'border-color': settings['border-color'], 'background-color': settings['background-color']}">
-                                    callowcreation</div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li _ngcontent-smk-c4="" class="ng-star-inserted">
-                    <div _ngcontent-smk-c4="" _nghost-smk-c8="" class="ng-tns-c8-3">
-                        <div _ngcontent-smk-c8=""
-                            class="item ng-tns-c8-3 ng-trigger ng-trigger-removeTrigger ng-star-inserted"
-                            title="Talk2meGooseman" [ngStyle]="{'border-color': settings['border-color']}">
-                            <div _ngcontent-smk-c8="" class="item-image"><a _ngcontent-smk-c8="" class="ng-tns-c8-3"
-                                    target="_blank" href="https://www.twitch.tv/talk2megooseman"><img
-                                        _ngcontent-smk-c8="" class="ng-tns-c8-3"
-                                        src="https://static-cdn.jtvnw.net/jtv_user_pictures/507f375a-d450-4b6e-a64a-4fada2ba5bf2-profile_image-300x300.png"></a>
-                            </div>
-                            <div _ngcontent-smk-c8="" class="item-info">
-                                <div _ngcontent-smk-c8="" class="item-info-display_name">
-                                    Talk2meGooseman</div>
-                                <div _ngcontent-smk-c8="" class="item-info-description">Stream
-                                    Closed Captioner creator, Full Stack Web Developer, Husband,
-                                    G...</div>
-                                <div _ngcontent-smk-c8="" class="item-info-posted_by ng-tns-c8-3 ng-star-inserted"
-                                    [ngStyle]="{'border-color': settings['border-color'], 'background-color': settings['background-color']}">
-                                    callowcreation</div>
-                            </div>
-                        </div>
-                    </div>
-                </li> -->
             </ul>
         </div>
         <mat-card-actions>
-            <button class="twitch btn"><i class="fa fa-twitch fa-fw"></i>Follow {{display_name}}
-                Twitch</button>
+            <button class="twitch btn" (click)="visit(featured.login)"><i class="fa fa-twitch fa-fw"></i>Visit {{featured.display_name}} on Twitch</button>
         </mat-card-actions>
     </mat-card>
 </div>
