@@ -38,7 +38,7 @@ export class EmbeddedComponent {
                 this.guests = guests;
                 this.settings = settings;
             });
-        }, 1000 * 10);
+        }, 1000 * 10); // set to 45
     }
 
     ngOnDestroy() {

@@ -6,4 +6,5 @@ export interface Settings {
     'enable-bits': boolean;
     'bits-tier': string;
     'pin-days': number;
+    'badge-vip': boolean;
 }
