@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Database, DatabaseReference, getDatabase, objectVal, ref, set, update } from '@angular/fire/database';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Settings } from 'src/app/interfaces/settings';
+import { ConfigurationService } from 'src/app/services/configuration.service';
 import { Keys, StorageService } from 'src/app/services/storage.service';
 
 @Component({
@@ -22,18 +23,6 @@ export class ConfigurationComponent {
     });
     options = ['Tier 1', 'Tier 2', 'Tier 3'];
 
-    get defaultSettings(): Settings {
-        return {
-            'background-color': '#6441A5',
-            'border-color': '#808080',
-            'color': '#FFFFFF',
-            'auto-shoutouts': false,
-            'enable-bits': true,
-            'bits-tier': 'Tier 1',
-            'pin-days': 3
-        };
-    }
-
     private get db(): Database {
         return getDatabase();
     }
@@ -42,9 +31,9 @@ export class ConfigurationComponent {
         return ref(this.db, `${this.storage.user?.id}/settings`);
     }
 
-    constructor(private storage: StorageService) {
+    constructor(private storage: StorageService, configuration: ConfigurationService) {
         
-        let settings: Settings = this.storage.value<Settings>(Keys.SETTINGS) || this.defaultSettings;
+        let settings: Settings = this.storage.value<Settings>(Keys.SETTINGS) || configuration.defaultSettings;
         this.settingsForm.setValue(settings);
 
         objectVal<Settings>(this.doc).subscribe((value: any) => {

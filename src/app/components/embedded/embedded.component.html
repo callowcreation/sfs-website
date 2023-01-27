@@ -1,22 +1,13 @@
+<div _ngcontent-smk-c0="" _nghost-smk-c1="" style="padding-top: 50px; margin: auto;">
 
-    <div _ngcontent-smk-c0="" _nghost-smk-c1="" style="padding-top: 50px; margin: auto;">
-        <mat-card class="example-card" style="margin-bottom: 10px;">
-            <mat-card-header>
-                <mat-card-title>Branding Examples</mat-card-title>
-            </mat-card-header>
-            <mat-card-content style="text-align: justify;">
-                <p>
-                    Below see branding from other broadcasters using Shoutouts for Streamers.  These are chosen randomly from all the installed extensions.
-                </p>
-            </mat-card-content>
-        </mat-card>
-        <mat-card class="example-card">
-            <mat-card-header>
-                <div mat-card-avatar class="example-header-image"><img src="https://material.angular.io/assets/img/examples/shiba1.jpg" class="user-icon" /></div>
-                <mat-card-title>caLLowCreation</mat-card-title>
-                <mat-card-subtitle>the family-owned and operated indie development team. It is all done in-house start to ship.</mat-card-subtitle>
-            </mat-card-header>
-        
+    <mat-card class="example-card">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"><img
+                    src="https://material.angular.io/assets/img/examples/shiba1.jpg" class="user-icon" /></div>
+            <mat-card-title>{{display_name}}</mat-card-title>
+            <mat-card-subtitle>{{description}}</mat-card-subtitle>
+        </mat-card-header>
+
         <div _ngcontent-smk-c1=""
             [ngStyle]="{'background-color': settings['background-color'], 'color': settings['color']}"
             style="margin: auto; height: 300px; width: 300px; margin-top: 20px;">
@@ -121,8 +112,8 @@
             </ul>
         </div>
         <mat-card-actions>
-            <button mat-button>LIKE</button>
-            <button mat-button>SHARE</button>
+            <button class="twitch btn"><i class="fa fa-twitch fa-fw"></i>Follow {{display_name}}
+                Twitch</button>
         </mat-card-actions>
     </mat-card>
-    </div>
+</div>
