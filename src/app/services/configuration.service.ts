@@ -22,6 +22,7 @@ export class ConfigurationService {
             'bits-tier': 'Tier 1',
             'pin-days': 3,
             'badge-vip': true,
+            'commands': ['so', 'shoutout'],
         };
     }
 
@@ -37,6 +38,7 @@ export class ConfigurationService {
         return {
             'auto-shoutouts': this.settings['auto-shoutouts'],
             'badge-vip': this.settings['badge-vip'],
+            'commands': this.settings['commands']
         };
     }
 

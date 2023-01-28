@@ -21,6 +21,7 @@ export class ConfigurationComponent {
         behaviour: new FormGroup({
             'auto-shoutouts': new FormControl(this.configuration.behaviour['auto-shoutouts']),
             'badge-vip': new FormControl(this.configuration.behaviour['badge-vip']),
+            'commands': new FormControl(this.configuration.behaviour['commands']),
         }),
         bits: new FormGroup({
             'enable-bits': new FormControl(this.configuration.bits['enable-bits']),
@@ -30,6 +31,7 @@ export class ConfigurationComponent {
     };
 
     options: Tier[] = ['Tier 1', 'Tier 2', 'Tier 3'];
+    commands: string[] = this.configuration.defaultSettings.commands;
 
     private get db(): Database {
         return getDatabase();
@@ -40,7 +42,9 @@ export class ConfigurationComponent {
     }
 
     constructor(private storage: StorageService, private configuration: ConfigurationService) {
-        
+
+        console.log({ configuration: this.configuration.behaviour })
+
         this.form.appearance.setValue(configuration.appearance);
         this.form.behaviour.setValue(configuration.behaviour);
         this.form.bits.setValue(configuration.bits);

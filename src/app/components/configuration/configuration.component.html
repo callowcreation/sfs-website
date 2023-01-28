@@ -57,6 +57,13 @@
             <mat-checkbox class="form-fit-half" [checked]="form.behaviour.value['badge-vip']"
                 formControlName="badge-vip">Badge
                 Vip</mat-checkbox>
+                <mat-divider></mat-divider>
+                <mat-card-title>Commands</mat-card-title>
+                <mat-selection-list #commandsList formControlName="commands">
+                    <mat-list-option *ngFor="let command of commands" [value]="command" [disabled]="command == 'so'">
+                      {{command}}
+                    </mat-list-option>
+                  </mat-selection-list>
             <mat-divider class="card-divider"></mat-divider>
             <div style="text-align: right; margin: 10px;">
                 <button mat-raised-button type="submit" [disabled]="!form.behaviour.valid"

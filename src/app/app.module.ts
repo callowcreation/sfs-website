@@ -34,6 +34,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatListModule } from '@angular/material/list';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserInterceptor } from './interceptors/user.interceptor';
@@ -88,7 +89,8 @@ import { EmbeddedComponent } from './components/embedded/embedded.component';
         MatSelectModule,
         MatSliderModule,
         MatCardModule,
-        MatExpansionModule
+        MatExpansionModule,
+        MatListModule
     ],
     providers: [
         AuthGuardService,

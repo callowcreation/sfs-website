@@ -7,4 +7,5 @@ export interface Settings {
     'bits-tier': string;
     'pin-days': number;
     'badge-vip': boolean;
+    'commands': string[];
 }
