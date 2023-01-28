@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ConfigurationComponent } from './components/configuration/configuration.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { FeaturesComponent } from './components/features/features.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
@@ -19,6 +20,7 @@ const routes: Routes = [
     { data: { menu: true, name: MenuName.Navigation, icon: null }, title: 'Help', path: 'support', component: SupportComponent },
     { data: { menu: !StorageService.HasAuth(), name: MenuName.Navigation, icon: null }, title: 'Login', path: 'login', component: LoginComponent, canActivate: [LoginGuardService] },
     { data: { menu: StorageService.HasAuth(), name: MenuName.Profile, icon: 'settings' }, title: 'Configuration', path: 'configuration', component: ConfigurationComponent, canActivate: [AuthGuardService] },
+    { data: { menu: StorageService.HasAuth(), name: MenuName.Profile, icon: 'editor' }, title: 'Dashboard', path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService] },
     { data: { menu: false, name: MenuName.None, icon: null }, title: 'Privacy Policy', path: 'privacy-policy', component: PrivacyPolicyComponent },
     { data: { menu: false, name: MenuName.None, icon: null }, title: 'Terms and Conditions', path: 'terms-and-conditions', component: TermsComponent },
 ];

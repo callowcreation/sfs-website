@@ -49,6 +49,7 @@ import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-poli
 import { SectionHeaderComponent } from './components/section-header/section-header.component';
 import { ScrollToTopComponent } from './components/scroll-to-top/scroll-to-top.component';
 import { EmbeddedComponent } from './components/embedded/embedded.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
     declarations: [
@@ -66,7 +67,8 @@ import { EmbeddedComponent } from './components/embedded/embedded.component';
         PrivacyPolicyComponent,
         SectionHeaderComponent,
         ScrollToTopComponent,
-        EmbeddedComponent
+        EmbeddedComponent,
+        DashboardComponent
     ],
     imports: [
         BrowserModule,

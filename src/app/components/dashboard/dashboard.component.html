@@ -1,0 +1,15 @@
+<section class="page-section">
+    <app-section-header>caLLowCreation Dashboard</app-section-header>
+    <mat-list>
+        <div mat-subheader><h3>Shoutouts</h3></div>
+        <mat-selection-list #guestsList>
+            <mat-list-option *ngFor="let guest of guests" style="margin: 8px 0px;">
+                <mat-icon matListItemIcon style="width: 80px; height: 80px; margin-top: 0;"><img style="width: 72px; height: 72px;"
+                    src="{{guest.profile_image_url}}"></mat-icon>
+                <div matListItemTitle>{{guest.login}}</div>
+                <div matListItemLine>{{guest.posted.login}} {{guest.posted.timestamp | date}}</div>
+            </mat-list-option>
+          </mat-selection-list>
+        <mat-divider></mat-divider>
+    </mat-list>
+</section>
