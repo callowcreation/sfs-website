@@ -1,10 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { MatSelectionListChange } from '@angular/material/list';
 import { map } from 'rxjs';
 import { BackendService } from 'src/app/services/backend.service';
 import { ConfigurationService } from 'src/app/services/configuration.service';
 import { StorageService } from 'src/app/services/storage.service';
 
+interface Posted {
+    login: string;
+    timestamp: number;
+}
+
+interface Guest {
+    login: string;
+    profile_image_url: string;
+    posted: Posted;
+}
 @Component({
     selector: 'app-dashboard',
     templateUrl: './dashboard.component.html',
@@ -13,7 +24,7 @@ import { StorageService } from 'src/app/services/storage.service';
 export class DashboardComponent {
 
     pinned: string = 'streamer0';
-    guests: any[] = [
+    guests: Guest[] = [
         { login: 'streamer1', profile_image_url: '', posted: { login: 'woLLac', timestamp: 1607583840213 } },
         { login: 'streamer2', profile_image_url: '', posted: { login: 'naivebot', timestamp: 1604538820851 } },
         { login: 'streamer3', profile_image_url: '', posted: { login: 'callowcreation', timestamp: 1590623631617 } },
@@ -21,15 +32,11 @@ export class DashboardComponent {
     ];
 
     form = new FormGroup({
-        guests: new FormControl(this.guests, [Validators.required])
+        guests: new FormControl('', [Validators.required]),
     });
-
-    validator(): ValidatorFn {
-        return (control: AbstractControl): ValidationErrors | null => {
-            return null;
-        }
-    }
-
+    
+    canDelete: boolean = false;
+    
     constructor(storage: StorageService, private backend: BackendService) {
         this.backend.get<any>(`/v3/api/dashboard/${storage.user?.id}`)
             .pipe(map(({ guests }) => {
@@ -42,10 +49,13 @@ export class DashboardComponent {
                 this.guests = guests;
                 this.form.setValue({ guests });
             });
-            this.form.reset();
     }
 
     onSubmit() {
         console.log(this.form.value);
+    }
+
+    onChange(ev: MatSelectionListChange) {
+        this.canDelete = ev.source.selectedOptions.selected.length > 0 ? true : false;
     }
 }
