@@ -24,9 +24,12 @@
             <input type="color" matInput name="color-borders" formControlName="border-color">
         </mat-form-field>
         <mat-divider class="card-divider"></mat-divider>
-        <div style="text-align: right; margin: 10px;">
+        <div style="text-align: left; margin: 10px;">
+            <button mat-raised-button type="submit" [disabled]="!forms.appearance.valid" (click)="randomize()"
+                color="accent">Randomize</button>
+
             <button mat-raised-button type="submit" [disabled]="!forms.appearance.valid" (click)="reset()"
-                color="primary">Reset</button>
+                color="primary" style="float: right;">Reset</button>
         </div>
     </mat-expansion-panel>
     <mat-divider [ngStyle]="{'border-color': forms.appearance.value['border-color']}"
