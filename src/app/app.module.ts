@@ -51,6 +51,7 @@ import { ScrollToTopComponent } from './components/scroll-to-top/scroll-to-top.c
 import { EmbeddedComponent } from './components/embedded/embedded.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { InstallComponent } from './components/install/install.component';
+import { LegacyViewComponent } from './components/legacy-view/legacy-view.component';
 
 @NgModule({
     declarations: [
@@ -70,7 +71,8 @@ import { InstallComponent } from './components/install/install.component';
         ScrollToTopComponent,
         EmbeddedComponent,
         DashboardComponent,
-        InstallComponent
+        InstallComponent,
+        LegacyViewComponent
     ],
     imports: [
         BrowserModule,

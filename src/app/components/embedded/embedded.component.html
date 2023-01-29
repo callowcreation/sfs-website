@@ -1,4 +1,4 @@
-<div _ngcontent-smk-c0="" _nghost-smk-c1="" style="padding-top: 10px; margin: auto;">
+<div style="padding-top: 10px; margin: auto;">
 
     <mat-card class="example-card">
         <mat-card-header>
@@ -11,30 +11,29 @@
             overflow: hidden;">{{featured.description}}</mat-card-subtitle>
         </mat-card-header>
 
-        <div _ngcontent-smk-c1=""
+        <div 
             [ngStyle]="{'background-color': settings['background-color'], 'color': settings['color']}"
             style="margin: auto; height: 300px; width: 300px; margin-top: 20px; margin-bottom: 15px;">
-            <header _ngcontent-smk-c1="" _nghost-smk-c2="">
-                <div _ngcontent-smk-c2="" class="container">
-                    <h2 _ngcontent-smk-c2="">Shoutouts for Streamers</h2>
+            <header>
+                <div class="container">
+                    <h2>Shoutouts for Streamers</h2>
                 </div>
             </header>
-            <ul _ngcontent-smk-c4="" class="items-list">
-                <li _ngcontent-smk-c4="" *ngFor="let guest of guests" class="ng-star-inserted">
-                    <div _ngcontent-smk-c4="" _nghost-smk-c8="" class="ng-tns-c8-0">
-                        <div _ngcontent-smk-c8=""
-                            class="item ng-tns-c8-0 ng-trigger ng-trigger-removeTrigger ng-star-inserted"
+            <ul class="items-list">
+                <li  *ngFor="let guest of guests" class="ng-star-inserted">
+                    <div>
+                        <div
+                            class="item"
                             title="naivebot" [ngStyle]="{'border-color': settings['border-color']}">
-                            <div _ngcontent-smk-c8="" class="item-image"><a _ngcontent-smk-c8="" class="ng-tns-c8-0"
-                                    target="_blank" href="https://www.twitch.tv/{{guest.login}}"><img _ngcontent-smk-c8=""
-                                        class="ng-tns-c8-0"
+                            <div class="item-image"><a
+                                    target="_blank" href="https://www.twitch.tv/{{guest.login}}"><img
                                         src="{{guest.profile_image_url}}"></a>
                             </div>
-                            <div _ngcontent-smk-c8="" class="item-info">
-                                <div _ngcontent-smk-c8="" class="item-info-display_name">{{guest.display_name}}
+                            <div class="item-info">
+                                <div class="item-info-display_name">{{guest.display_name}}
                                 </div>
-                                <div _ngcontent-smk-c8="" class="item-info-description">{{guest.description}}</div>
-                                <div _ngcontent-smk-c8="" class="item-info-posted_by ng-tns-c8-0 ng-star-inserted"
+                                <div class="item-info-description">{{guest.description}}</div>
+                                <div class="item-info-posted_by ng-star-inserted"
                                     [ngStyle]="{'background-color': settings['background-color'], 'border-color': settings['border-color']}">
                                     {{guest.posted_by}}</div>
                             </div>
@@ -44,7 +43,7 @@
             </ul>
         </div>
         <mat-card-actions>
-            <button class="twitch btn" (click)="visit(featured.login)"><i class="fa fa-twitch fa-fw"></i>Visit {{featured.display_name}} on Twitch</button>
+            <button class="twitch btn" (click)="visit(featured.login)">Visit {{featured.display_name}} on Twitch</button>
         </mat-card-actions>
     </mat-card>
 </div>

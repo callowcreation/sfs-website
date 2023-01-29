@@ -1,0 +1,61 @@
+<form [formGroup]="forms.appearance">
+    <mat-divider [ngStyle]="{'border-color': forms.appearance.value['border-color']}"
+        style="border-width: 3px;"></mat-divider>
+    <mat-expansion-panel hideToggle
+        [ngStyle]="{'color': forms.appearance.value['color'], 'background-color': forms.appearance.value['background-color']}">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <div class="header" [ngStyle]="{'color': forms.appearance.value['color']}">Appearance</div>
+            </mat-panel-title>
+            <mat-panel-description [ngStyle]="{'color': forms.appearance.value['color']}">
+                Click here to try out your branding colors.
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-form-field class="form-fit">
+            <mat-label>Font Color</mat-label>
+            <input type="color" matInput name="color-font" formControlName="color" />
+        </mat-form-field>
+        <mat-form-field class="form-fit">
+            <mat-label>Background Color</mat-label>
+            <input type="color" matInput name="color-background" formControlName="background-color" />
+        </mat-form-field>
+        <mat-form-field class="form-fit">
+            <mat-label>Borders Color</mat-label>
+            <input type="color" matInput name="color-borders" formControlName="border-color">
+        </mat-form-field>
+        <mat-divider class="card-divider"></mat-divider>
+        <div style="text-align: right; margin: 10px;">
+            <button mat-raised-button type="submit" [disabled]="!forms.appearance.valid" (click)="reset()"
+                color="primary">Reset</button>
+        </div>
+    </mat-expansion-panel>
+    <mat-divider [ngStyle]="{'border-color': forms.appearance.value['border-color']}"
+        style="border-width: 3px;"></mat-divider>
+</form>
+<div [ngStyle]="{'background-color': forms.appearance.value['background-color'], 'color': forms.appearance.value['color']}"
+    style="margin: auto; height: 300px; width: 300px; margin-top: 20px; margin-bottom: 15px;">
+    <header>
+        <div class="container">
+            <h2>Shoutouts for Streamers</h2>
+        </div>
+    </header>
+    <ul class="items-list">
+        <li *ngFor="let guest of guests" class="ng-star-inserted">
+            <div>
+                <div class="item" title="naivebot" [ngStyle]="{'border-color': forms.appearance.value['border-color']}">
+                    <div class="item-image"><a target="_blank" href="https://www.twitch.tv/{{guest.login}}"><img
+                                src="{{guest.profile_image_url}}"></a>
+                    </div>
+                    <div class="item-info">
+                        <div class="item-info-display_name">{{guest.display_name}}
+                        </div>
+                        <div class="item-info-description">{{guest.description}}</div>
+                        <div class="item-info-posted_by ng-star-inserted"
+                            [ngStyle]="{'background-color': forms.appearance.value['background-color'], 'border-color': forms.appearance.value['border-color']}">
+                            {{guest.posted_by}}</div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

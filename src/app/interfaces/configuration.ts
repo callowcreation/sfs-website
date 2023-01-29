@@ -1,13 +1,17 @@
-import { BitsTier } from "../enums/bits-tier";
+export interface Appearance {
+    'background-color': string;
+    'border-color': string;
+    'color': string;
+}
 
-export interface Configuration {
-    backgroundColor: string;
-    color: string;
-    borderColor: string;
+export interface Behaviour {
+    'auto-shoutouts': boolean;
+    'badge-vip': boolean;
+    'commands': string[];
+}
 
-    autoShoutouts: boolean;
-
-    enableBits: boolean;
-    bitsTier: BitsTier;
-    pinDays: number;
+export interface Bits {
+    'enable-bits': boolean;
+    'bits-tier': string;
+    'pin-days': number;
 }

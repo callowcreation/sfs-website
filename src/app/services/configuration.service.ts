@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { calculateBackoffMillis } from '@firebase/util';
 import { environment } from 'src/environments/environment';
+import { Appearance, Behaviour, Bits } from '../interfaces/configuration';
 import { Settings } from '../interfaces/settings';
 import { Keys, StorageService } from './storage.service';
 
@@ -27,7 +28,7 @@ export class ConfigurationService {
         };
     }
 
-    get appearance() {
+    get appearance(): Appearance {
         return {
             'background-color': this.settings['background-color'],
             'border-color': this.settings['border-color'],
@@ -35,7 +36,7 @@ export class ConfigurationService {
         };
     }
 
-    get behaviour() {
+    get behaviour(): Behaviour {
         return {
             'auto-shoutouts': this.settings['auto-shoutouts'],
             'badge-vip': this.settings['badge-vip'],
@@ -43,7 +44,7 @@ export class ConfigurationService {
         };
     }
 
-    get bits() {
+    get bits(): Bits {
         return {
             'enable-bits': this.settings['enable-bits'],
             'bits-tier': this.settings['bits-tier'],
