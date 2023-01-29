@@ -1,3 +1,27 @@
 <section class="page-section">
     <app-section-header>support works!</app-section-header>
+    <mat-accordion>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Install
+                </mat-panel-title>
+                <mat-panel-description>
+                    How to install.
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <app-install></app-install>
+        </mat-expansion-panel>
+        <mat-expansion-panel *ngFor="let panel of panels" (opened)="panel.state = true" (closed)="panel.state = false">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    {{panel.title}}
+                </mat-panel-title>
+                <mat-panel-description>
+                    {{panel.summary}}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            {{panel.description}}
+        </mat-expansion-panel>
+    </mat-accordion>
 </section>

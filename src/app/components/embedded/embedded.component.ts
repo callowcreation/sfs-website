@@ -1,6 +1,4 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, NgZone } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Component } from '@angular/core';
 import { Settings } from 'src/app/interfaces/settings';
 import { User } from 'src/app/interfaces/user';
 import { BackendService } from 'src/app/services/backend.service';

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { calculateBackoffMillis } from '@firebase/util';
+import { environment } from 'src/environments/environment';
 import { Settings } from '../interfaces/settings';
 import { Keys, StorageService } from './storage.service';
 
@@ -50,6 +51,10 @@ export class ConfigurationService {
         };
     }
 
+    get version(): string {
+        return environment.version;
+    }
+    
     constructor(private storage: StorageService) {
         this.settings = this.storage.value<Settings>(Keys.SETTINGS) || this.defaultSettings;
     }

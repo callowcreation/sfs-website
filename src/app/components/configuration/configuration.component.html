@@ -1,19 +1,19 @@
 <section class="page-section">
     <app-section-header>Configuration</app-section-header>
-    <mat-divider [ngStyle]="{'border-color': form.appearance.value['border-color']}"
+    <mat-divider [ngStyle]="{'border-color': forms.appearance.value['border-color']}"
         style="border-width: 3px;"></mat-divider>
-    <form [formGroup]="form.appearance" (ngSubmit)="onSubmit(form.appearance)">
+    <form [formGroup]="forms.appearance" (ngSubmit)="onSubmit(forms.appearance)">
         <mat-expansion-panel hideToggle
-            [ngStyle]="{'color': form.appearance.value['color'], 'background-color': form.appearance.value['background-color']}">
+            [ngStyle]="{'color': forms.appearance.value['color'], 'background-color': forms.appearance.value['background-color']}">
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    <div class="header" [ngStyle]="{'color': form.appearance.value['color']}">Appearance</div>
+                    <div class="header" [ngStyle]="{'color': forms.appearance.value['color']}">Appearance</div>
                 </mat-panel-title>
-                <mat-panel-description [ngStyle]="{'color': form.appearance.value['color']}">
+                <mat-panel-description [ngStyle]="{'color': forms.appearance.value['color']}">
                     Modify branding colors.
                 </mat-panel-description>
             </mat-expansion-panel-header>
-            <mat-divider [ngStyle]="{'border-color': form.appearance.value['border-color']}"
+            <mat-divider [ngStyle]="{'border-color': forms.appearance.value['border-color']}"
                 style="border-width: 3px;"></mat-divider>
             <mat-form-field class="form-fit">
                 <mat-label>Font Color</mat-label>
@@ -32,14 +32,14 @@
             </mat-form-field>
             <mat-divider class="card-divider"></mat-divider>
             <div style="text-align: right; margin: 10px;">
-                <button mat-raised-button type="submit" [disabled]="!form.appearance.valid"
+                <button mat-raised-button type="submit" [disabled]="!forms.appearance.valid"
                     color="primary">Update</button>
             </div>
         </mat-expansion-panel>
     </form>
-    <mat-divider [ngStyle]="{'border-color': form.appearance.value['border-color']}"
+    <mat-divider [ngStyle]="{'border-color': forms.appearance.value['border-color']}"
         style="border-width: 3px;"></mat-divider>
-    <form [formGroup]="form.behaviour" (ngSubmit)="onSubmit(form.behaviour)">
+    <form [formGroup]="forms.behaviour" (ngSubmit)="onSubmit(forms.behaviour)">
         <mat-divider class="card-divider"></mat-divider>
         <mat-expansion-panel hideToggle>
             <mat-expansion-panel-header>
@@ -51,10 +51,10 @@
                 </mat-panel-description>
             </mat-expansion-panel-header>
             <mat-divider></mat-divider>
-            <mat-checkbox class="form-fit-half" [checked]="form.behaviour.value['auto-shoutouts']"
+            <mat-checkbox class="form-fit-half" [checked]="forms.behaviour.value['auto-shoutouts']"
                 formControlName="auto-shoutouts">Auto
                 Shoutouts</mat-checkbox>
-            <mat-checkbox class="form-fit-half" [checked]="form.behaviour.value['badge-vip']"
+            <mat-checkbox class="form-fit-half" [checked]="forms.behaviour.value['badge-vip']"
                 formControlName="badge-vip">Badge
                 Vip</mat-checkbox>
                 <mat-divider></mat-divider>
@@ -66,12 +66,12 @@
                   </mat-selection-list>
             <mat-divider class="card-divider"></mat-divider>
             <div style="text-align: right; margin: 10px;">
-                <button mat-raised-button type="submit" [disabled]="!form.behaviour.valid"
+                <button mat-raised-button type="submit" [disabled]="!forms.behaviour.valid"
                     color="primary">Update</button>
             </div>
         </mat-expansion-panel>
     </form>
-    <form [formGroup]="form.bits" (ngSubmit)="onSubmit(form.bits)">
+    <form [formGroup]="forms.bits" (ngSubmit)="onSubmit(forms.bits)">
         <mat-divider class="card-divider"></mat-divider>
         <mat-expansion-panel hideToggle>
             <mat-expansion-panel-header>
@@ -83,10 +83,10 @@
                 </mat-panel-description>
             </mat-expansion-panel-header>
             <mat-divider></mat-divider>
-            <mat-checkbox class="form-fit" [checked]="form.bits.value['enable-bits']"
+            <mat-checkbox class="form-fit" [checked]="forms.bits.value['enable-bits']"
                 formControlName="enable-bits">Enable
                 Bits</mat-checkbox>
-            <mat-form-field class="form-fit" *ngIf="form.bits.value['enable-bits'] === true">
+            <mat-form-field class="form-fit" *ngIf="forms.bits.value['enable-bits'] === true">
                 <mat-label>Select a Tier</mat-label>
                 <mat-select formControlName="bits-tier">
                     <mat-option *ngFor="let option of options" [value]="option">
@@ -94,15 +94,15 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-            <div class="form-fit" *ngIf="form.bits.value['enable-bits'] === true">
-                <mat-label>Pin Days ({{form.bits.value['pin-days']}} days)</mat-label>
+            <div class="form-fit" *ngIf="forms.bits.value['enable-bits'] === true">
+                <mat-label>Pin Days ({{forms.bits.value['pin-days']}} days)</mat-label>
                 <mat-slider style="text-align: center; min-width: 95%;" min="1" max="5" step="1">
                     <input matSliderThumb formControlName="pin-days">
                 </mat-slider>
             </div>
             <mat-divider class="card-divider"></mat-divider>
             <div style="text-align: right; margin: 10px;">
-                <button mat-raised-button type="submit" [disabled]="!form.bits.valid" color="primary">Update</button>
+                <button mat-raised-button type="submit" [disabled]="!forms.bits.valid" color="primary">Update</button>
             </div>
         </mat-expansion-panel>
     </form>

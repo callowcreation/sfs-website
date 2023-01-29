@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Database, DatabaseReference, getDatabase, objectVal, ref, set, update } from '@angular/fire/database';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { Settings } from 'src/app/interfaces/settings';
 import { ConfigurationService, Tier } from 'src/app/services/configuration.service';
-import { Keys, StorageService } from 'src/app/services/storage.service';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
     selector: 'app-configuration',
@@ -12,7 +12,7 @@ import { Keys, StorageService } from 'src/app/services/storage.service';
 })
 export class ConfigurationComponent {
 
-    form = {
+    forms = {
         appearance: new FormGroup({
             'background-color': new FormControl(this.configuration.appearance['background-color']),
             'border-color': new FormControl(this.configuration.appearance['border-color']),
@@ -45,15 +45,15 @@ export class ConfigurationComponent {
 
         console.log({ configuration: this.configuration.behaviour })
 
-        this.form.appearance.setValue(configuration.appearance);
-        this.form.behaviour.setValue(configuration.behaviour);
-        this.form.bits.setValue(configuration.bits);
+        this.forms.appearance.setValue(configuration.appearance);
+        this.forms.behaviour.setValue(configuration.behaviour);
+        this.forms.bits.setValue(configuration.bits);
 
         objectVal<Settings>(this.doc).subscribe((value: any) => {
             this.configuration.update(value);
-            this.form.appearance.setValue(configuration.appearance);
-            this.form.behaviour.setValue(configuration.behaviour);
-            this.form.bits.setValue(configuration.bits);
+            this.forms.appearance.setValue(configuration.appearance);
+            this.forms.behaviour.setValue(configuration.behaviour);
+            this.forms.bits.setValue(configuration.bits);
         });
     }
 

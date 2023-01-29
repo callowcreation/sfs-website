@@ -50,6 +50,7 @@ import { SectionHeaderComponent } from './components/section-header/section-head
 import { ScrollToTopComponent } from './components/scroll-to-top/scroll-to-top.component';
 import { EmbeddedComponent } from './components/embedded/embedded.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { InstallComponent } from './components/install/install.component';
 
 @NgModule({
     declarations: [
@@ -68,7 +69,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
         SectionHeaderComponent,
         ScrollToTopComponent,
         EmbeddedComponent,
-        DashboardComponent
+        DashboardComponent,
+        InstallComponent
     ],
     imports: [
         BrowserModule,
