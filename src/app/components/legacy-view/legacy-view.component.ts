@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule } from '@angular/forms';
 import { Appearance } from 'src/app/interfaces/configuration';
 import { User } from 'src/app/interfaces/user';
 import { ConfigurationService } from 'src/app/services/configuration.service';
@@ -78,12 +78,20 @@ export class LegacyViewComponent {
         })
     };
 
-    private get rndColor(): string {
-        return `#${(Math.floor(Math.random() * 16777215).toString(16))}`;
-    }
-
     constructor() {
 
+    }
+
+    private rndColor(): string {
+        let found: boolean = false;
+        let val = '';
+        while(!found) {
+            val = `${(Math.floor(Math.random() * 16777215).toString(16))}`;
+            if(val.length !== 3 && val.length !== 6) continue;
+            found = true;
+            return `#${val}`;
+        }
+        return '#000';
     }
 
     reset() {
@@ -92,9 +100,9 @@ export class LegacyViewComponent {
 
     randomize() {
         this.forms.appearance.patchValue({
-            'background-color': this.rndColor,
-            'border-color': this.rndColor,
-            'color': this.rndColor
+            'background-color': this.rndColor(),
+            'border-color': this.rndColor(),
+            'color': this.rndColor()
         });
     }
 }
