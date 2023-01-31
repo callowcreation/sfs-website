@@ -65,9 +65,9 @@ export class LegacyViewComponent {
     ];
 
     private appearance: Appearance = {
-        'background-color': '#CFCFCF',
-        'border-color': '#00FF00',
-        'color': '#000000'
+        'background-color': this.configuration.defaultSettings['background-color'],
+        'border-color': this.configuration.defaultSettings['border-color'],
+        'color': this.configuration.defaultSettings['color']
     };
 
     forms = {
@@ -78,20 +78,8 @@ export class LegacyViewComponent {
         })
     };
 
-    constructor() {
+    constructor(private configuration: ConfigurationService) {
 
-    }
-
-    private rndColor(): string {
-        let found: boolean = false;
-        let val = '';
-        while(!found) {
-            val = `${(Math.floor(Math.random() * 16777215).toString(16))}`;
-            if(val.length !== 3 && val.length !== 6) continue;
-            found = true;
-            return `#${val}`;
-        }
-        return '#000';
     }
 
     reset() {
@@ -100,9 +88,9 @@ export class LegacyViewComponent {
 
     randomize() {
         this.forms.appearance.patchValue({
-            'background-color': this.rndColor(),
-            'border-color': this.rndColor(),
-            'color': this.rndColor()
+            'background-color': this.configuration.rndColor(),
+            'border-color': this.configuration.rndColor(),
+            'color': this.configuration.rndColor()
         });
     }
 }

@@ -60,6 +60,18 @@ export class ConfigurationService {
         this.settings = this.storage.value<Settings>(Keys.SETTINGS) || this.defaultSettings;
     }
 
+    rndColor(): string {
+        let found: boolean = false;
+        let val = '';
+        while(!found) {
+            val = `${(Math.floor(Math.random() * 16777215).toString(16))}`;
+            if(val.length !== 3 && val.length !== 6) continue;
+            found = true;
+            return `#${val}`;
+        }
+        return '#000';
+    }
+
     update(value: any): void {               
         const vals: any[] = [];
         Object.keys(value).forEach((key: any) => {

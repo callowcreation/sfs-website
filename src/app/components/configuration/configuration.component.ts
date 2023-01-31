@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { Database, DatabaseReference, getDatabase, objectVal, ref, set, update } from '@angular/fire/database';
 import { FormGroup, FormControl } from '@angular/forms';
+import { map } from 'rxjs';
 import { Settings } from 'src/app/interfaces/settings';
+import { User } from 'src/app/interfaces/user';
+import { BackendService } from 'src/app/services/backend.service';
 import { ConfigurationService, Tier } from 'src/app/services/configuration.service';
 import { StorageService } from 'src/app/services/storage.service';
 
@@ -32,6 +35,8 @@ export class ConfigurationComponent {
 
     options: Tier[] = ['Tier 1', 'Tier 2', 'Tier 3'];
     commands: string[] = this.configuration.defaultSettings.commands;
+    
+    guests: User[] = [];
 
     private get db(): Database {
         return getDatabase();
@@ -41,7 +46,7 @@ export class ConfigurationComponent {
         return ref(this.db, `${this.storage.user?.id}/settings`);
     }
 
-    constructor(private storage: StorageService, private configuration: ConfigurationService) {
+    constructor(private storage: StorageService, private configuration: ConfigurationService, private backend: BackendService) {
 
         console.log({ configuration: this.configuration.behaviour })
 
@@ -55,10 +60,39 @@ export class ConfigurationComponent {
             this.forms.behaviour.setValue(configuration.behaviour);
             this.forms.bits.setValue(configuration.bits);
         });
+
+        this.backend.get<any>('/v3/api/embedded').subscribe(({ guests }) => {
+            console.log({ guests });
+            this.guests = guests;
+        });
+
+        // this.backend.get<any>(`/v3/api/dashboard/${storage.user?.id}`)
+        // .pipe(map(({ guests }) => {
+        //     console.log({ guests });
+        //     return {
+        //         guests: guests.map((x: any) => ({ login: x.login, profile_image_url: x.profile_image_url, posted: { login: x.posted.login, timestamp: x.posted.timestamp } }))
+        //     };
+        // }))
+        // .subscribe(({ guests }) => {
+        //     console.log({ guests });
+        //     this.guests = guests;
+        // });
     }
 
     onSubmit(form: FormGroup) {
         this.configuration.update(form.value);
         update(this.doc, this.configuration.settings);
+    }
+
+    reset() {
+        this.forms.appearance.patchValue(this.configuration.appearance);
+    }
+
+    randomize() {
+        this.forms.appearance.patchValue({
+            'background-color': this.configuration.rndColor(),
+            'border-color': this.configuration.rndColor(),
+            'color': this.configuration.rndColor()
+        });
     }
 }
