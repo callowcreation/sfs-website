@@ -36,6 +36,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { MatTabsModule } from '@angular/material/tabs';
+import {MatSortModule} from '@angular/material/sort';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserInterceptor } from './interceptors/user.interceptor';
@@ -100,7 +101,8 @@ import { StatisticsComponent } from './components/statistics/statistics.componen
         MatCardModule,
         MatExpansionModule,
         MatListModule,
-        MatTabsModule
+        MatTabsModule,
+        MatSortModule
     ],
     providers: [
         AuthGuardService,
