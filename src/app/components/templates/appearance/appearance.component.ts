@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, TemplateRef } from '@angular/core';
+import { ConfigurationService } from 'src/app/services/configuration.service';
 
 @Component({
-  selector: 'app-appearance',
-  template: `
+    selector: 'app-appearance',
+    template: `
   <!-- <span *ngIf="dataSource.iconCss" class="e-menu-icon {{dataSource.iconCss}}"></span>
   {{dataSource.header}} {{dataSource.text}}
   <span *ngIf="dataSource.templateHeader" class="e-login-content">
@@ -33,22 +34,32 @@ import { Component, Input } from '@angular/core';
                 <input type="color" matInput name="color-borders" formControlName="border-color">
             </mat-form-field>
             <mat-divider class="card-divider"></mat-divider>
-            <div style="text-align: left; margin: 10px;">
-                <button mat-raised-button [disabled]="!dataSource.form.valid"
-                    color="accent">Randomize</button>
-
-                <button mat-raised-button [disabled]="!dataSource.form.valid" color="primary"
-                    style="float: right;">Reset</button>
-
-                <button mat-raised-button type="submit" [disabled]="!dataSource.form.valid" 
-                    color="primary" style="float: right;">Update</button>
-            </div>
+            <ng-container [ngTemplateOutlet]="buttonsTemplate || defaultButtonsTemplate"></ng-container>
+            <ng-template #defaultButtonsTemplate>
+                <div style="text-align: left; margin: 10px;">
+                    <button mat-raised-button [disabled]="!dataSource.form.valid"
+                        color="accent" (click)="randomize()">Randomize</button>
+<!-- <button mat-raised-button [disabled]="!dataSource.form.valid" color="primary"
+                        style="float: right;">Reset</button> -->
+                </div>
+            </ng-template>
         </mat-expansion-panel>
         <mat-divider [ngStyle]="{'border-color': dataSource.form.value['border-color']}" style="border-width: 3px;"></mat-divider>
     </form>
 `,
-  styleUrls: ['./appearance.component.scss']
+    styleUrls: ['./appearance.component.scss']
 })
 export class AppearanceComponent {
     @Input() dataSource: any;
+    @Input() buttonsTemplate: TemplateRef<any> | undefined;
+    
+    constructor(private configuration: ConfigurationService) { }
+    
+    randomize() {
+        this.dataSource.form.patchValue({
+            'background-color': this.configuration.rndColor(),
+            'border-color': this.configuration.rndColor(),
+            'color': this.configuration.rndColor()
+        });
+    }
 }

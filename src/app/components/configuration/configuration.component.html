@@ -2,7 +2,8 @@
     <app-section-header>Configuration</app-section-header>
 
     <app-legacy [dataSource]="{legacy: forms.appearance, guests}"></app-legacy>
-    <app-appearance [dataSource]="{form: forms.appearance, description: 'Configure your branding colors.'}"></app-appearance>
+    <app-appearance [buttonsTemplate]="altButtonsTemplate" 
+        [dataSource]="{form: forms.appearance, description: 'Configure your branding colors.'}"></app-appearance>
 
     <form [formGroup]="forms.behaviour" (ngSubmit)="onSubmit(forms.behaviour)">
         <mat-divider class="card-divider"></mat-divider>
@@ -72,3 +73,17 @@
         </mat-expansion-panel>
     </form>
 </section>
+
+<ng-template #altButtonsTemplate>
+    <div style="text-align: left; margin: 10px;">
+        <button mat-raised-button [disabled]="!forms.appearance.valid" color="accent"
+            (click)="randomize()">Randomize</button>
+
+        <button mat-raised-button type="submit" [disabled]="!forms.appearance.valid" color="primary"
+            style="float: right;" (click)="onSubmit(forms.appearance)">Update</button>
+
+        <button mat-raised-button [disabled]="!forms.appearance.valid" color="primary" style="float: right;"
+            (click)="reset()">Reset</button>
+
+    </div>
+</ng-template>

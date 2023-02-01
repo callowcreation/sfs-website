@@ -1,2 +1,12 @@
-<app-appearance [dataSource]="{form: forms.appearance, description: 'Click here to try out your branding colors.'}"></app-appearance>
+<app-appearance [buttonsTemplate]="altButtonsTemplate" [dataSource]="{form: forms.appearance, description: 'Click here to try out your branding colors.'}"></app-appearance>
 <app-legacy [dataSource]="{legacy: forms.appearance, guests}"></app-legacy>
+
+<ng-template #altButtonsTemplate>
+    <div style="text-align: left; margin: 10px;">
+        <button mat-raised-button [disabled]="!forms.appearance.valid"
+            color="accent" (click)="randomize()">Randomize</button>
+
+        <button mat-raised-button [disabled]="!forms.appearance.valid" color="primary"
+            style="float: right;" (click)="reset()">Reset</button>
+    </div>
+</ng-template>
