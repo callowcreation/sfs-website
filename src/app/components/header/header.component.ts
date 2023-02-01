@@ -19,6 +19,10 @@ export class HeaderComponent {
         return this.storage.user?.profile_image_url || '';
     }
 
+    get display_name(): string {
+        return this.storage.user?.display_name || 'Welcome to Terra';
+    }
+
     constructor(public router: Router, private storage: StorageService, private auth: Auth) {
 
         for (let i = 0; i < router.config.length; i++) {

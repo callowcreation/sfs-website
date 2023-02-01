@@ -12,8 +12,9 @@
                                 <mat-icon class="user-icon">account_circle</mat-icon>
                             </button> -->
                             <button mat-menu-item [disabled]="true" class="btn-txt-align-center">
-                                <span>Welcome to Terra</span>
+                                <span>{{display_name}}</span>
                             </button>
+                            <mat-divider></mat-divider>
                             <span *ngFor="let route of routes['Profile']">
                                 <button mat-menu-item [routerLink]="[route.path]">
                                     <mat-icon *ngIf="route.data.icon">{{route.data.icon}}</mat-icon>
