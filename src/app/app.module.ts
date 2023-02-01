@@ -35,6 +35,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserInterceptor } from './interceptors/user.interceptor';
@@ -52,6 +53,7 @@ import { EmbeddedComponent } from './components/embedded/embedded.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { InstallComponent } from './components/install/install.component';
 import { LegacyViewComponent } from './components/legacy-view/legacy-view.component';
+import { StatisticsComponent } from './components/statistics/statistics.component';
 
 @NgModule({
     declarations: [
@@ -72,7 +74,8 @@ import { LegacyViewComponent } from './components/legacy-view/legacy-view.compon
         EmbeddedComponent,
         DashboardComponent,
         InstallComponent,
-        LegacyViewComponent
+        LegacyViewComponent,
+        StatisticsComponent
     ],
     imports: [
         BrowserModule,
@@ -96,7 +99,8 @@ import { LegacyViewComponent } from './components/legacy-view/legacy-view.compon
         MatSliderModule,
         MatCardModule,
         MatExpansionModule,
-        MatListModule
+        MatListModule,
+        MatTabsModule
     ],
     providers: [
         AuthGuardService,

@@ -6,6 +6,7 @@ import { FeaturesComponent } from './components/features/features.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
+import { StatisticsComponent } from './components/statistics/statistics.component';
 import { SupportComponent } from './components/support/support.component';
 import { TermsComponent } from './components/terms/terms.component';
 import { MenuName } from './enums/menu-name';
@@ -21,6 +22,7 @@ const routes: Routes = [
     { data: { menu: !StorageService.HasAuth(), name: MenuName.Navigation, icon: null }, title: 'Login', path: 'login', component: LoginComponent, canActivate: [LoginGuardService] },
     { data: { menu: StorageService.HasAuth(), name: MenuName.Profile, icon: 'settings' }, title: 'Configuration', path: 'configuration', component: ConfigurationComponent, canActivate: [AuthGuardService] },
     { data: { menu: StorageService.HasAuth(), name: MenuName.Profile, icon: 'editor' }, title: 'Dashboard', path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService] },
+    { data: { menu: StorageService.HasAuth(), name: MenuName.Profile, icon: 'analytics' }, title: 'Statistics', path: 'statistics', component: StatisticsComponent, canActivate: [AuthGuardService] },
     { data: { menu: false, name: MenuName.None, icon: null }, title: 'Privacy Policy', path: 'privacy-policy', component: PrivacyPolicyComponent },
     { data: { menu: false, name: MenuName.None, icon: null }, title: 'Terms and Conditions', path: 'terms-and-conditions', component: TermsComponent },
 ];
