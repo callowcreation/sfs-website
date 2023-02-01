@@ -55,6 +55,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { InstallComponent } from './components/install/install.component';
 import { LegacyViewComponent } from './components/legacy-view/legacy-view.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
+import { AppearanceComponent } from './templates/appearance/appearance.component';
+import { LegacyComponent } from './templates/legacy/legacy.component';
 
 @NgModule({
     declarations: [
@@ -76,7 +78,9 @@ import { StatisticsComponent } from './components/statistics/statistics.componen
         DashboardComponent,
         InstallComponent,
         LegacyViewComponent,
-        StatisticsComponent
+        StatisticsComponent,
+        AppearanceComponent,
+        LegacyComponent
     ],
     imports: [
         BrowserModule,

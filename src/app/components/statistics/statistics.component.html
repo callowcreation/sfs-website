@@ -2,10 +2,10 @@
     <app-section-header>Statistics</app-section-header>
     <div [@.disabled]="true">
         <mat-tab-group dynamicHeight>
-            <mat-tab label="Top Shoutouts Guests">
-                <table matSort (matSortChange)="sortStatistics($event)">
+            <mat-tab label="Shoutouts">
+                <table matSort (matSortChange)="sortStatistics($event)" style="width: 100%;">
                     <tr>
-                      <th mat-sort-header="login">Shoutout</th>
+                      <th mat-sort-header="login">Streamer</th>
                       <th mat-sort-header="total">Total</th>
                     </tr>
                   
