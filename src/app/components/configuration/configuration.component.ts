@@ -61,22 +61,12 @@ export class ConfigurationComponent {
             this.forms.bits.setValue(configuration.bits);
         });
 
-        this.backend.get<any>('/v3/api/embedded').subscribe(({ guests }) => {
+        this.backend.get<any>(`/v3/api/${this.storage.user?.id}`, {
+            guests: true, // or object defining what parts of the [guests or any property, ie. features...] to return
+        }).subscribe(({ guests }) => {
             console.log({ guests });
             this.guests = guests;
         });
-
-        // this.backend.get<any>(`/v3/api/dashboard/${storage.user?.id}`)
-        // .pipe(map(({ guests }) => {
-        //     console.log({ guests });
-        //     return {
-        //         guests: guests.map((x: any) => ({ login: x.login, profile_image_url: x.profile_image_url, posted: { login: x.posted.login, timestamp: x.posted.timestamp } }))
-        //     };
-        // }))
-        // .subscribe(({ guests }) => {
-        //     console.log({ guests });
-        //     this.guests = guests;
-        // });
     }
 
     onSubmit(form: FormGroup) {

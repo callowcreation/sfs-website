@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Auth, signInWithCredential, getIdToken } from '@angular/fire/auth';
@@ -17,14 +17,14 @@ export class BackendService {
 
     constructor(private http: HttpClient) { }
 
-    get<T>(endpoint: string): Observable<T> {
-        return this.http.get<T>(`${environment.api}${endpoint}`);
+    get<T>(endpoint: string, params: any = undefined): Observable<T> {
+        return this.http.get<T>(`${environment.api}${endpoint}`, { params });
     }
 
     post<T>(endpoint: string, payload: any): Observable<T> {
         return this.http.post<T>(`${environment.api}${endpoint}`, payload);
     }
-    
+
     delete<T>(endpoint: string): Observable<T> {
         return this.http.delete<T>(`${environment.api}${endpoint}`);
     }
