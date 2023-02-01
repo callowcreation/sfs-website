@@ -58,3 +58,24 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     text-align: center;
     // background-color:hotpink;
 }
+
+.form-fit {
+    min-width: 300px;
+    max-width: 640px;
+    width: 100%;
+    margin: 0;
+}
+
+.form-fit-half {
+    min-width: 150px;
+    max-width: 320px;
+    width: 50%;
+    margin: 0;
+}
+
+.form-fit-33 {
+    min-width: 150px;
+    max-width: 340px;
+    width: 33.33%;
+    margin: 0;
+}

@@ -2,7 +2,7 @@
     <app-section-header>Configuration</app-section-header>
 
     <app-legacy [dataSource]="{legacy: forms.appearance, guests}"></app-legacy>
-    <app-appearance [dataSource]="{form: forms.appearance}"></app-appearance>
+    <app-appearance [dataSource]="{form: forms.appearance, description: 'Configure your branding colors.'}"></app-appearance>
 
     <form [formGroup]="forms.behaviour" (ngSubmit)="onSubmit(forms.behaviour)">
         <mat-divider class="card-divider"></mat-divider>

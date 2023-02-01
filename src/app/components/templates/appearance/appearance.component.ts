@@ -8,9 +8,6 @@ import { Component, Input } from '@angular/core';
   <span *ngIf="dataSource.templateHeader" class="e-login-content">
     <button ejs-button cssClass="e-info">Sign In</button>
   </span> -->
-
-
-
   <form [formGroup]="dataSource.form">
         <mat-divider [ngStyle]="{'border-color': dataSource.form.value['border-color']}" style="border-width: 3px;"></mat-divider>
         <mat-expansion-panel hideToggle
@@ -20,7 +17,7 @@ import { Component, Input } from '@angular/core';
                     <div class="header" [ngStyle]="{'color': dataSource.form.value['color']}">Appearance</div>
                 </mat-panel-title>
                 <mat-panel-description [ngStyle]="{'color': dataSource.form.value['color']}">
-                    Configure your branding colors.
+                    {{dataSource.description}}
                 </mat-panel-description>
             </mat-expansion-panel-header>
             <mat-form-field class="form-fit-33">
