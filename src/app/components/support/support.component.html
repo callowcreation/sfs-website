@@ -23,7 +23,7 @@
             </mat-expansion-panel-header>
             <mat-panel-description>How do I contact the developers? <i>In the footer or the button below ... </i></mat-panel-description>
             <button mat-raised-button color="primary"
-            style="float: right;">Contact Us</button>
+            style="float: right;" (click)="popup.contactUs()">Contact Us</button>
         </mat-expansion-panel>
         <mat-expansion-panel *ngFor="let panel of panels" (opened)="panel.state = true" (closed)="panel.state = false">
             <mat-expansion-panel-header>

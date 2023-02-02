@@ -1,14 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
-import { Auth, getIdToken } from '@angular/fire/auth';
-import { Database, DatabaseReference, getDatabase, objectVal, ref, set, update } from '@angular/fire/database';
+import { Auth } from '@angular/fire/auth';
+import { Database, DatabaseReference, getDatabase, objectVal, ref, update } from '@angular/fire/database';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatRipple, RippleRef } from '@angular/material/core';
-import { map } from 'rxjs';
 import { Settings } from 'src/app/interfaces/settings';
 import { User } from 'src/app/interfaces/user';
 import { BackendService } from 'src/app/services/backend.service';
 import { ConfigurationService, Tier } from 'src/app/services/configuration.service';
-import { Keys, StorageService } from 'src/app/services/storage.service';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
     selector: 'app-configuration',
@@ -81,6 +80,11 @@ export class ConfigurationComponent {
             console.log({ products })
             this.products = products;
         });
+
+
+        // user?.getIdToken().then(idToken => {
+        //     this.storage.update(Keys.ID_TOKEN, idToken);
+        // });
     }
 
     launchRipple() {

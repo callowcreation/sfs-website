@@ -15,7 +15,7 @@ export class TokenHeaderInterceptor implements HttpInterceptor {
     constructor(private storage: StorageService) { }
 
     intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-        //https://api.twitch.tv/helix
+
         if (req.url.includes(environment.api)) {
             if (!this.storage.id_token) return next.handle(req);
 

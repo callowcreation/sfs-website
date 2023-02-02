@@ -7,11 +7,5 @@ import { PopupService } from 'src/app/services/popup.service';
     styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent {
-
-    constructor(private popup: PopupService) { }
-
-    contactUs() {
-        const url: string = 'https://docs.google.com/forms/d/e/1FAIpQLSct_hFYQI-57ypNSW3hWZXKbb_3_U5D4ULQzm462Extz3WyHQ/viewform?usp=sharing';
-        this.popup.open('Contact Us', url, 500, 800);
-    }
+    constructor(public popup: PopupService) { }
 }

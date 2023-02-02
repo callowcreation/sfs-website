@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ConfigurationService } from 'src/app/services/configuration.service';
+import { PopupService } from 'src/app/services/popup.service';
 
 @Component({
   selector: 'app-support',
@@ -17,11 +18,7 @@ export class SupportComponent {
         }
     ];
 
-    constructor(public configuration: ConfigurationService) {
-        
-    }
-
-    ngOnInit() {
+    constructor(public configuration: ConfigurationService, public popup: PopupService) {
         
     }
 }

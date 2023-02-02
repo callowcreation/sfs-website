@@ -39,4 +39,9 @@ export class PopupService {
         }
         return popupCenter(url, title, w, h);
     }
+
+    contactUs() {
+        const url: string = 'https://docs.google.com/forms/d/e/1FAIpQLSct_hFYQI-57ypNSW3hWZXKbb_3_U5D4ULQzm462Extz3WyHQ/viewform?usp=sharing';
+        this.open('Contact Us', url, 420, 640);
+    }
 }
