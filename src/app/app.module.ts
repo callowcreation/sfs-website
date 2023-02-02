@@ -2,26 +2,12 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppRoutingModule } from './app-routing.module';
-import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
-
-import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home/home.component';
-import { JsPreloaderComponent } from './components/js-preloader/js-preloader.component';
-import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { FeaturesComponent } from './components/features/features.component';
-import { ConfigurationComponent } from './components/configuration/configuration.component';
-import { SupportComponent } from './components/support/support.component';
-import { LoginComponent } from './components/login/login.component';
-import { AuthGuardService } from './services/auth-guard.service';
+import { LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
-
-import { environment } from '../environments/environment';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatRippleModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -40,27 +26,46 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatSortModule } from '@angular/material/sort';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { UserInterceptor } from './interceptors/user.interceptor';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+
+import { AuthGuardService } from './services/auth-guard.service';
 import { StorageService } from './services/storage.service';
 import { LoaderService } from './services/loader.service';
+import { PopupService } from './services/popup.service';
+
+import { UserInterceptor } from './interceptors/user.interceptor';
 import { LoaderInterceptor } from './interceptors/loader.interceptor';
 import { TokenHeaderInterceptor } from './interceptors/token-header.interceptor';
+
 import { LazyImgDirective } from './directives/lazy-img.directive';
-import { PopupService } from './services/popup.service';
-import { TermsComponent } from './components/terms/terms.component';
-import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
+
+import { JsPreloaderComponent } from './components/js-preloader/js-preloader.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
 import { SectionHeaderComponent } from './components/section-header/section-header.component';
 import { ScrollToTopComponent } from './components/scroll-to-top/scroll-to-top.component';
 import { EmbeddedComponent } from './components/embedded/embedded.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { InstallComponent } from './components/install/install.component';
 import { LegacyViewComponent } from './components/legacy-view/legacy-view.component';
-import { StatisticsComponent } from './components/statistics/statistics.component';
+
 import { AppearanceComponent } from './components/templates/appearance/appearance.component';
 import { LegacyComponent } from './components/templates/legacy/legacy.component';
 import { ContactUsComponent } from './components/templates/contact-us/contact-us.component';
 import { FAQPanel } from './components/templates/faq-panel/faq-panel.component';
 
+import { TermsComponent } from './components/pages/terms/terms.component';
+import { PrivacyPolicyComponent } from './components/pages/privacy-policy/privacy-policy.component';
+import { DashboardComponent } from './components/pages/dashboard/dashboard.component';
+import { StatisticsComponent } from './components/pages/statistics/statistics.component';
+import { HomeComponent } from './components/pages/home/home.component';
+import { FeaturesComponent } from './components/pages/features/features.component';
+import { ConfigurationComponent } from './components/pages/configuration/configuration.component';
+import { SupportComponent } from './components/pages/support/support.component';
+import { LoginComponent } from './components/pages/login/login.component';
+
+import { environment } from '../environments/environment';
 @NgModule({
     declarations: [
         AppComponent,

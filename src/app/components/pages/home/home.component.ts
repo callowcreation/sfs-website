@@ -5,7 +5,7 @@ import { StorageService } from 'src/app/services/storage.service';
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
-    styleUrls: ['./home.component.scss', '../../../styles.scss']
+    styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
 

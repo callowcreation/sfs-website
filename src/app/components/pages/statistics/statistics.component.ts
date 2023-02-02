@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { Sort } from '@angular/material/sort';
-import { map } from 'rxjs';
 import { BackendService } from 'src/app/services/backend.service';
 import { StorageService } from 'src/app/services/storage.service';
 
