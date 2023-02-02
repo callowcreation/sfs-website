@@ -23,6 +23,7 @@ import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { MatRippleModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
@@ -36,7 +37,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { MatTabsModule } from '@angular/material/tabs';
-import {MatSortModule} from '@angular/material/sort';
+import { MatSortModule } from '@angular/material/sort';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserInterceptor } from './interceptors/user.interceptor';
@@ -93,6 +94,7 @@ import { LegacyComponent } from './components/templates/legacy/legacy.component'
         provideAuth(() => getAuth()),
         provideDatabase(() => getDatabase()),
         BrowserAnimationsModule,
+        MatRippleModule,
         MatButtonModule,
         MatMenuModule,
         MatIconModule,

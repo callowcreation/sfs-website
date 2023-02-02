@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Database, DatabaseReference, getDatabase, objectVal, ref, set, update } from '@angular/fire/database';
 import { FormGroup, FormControl } from '@angular/forms';
+import { MatRipple, RippleRef } from '@angular/material/core';
 import { map } from 'rxjs';
 import { Settings } from 'src/app/interfaces/settings';
 import { User } from 'src/app/interfaces/user';
@@ -14,6 +15,7 @@ import { StorageService } from 'src/app/services/storage.service';
     styleUrls: ['./configuration.component.scss']
 })
 export class ConfigurationComponent {
+    @ViewChild(MatRipple) ripple: MatRipple | any;
 
     forms = {
         appearance: new FormGroup({
@@ -80,7 +82,21 @@ export class ConfigurationComponent {
         });
     }
 
+    launchRipple() {
+        const rippleRef: RippleRef = this.ripple.launch({
+            persistent: false,
+            centered: true,
+            animation: { enterDuration: 1500, exitDuration: 1000 },
+        });
+
+        setTimeout(() => {
+            rippleRef.fadeOut();
+        }, 2500);
+    }
+
     tierChange() {
+        this.launchRipple();
+
         switch (this.forms.bits.value['bits-tier']) {
             case 'Tier 1': {
                 this.bits = {

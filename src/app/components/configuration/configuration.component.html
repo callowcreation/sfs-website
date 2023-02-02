@@ -61,7 +61,7 @@
                         {{option}}
                     </mat-option>
                 </mat-select>
-                <mat-hint><span style="font-weight: bolder;">Move Up {{bits['move-up']}} bits | Pin to Top {{bits['pin-item']}} bits</span></mat-hint>
+                <mat-hint matRipple #ripple><span style="font-weight: bolder;">Move Up {{bits['move-up']}} bits | Pin to Top {{bits['pin-item']}} bits</span></mat-hint>
             </mat-form-field>
             <div class="form-fit" *ngIf="forms.bits.value['enable-bits'] === true" style="margin-top: 15px;">
                 <mat-label>Pin Days ({{forms.bits.value['pin-days']}} days)</mat-label>
