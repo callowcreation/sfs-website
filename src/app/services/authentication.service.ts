@@ -9,7 +9,9 @@ import { Keys, StorageService } from './storage.service';
 export class AuthenticationService {
 
     constructor(private auth: Auth, private backend: BackendService, private storage: StorageService) {
-
+        this.auth.onIdTokenChanged(user => {
+            user?.getIdToken().then(idToken => storage.update(Keys.ID_TOKEN, idToken));
+        });
     }
 
     authenticte() {
@@ -23,7 +25,7 @@ export class AuthenticationService {
                     const idToken = await getIdToken(credential.user);
                     this.storage.update(Keys.ID_TOKEN, idToken);
                     location.href = '/';
-                })
+                });
         });
     }
 }

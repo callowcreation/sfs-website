@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+import { Auth, getIdToken } from '@angular/fire/auth';
 import { Database, DatabaseReference, getDatabase, objectVal, ref, set, update } from '@angular/fire/database';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatRipple, RippleRef } from '@angular/material/core';
@@ -7,7 +8,7 @@ import { Settings } from 'src/app/interfaces/settings';
 import { User } from 'src/app/interfaces/user';
 import { BackendService } from 'src/app/services/backend.service';
 import { ConfigurationService, Tier } from 'src/app/services/configuration.service';
-import { StorageService } from 'src/app/services/storage.service';
+import { Keys, StorageService } from 'src/app/services/storage.service';
 
 @Component({
     selector: 'app-configuration',
@@ -54,7 +55,7 @@ export class ConfigurationComponent {
         return ref(this.db, `${this.storage.user?.id}/settings`);
     }
 
-    constructor(private storage: StorageService, private configuration: ConfigurationService, private backend: BackendService) {
+    constructor(private auth: Auth, private storage: StorageService, private configuration: ConfigurationService, private backend: BackendService) {
 
         console.log({ configuration: this.configuration.behaviour })
 

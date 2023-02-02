@@ -3,7 +3,7 @@
 
     <app-legacy [dataSource]="{legacy: forms.appearance, guests}"></app-legacy>
     <app-appearance [buttonsTemplate]="altButtonsTemplate" 
-        [dataSource]="{form: forms.appearance, description: 'Configure your branding colors.'}"></app-appearance>
+        [dataSource]="{form: forms.appearance, description: 'Configure your branding colors.', expanded: true}"></app-appearance>
 
     <form [formGroup]="forms.behaviour" (ngSubmit)="onSubmit(forms.behaviour)">
         <mat-divider class="card-divider"></mat-divider>

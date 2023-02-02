@@ -11,7 +11,7 @@ import { ConfigurationService } from 'src/app/services/configuration.service';
   </span> -->
   <form [formGroup]="dataSource.form">
         <mat-divider [ngStyle]="{'border-color': dataSource.form.value['border-color']}" style="border-width: 3px;"></mat-divider>
-        <mat-expansion-panel hideToggle expanded="true" 
+        <mat-expansion-panel hideToggle expanded="{{dataSource.expanded}}" 
             [ngStyle]="{'color': dataSource.form.value['color'], 'background-color': dataSource.form.value['background-color']}">
             <mat-expansion-panel-header>
                 <mat-panel-title>
