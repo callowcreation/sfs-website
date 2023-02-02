@@ -29,12 +29,23 @@ $accent-palette: (
         700: rgba(black, 0.87))
 );
 
+$warm-palette: (
+    100: #F5F5F5,
+    500: #d6b10eca,
+    700: #202020,
+    contrast: (100: rgba(black, 0.87),
+        500: rgba(black, 0.87),
+        700: rgba(black, 0.87))
+);
+
 $my-header: mat.define-palette($header-palette, 500);
 $my-primary: mat.define-palette($primary-palette, 500);
 $my-accent: mat.define-palette($accent-palette, 500);
+$my-warm: mat.define-palette($warm-palette, 500);
 
 $my-theme: mat.define-light-theme((color: (primary: $my-primary,
 accent: $my-accent,
+warm: $my-warm,
             ),
             typography: mat.define-typography-config(),
             density: 0,

@@ -4,9 +4,9 @@
 <ng-template #altButtonsTemplate>
     <div style="text-align: left; margin: 10px;">
         <button mat-raised-button [disabled]="!forms.appearance.valid"
-            color="accent" (click)="randomize()">Randomize</button>
+            color="accent" style="float: left; margin-right: 5px;" (click)="randomize()">Randomize</button>
 
         <button mat-raised-button [disabled]="!forms.appearance.valid" color="primary"
-            style="float: right;" (click)="reset()">Reset</button>
+            style="float: left;" (click)="reset()">Reset</button>
     </div>
 </ng-template>

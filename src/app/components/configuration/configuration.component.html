@@ -41,7 +41,7 @@
     </form>
     <form [formGroup]="forms.bits" (ngSubmit)="onSubmit(forms.bits)">
         <mat-divider class="card-divider"></mat-divider>
-        <mat-expansion-panel hideToggle expanded="true">
+        <mat-expansion-panel hideToggle>
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <div class="header">Bits</div>
@@ -79,14 +79,16 @@
 
 <ng-template #altButtonsTemplate>
     <div style="text-align: left; margin: 10px;">
-        <button mat-raised-button [disabled]="!forms.appearance.valid" color="accent"
-            (click)="randomize()">Randomize</button>
+
+        <button mat-raised-button [disabled]="!forms.appearance.valid" color="accent" style="float: left; margin-right: 5px;"
+        (click)="randomize()">Randomize</button>
 
         <button mat-raised-button type="submit" [disabled]="!forms.appearance.valid" color="primary"
             style="float: right;" (click)="onSubmit(forms.appearance)">Update</button>
 
-        <button mat-raised-button [disabled]="!forms.appearance.valid" color="primary" style="float: right;"
+        <button mat-raised-button [disabled]="!forms.appearance.valid" color="primary" style="float: left;"
             (click)="reset()">Reset</button>
+
 
     </div>
 </ng-template>
