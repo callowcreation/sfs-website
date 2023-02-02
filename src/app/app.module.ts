@@ -58,6 +58,8 @@ import { LegacyViewComponent } from './components/legacy-view/legacy-view.compon
 import { StatisticsComponent } from './components/statistics/statistics.component';
 import { AppearanceComponent } from './components/templates/appearance/appearance.component';
 import { LegacyComponent } from './components/templates/legacy/legacy.component';
+import { ContactUsComponent } from './components/templates/contact-us/contact-us.component';
+import { FAQPanel } from './components/templates/faq-panel/faq-panel.component';
 
 @NgModule({
     declarations: [
@@ -81,7 +83,9 @@ import { LegacyComponent } from './components/templates/legacy/legacy.component'
         LegacyViewComponent,
         StatisticsComponent,
         AppearanceComponent,
-        LegacyComponent
+        LegacyComponent,
+        ContactUsComponent,
+        FAQPanel
     ],
     imports: [
         BrowserModule,

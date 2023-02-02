@@ -1,40 +1,18 @@
 <section class="page-section">
     <app-section-header>FAQ</app-section-header>
     <mat-accordion>
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    Install
-                </mat-panel-title>
-                <mat-panel-description>
-                    How to install.
-                </mat-panel-description>
-            </mat-expansion-panel-header>
+        <app-faq-panel title="Install" description="How to install.">
             <app-install></app-install>
-        </mat-expansion-panel>
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    Contact
-                </mat-panel-title>
-                <mat-panel-description>
-                    How to contact.
-                </mat-panel-description>
-            </mat-expansion-panel-header>
-            <mat-panel-description>How do I contact the developers? <i>In the footer or the button below ... </i></mat-panel-description>
+        </app-faq-panel>
+        <app-faq-panel title="Contact" description="How to contact.">
+            <mat-panel-description>
+                How do I contact the developers? <i>In the footer or the button below ... </i>
+            </mat-panel-description>
             <button mat-raised-button color="primary"
             style="float: right;" (click)="popup.contactUs()">Contact Us</button>
-        </mat-expansion-panel>
-        <mat-expansion-panel *ngFor="let panel of panels" (opened)="panel.state = true" (closed)="panel.state = false">
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    {{panel.title}}
-                </mat-panel-title>
-                <mat-panel-description>
-                    {{panel.summary}}
-                </mat-panel-description>
-            </mat-expansion-panel-header>
+        </app-faq-panel>
+        <app-faq-panel *ngFor="let panel of panels"  title="{{panel.title}}" description="{{panel.summary}}">
             {{panel.description}}
-        </mat-expansion-panel>
+        </app-faq-panel>
     </mat-accordion>
 </section>

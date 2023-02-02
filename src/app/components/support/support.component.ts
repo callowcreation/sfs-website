@@ -13,7 +13,7 @@ export class SupportComponent {
         {
             title: 'Usage',
             summary: 'How do I use the extension?',
-            description: `Use the shoutout command. !so twitch_name`,
+            description: `Use the shoutout command.  !so twitch_name`,
             state: false
         }
     ];
