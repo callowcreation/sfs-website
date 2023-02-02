@@ -35,7 +35,7 @@ export class StatisticsComponent {
         this.sortedData = this.desserts.slice();
 
 
-        this.backend.get<any>(`/v3/api/${this.storage.user?.id}`, {
+        this.backend.get<any>(`/v3/api/common/${this.storage.user?.id}`, {
             statistics: true, // or object defining what parts of the [guests or any property, ie. features...] to return
         })
         .subscribe(({ statistics }) => {

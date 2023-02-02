@@ -2,8 +2,8 @@
     <app-section-header>Configuration</app-section-header>
 
     <app-legacy [dataSource]="{legacy: forms.appearance, guests}"></app-legacy>
-    <app-appearance [buttonsTemplate]="altButtonsTemplate" 
-        [dataSource]="{form: forms.appearance, description: 'Configure your branding colors.', expanded: true}"></app-appearance>
+    <app-appearance [buttonsTemplate]="altButtonsTemplate"
+        [dataSource]="{form: forms.appearance, description: 'Configure your branding colors.', expanded: false}"></app-appearance>
 
     <form [formGroup]="forms.behaviour" (ngSubmit)="onSubmit(forms.behaviour)">
         <mat-divider class="card-divider"></mat-divider>
@@ -61,7 +61,8 @@
                         {{option}}
                     </mat-option>
                 </mat-select>
-                <mat-hint matRipple #ripple><span style="font-weight: bolder;">Move Up {{bits['move-up']}} bits | Pin to Top {{bits['pin-item']}} bits</span></mat-hint>
+                <mat-hint matRipple #ripple><span style="font-weight: bolder;">Move Up {{bits['move-up']}} bits | Pin to
+                        Top {{bits['pin-item']}} bits</span></mat-hint>
             </mat-form-field>
             <div class="form-fit" *ngIf="forms.bits.value['enable-bits'] === true" style="margin-top: 15px;">
                 <mat-label>Pin Days ({{forms.bits.value['pin-days']}} days)</mat-label>
@@ -80,8 +81,8 @@
 <ng-template #altButtonsTemplate>
     <div style="text-align: left; margin: 10px;">
 
-        <button mat-raised-button [disabled]="!forms.appearance.valid" color="accent" style="float: left; margin-right: 5px;"
-        (click)="randomize()">Randomize</button>
+        <button mat-raised-button [disabled]="!forms.appearance.valid" color="accent"
+            style="float: left; margin-right: 5px;" (click)="randomize()">Randomize</button>
 
         <button mat-raised-button type="submit" [disabled]="!forms.appearance.valid" color="primary"
             style="float: right;" (click)="onSubmit(forms.appearance)">Update</button>
