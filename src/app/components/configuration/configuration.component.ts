@@ -34,8 +34,14 @@ export class ConfigurationComponent {
     };
 
     options: Tier[] = ['Tier 1', 'Tier 2', 'Tier 3'];
+    bits: any = {
+        'move-up': 50,
+        'pin-item': 100
+    };
+    products: any[] = [];
+
     commands: string[] = this.configuration.defaultSettings.commands;
-    
+
     guests: User[] = [];
 
     private get db(): Database {
@@ -61,12 +67,42 @@ export class ConfigurationComponent {
             this.forms.bits.setValue(configuration.bits);
         });
 
-        this.backend.get<any>(`/v3/api/${this.storage.user?.id}`, {
+        this.backend.get<any>(`/v3/api/common/${this.storage.user?.id}`, {
             guests: true, // or object defining what parts of the [guests or any property, ie. features...] to return
         }).subscribe(({ guests }) => {
             console.log({ guests });
             this.guests = guests;
         });
+
+        this.backend.get<any>(`/v3/api/products`).subscribe(({ products }) => {
+            console.log({ products })
+            this.products = products;
+        });
+    }
+
+    tierChange() {
+        switch (this.forms.bits.value['bits-tier']) {
+            case 'Tier 1': {
+                this.bits = {
+                    'move-up': this.products.find(x => x.sku === 'move-up-t1').cost.amount,
+                    'pin-item': this.products.find(x => x.sku === 'pin-item-t1').cost.amount
+                };
+            } break;
+            case 'Tier 2': {
+                this.bits = {
+                    'move-up': this.products.find(x => x.sku === 'move-up-t2').cost.amount,
+                    'pin-item': this.products.find(x => x.sku === 'pin-item-t2').cost.amount
+                };
+            } break;
+            case 'Tier 3': {
+                this.bits = {
+                    'move-up': this.products.find(x => x.sku === 'move-up-t3').cost.amount,
+                    'pin-item': this.products.find(x => x.sku === 'pin-item-t3').cost.amount
+                };
+            } break;
+            default:
+                break;
+        }
     }
 
     onSubmit(form: FormGroup) {
