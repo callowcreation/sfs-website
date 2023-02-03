@@ -5,6 +5,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { MatRipple, RippleRef } from '@angular/material/core';
 import { Settings } from 'src/app/interfaces/settings';
 import { User } from 'src/app/interfaces/user';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { BackendService } from 'src/app/services/backend.service';
 import { ConfigurationService, Tier } from 'src/app/services/configuration.service';
 import { StorageService } from 'src/app/services/storage.service';
@@ -54,7 +55,7 @@ export class ConfigurationComponent {
         return ref(this.db, `${this.storage.user?.id}/settings`);
     }
 
-    constructor(private auth: Auth, private storage: StorageService, private configuration: ConfigurationService, private backend: BackendService) {
+    constructor(private authentication: AuthenticationService, private storage: StorageService, private configuration: ConfigurationService, private backend: BackendService) {
 
         console.log({ configuration: this.configuration.behaviour })
 
@@ -76,11 +77,14 @@ export class ConfigurationComponent {
             this.guests = guests;
         });
 
-        this.backend.get<any>(`/v3/api/products`).subscribe(({ products }) => {
-            console.log({ products })
-            this.products = products;
-        });
-
+        this.authentication.authenticte()
+            .then(() => {
+                this.backend.get<any>(`/v3/api/products`).subscribe(({ products }) => {
+                    console.log({ products })
+                    this.products = products;
+                });
+            })
+            .catch(err => console.error(err))
 
         // user?.getIdToken().then(idToken => {
         //     this.storage.update(Keys.ID_TOKEN, idToken);

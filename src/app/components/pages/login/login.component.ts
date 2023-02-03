@@ -41,8 +41,8 @@ export class LoginComponent {
 
         this.open(url).then(payload => {
             //this.authService.login(payload)
-            if(payload === null) return;
-            
+            if (payload === null) return;
+
             this.storage.update('auth', payload);
 
             this.http.get<User>('https://api.twitch.tv/helix/users').pipe(map(x => {
@@ -50,7 +50,9 @@ export class LoginComponent {
                 return x;
             })).subscribe(result => {
                 this.storage.update('user', result);
-                this.authentication.authenticte();
+                this.authentication.authenticte()
+                    .then(() => location.href = '/')
+                    .catch(err => console.error(err))
             });
         });
     }

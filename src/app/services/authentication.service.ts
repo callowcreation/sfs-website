@@ -12,18 +12,20 @@ export class AuthenticationService {
 
     }
 
-    authenticte() {
+    async authenticte(): Promise<void> {
         const { user } = this.storage;
-        if (!user) return;
-
-        this.backend.createUser(user).subscribe(token => {
-            signInWithCustomToken(this.auth, token)
-                .then(async (credential: any) => {
-                    console.log({credential})
-                    const idToken = await getIdToken(credential.user);
-                    this.storage.update(Keys.ID_TOKEN, idToken);
-                    location.href = '/';
-                });
+        if (!user) return Promise.reject('No user to authenticate');
+        return new Promise((resolve, reject) => {
+            this.backend.createUser(user).subscribe(token => {
+                signInWithCustomToken(this.auth, token)
+                    .then(async (credential: any) => {
+                        console.log({credential})
+                        const idToken = await getIdToken(credential.user);
+                        this.storage.update(Keys.ID_TOKEN, idToken);
+                        resolve();
+                    })
+                    .catch(err => reject(err));
+            });
         });
     }
 }
