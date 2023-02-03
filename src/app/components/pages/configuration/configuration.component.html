@@ -6,7 +6,7 @@
         [dataSource]="{form: forms.appearance, description: 'Configure your branding colors.', expanded: false}"></app-appearance>
 
     <form [formGroup]="forms.behaviour" (ngSubmit)="onSubmit(forms.behaviour)">
-        <mat-divider class="card-divider"></mat-divider>
+        <mat-divider></mat-divider>
         <mat-expansion-panel hideToggle>
             <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -26,22 +26,24 @@
                     Vip</mat-checkbox>
             </div>
             <mat-divider></mat-divider>
-            <mat-card-title>Commands</mat-card-title>
+            <mat-card-title>
+                Commands
+            </mat-card-title>
             <mat-selection-list #commandsList formControlName="commands">
                 <mat-list-option *ngFor="let command of commands" [value]="command" [disabled]="command == 'so'">
                     {{command}}
                 </mat-list-option>
             </mat-selection-list>
-            <mat-divider class="card-divider"></mat-divider>
-            <div style="text-align: right; margin: 10px;">
+            <mat-divider></mat-divider>
+            <div style="text-align: right; margin: 10px;">                    
                 <button mat-raised-button type="submit" [disabled]="!forms.behaviour.valid"
                     color="primary">Update</button>
             </div>
         </mat-expansion-panel>
     </form>
     <form [formGroup]="forms.bits" (ngSubmit)="onSubmit(forms.bits)">
-        <mat-divider class="card-divider"></mat-divider>
-        <mat-expansion-panel hideToggle>
+        <mat-divider></mat-divider>
+        <mat-expansion-panel hideToggle (expandedChange)="bitsTier()">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <div class="header">Bits</div>
@@ -70,7 +72,7 @@
                     <input matSliderThumb formControlName="pin-days">
                 </mat-slider>
             </div>
-            <mat-divider class="card-divider"></mat-divider>
+            <mat-divider></mat-divider>
             <div style="text-align: right; margin: 10px;">
                 <button mat-raised-button type="submit" [disabled]="!forms.bits.valid" color="primary">Update</button>
             </div>

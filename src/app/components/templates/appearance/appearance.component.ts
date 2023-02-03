@@ -33,7 +33,7 @@ import { ConfigurationService } from 'src/app/services/configuration.service';
                 <mat-label>Border Color</mat-label>
                 <input type="color" matInput name="color-borders" formControlName="border-color">
             </mat-form-field>
-            <mat-divider class="card-divider"></mat-divider>
+            <mat-divider></mat-divider>
             <ng-container [ngTemplateOutlet]="buttonsTemplate || defaultButtonsTemplate"></ng-container>
             <ng-template #defaultButtonsTemplate>
                 <div style="text-align: left; margin: 10px;">

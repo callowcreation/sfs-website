@@ -105,7 +105,10 @@ export class ConfigurationComponent {
 
     tierChange() {
         this.launchRipple();
+        this.bitsTier();
+    }
 
+    bitsTier() {
         switch (this.forms.bits.value['bits-tier']) {
             case 'Tier 1': {
                 this.bits = {
