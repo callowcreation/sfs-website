@@ -12,6 +12,7 @@ interface Posted {
 
 interface Guest {
     login: string;
+    id: string;
     profile_image_url: string;
     posted: Posted;
 }
@@ -35,7 +36,7 @@ export class DashboardComponent {
         this.backend.get<any>(`/v3/api/dashboard/${storage.user?.id}`)
             .pipe(map(({ guests }) => {
                 return {
-                    guests: guests.map((x: any) => ({ login: x.login, profile_image_url: x.profile_image_url, posted: { login: x.posted.login, timestamp: x.posted.timestamp } }))
+                    guests: guests.map((x: any) => ({ login: x.login, id: x.id, profile_image_url: x.profile_image_url, posted: { login: x.posted.login, timestamp: x.posted.timestamp } }))
                 };
             }))
             .subscribe(({ guests }) => {

@@ -38,8 +38,8 @@ export class ConfigurationComponent {
 
     options: Tier[] = ['Tier 1', 'Tier 2', 'Tier 3'];
     bits: any = {
-        'move-up': 50,
-        'pin-item': 100
+        'move-up': 0,
+        'pin-item': 0
     };
     products: any[] = [];
 

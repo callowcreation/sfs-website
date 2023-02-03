@@ -4,7 +4,7 @@
         <mat-list style="max-width: 400px; margin: auto;">
             <div mat-subheader><h3>Shoutouts</h3></div>
             <mat-selection-list #guestsList formControlName="guests" (selectionChange)="onChange($event)">
-                <mat-list-option *ngFor="let guest of guests" style="margin: 8px 0px;">
+                <mat-list-option *ngFor="let guest of guests" style="margin: 8px 0px;" value="{{guest.id}}">
                     <mat-icon matListItemIcon style="width: 80px; height: 80px; margin-top: 0;"><img style="width: 72px; height: 72px;"
                         src="{{guest.profile_image_url}}"></mat-icon>
                     <div matListItemTitle>{{guest.login}}</div>
