@@ -1,8 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
-import { Auth } from '@angular/fire/auth';
 import { Database, DatabaseReference, getDatabase, objectVal, ref, update } from '@angular/fire/database';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatRipple, RippleRef } from '@angular/material/core';
+import { MatSelectionListChange } from '@angular/material/list';
 import { Settings } from 'src/app/interfaces/settings';
 import { User } from 'src/app/interfaces/user';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -27,25 +27,31 @@ export class ConfigurationComponent {
         behaviour: new FormGroup({
             'auto-shoutouts': new FormControl(this.configuration.behaviour['auto-shoutouts']),
             'badge-vip': new FormControl(this.configuration.behaviour['badge-vip']),
-            'commands': new FormControl(this.configuration.behaviour['commands']),
+            'commands': new FormControl(this.configuration.behaviour['commands'])
         }),
         bits: new FormGroup({
             'enable-bits': new FormControl(this.configuration.bits['enable-bits']),
             'bits-tier': new FormControl(this.configuration.bits['bits-tier']),
             'pin-days': new FormControl(this.configuration.bits['pin-days']),
-        }),
+        })
     };
 
+    command: FormControl = new FormControl('', [Validators.pattern('[a-zA-Z0-9_-]{1,10}')]);
+
     options: Tier[] = ['Tier 1', 'Tier 2', 'Tier 3'];
+
     bits: any = {
         'move-up': 0,
         'pin-item': 0
     };
+
     products: any[] = [];
 
-    commands: string[] = this.configuration.defaultSettings.commands;
+    commands: string[] = this.configuration.behaviour['commands'];
 
     guests: User[] = [];
+
+    canDelete: boolean = false;
 
     private get db(): Database {
         return getDatabase();
@@ -53,6 +59,10 @@ export class ConfigurationComponent {
 
     private get doc(): DatabaseReference {
         return ref(this.db, `${this.storage.user?.id}/settings`);
+    }
+
+    get hasSpace(): boolean {
+        return this.command.value.includes(' ');
     }
 
     constructor(private authentication: AuthenticationService, private storage: StorageService, private configuration: ConfigurationService, private backend: BackendService) {
@@ -133,6 +143,10 @@ export class ConfigurationComponent {
         }
     }
 
+    onChange(ev: MatSelectionListChange) {
+        this.canDelete = ev.source.selectedOptions.selected.length > 0 ? true : false;
+    }
+    
     onSubmit(form: FormGroup) {
         this.configuration.update(form.value);
         update(this.doc, this.configuration.settings);
@@ -148,5 +162,23 @@ export class ConfigurationComponent {
             'border-color': this.configuration.rndColor(),
             'color': this.configuration.rndColor()
         });
+    }
+
+    removeCommand(command: string) {
+        const startIndex = this.configuration.behaviour.commands.indexOf(command, 0);
+        if(!this.configuration.behaviour.commands.includes(command)) return;
+        if(startIndex === 0) return;
+        this.configuration.behaviour.commands.splice(startIndex, 1);
+        this.onSubmit(this.forms.behaviour);
+        this.forms.behaviour.patchValue(this.configuration.behaviour);
+        this.commands = this.configuration.behaviour.commands;
+    }
+
+    addCommand() {
+        if(this.command.value.trim() == '') return;
+        if(this.configuration.behaviour.commands.includes(this.command.value)) return;
+        this.configuration.behaviour.commands.push(this.command.value);
+        this.forms.behaviour.patchValue(this.configuration.behaviour);
+        this.commands = this.configuration.behaviour.commands
     }
 }

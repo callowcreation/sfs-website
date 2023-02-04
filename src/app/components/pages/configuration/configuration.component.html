@@ -7,7 +7,7 @@
 
     <form [formGroup]="forms.behaviour" (ngSubmit)="onSubmit(forms.behaviour)">
         <mat-divider></mat-divider>
-        <mat-expansion-panel hideToggle>
+        <mat-expansion-panel hideToggle expanded>
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <div class="header">Behaviour</div>
@@ -29,12 +29,20 @@
             <mat-card-title>
                 Commands
             </mat-card-title>
-            <mat-selection-list #commandsList formControlName="commands">
-                <mat-list-option *ngFor="let command of commands" [value]="command" [disabled]="command == 'so'">
-                    {{command}}
-                </mat-list-option>
+            <mat-selection-list #commandsList formControlName="commands" (selectionChange)="onChange($event)">
+                <mat-list-item *ngFor="let command of commands" [disabled]="command == 'so'" (click)="removeCommand(command)">
+                    {{command}}<mat-icon style="float: right;">delete</mat-icon>
+                </mat-list-item>
             </mat-selection-list>
-            <mat-divider></mat-divider>
+            <mat-form-field class="example-form-field form-fit">
+                <mat-label>Enter new command name</mat-label>
+                <input matInput type="text" [formControl]="command">
+                <button matSuffix mat-icon-button aria-label="Add Command" (click)="addCommand()" [disabled]="!command.value || command.invalid">
+                  <mat-icon>add</mat-icon>
+                </button>
+                <mat-error *ngIf="hasSpace"><span>No spaces in command names</span></mat-error>
+                <mat-error *ngIf="!hasSpace"><span style="font-weight: bolder;">Valid characters are A-Z a-z 0-9 _ -</span></mat-error>
+              </mat-form-field>
             <div style="text-align: right; margin: 10px;">                    
                 <button mat-raised-button type="submit" [disabled]="!forms.behaviour.valid"
                     color="primary">Update</button>
