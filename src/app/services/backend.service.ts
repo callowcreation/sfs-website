@@ -22,8 +22,8 @@ export class BackendService {
         return this.http.post<T>(`${environment.api}${endpoint}`, payload);
     }
 
-    delete<T>(endpoint: string): Observable<T> {
-        return this.http.delete<T>(`${environment.api}${endpoint}`);
+    delete<T>(endpoint: string, params: any = undefined): Observable<T> {
+        return this.http.delete<T>(`${environment.api}${endpoint}`, { params });
     }
 
     createUser(user: any): Observable<string> {

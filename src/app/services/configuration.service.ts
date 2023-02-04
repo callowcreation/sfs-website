@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { calculateBackoffMillis } from '@firebase/util';
 import { environment } from 'src/environments/environment';
 import { Appearance, Behaviour, Bits } from '../interfaces/configuration';
 import { Settings } from '../interfaces/settings';
+import { BackendService } from './backend.service';
 import { Keys, StorageService } from './storage.service';
 
 export type Tier = 'Tier 1' | 'Tier 2' | 'Tier 3';
@@ -56,8 +56,14 @@ export class ConfigurationService {
         return environment.version;
     }
     
-    constructor(private storage: StorageService) {
+    constructor(private storage: StorageService, private backend: BackendService) {
         this.settings = this.storage.value<Settings>(Keys.SETTINGS) || this.defaultSettings;
+        this.backend.get<any>(`/v3/api/common/${this.storage.user?.id}`, {
+            settings: true,
+        }).subscribe(({ settings }) => {
+            console.log({ settings });
+            this.settings = settings;
+        });
     }
 
     rndColor(): string {

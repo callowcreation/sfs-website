@@ -36,8 +36,8 @@
             </mat-selection-list>
             <mat-form-field class="example-form-field form-fit">
                 <mat-label>Enter new command name</mat-label>
-                <input matInput type="text" [formControl]="command">
-                <button matSuffix mat-icon-button aria-label="Add Command" (click)="addCommand()" [disabled]="!command.value || command.invalid">
+                <input matInput type="text" [formControl]="commandControl">
+                <button matSuffix mat-icon-button aria-label="Add Command" (click)="addCommand()" [disabled]="!commandControl.value || commandControl.invalid">
                   <mat-icon>add</mat-icon>
                 </button>
                 <mat-error *ngIf="hasSpace"><span>No spaces in command names</span></mat-error>

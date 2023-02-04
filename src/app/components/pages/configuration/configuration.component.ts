@@ -36,7 +36,7 @@ export class ConfigurationComponent {
         })
     };
 
-    command: FormControl = new FormControl('', [Validators.pattern('[a-zA-Z0-9_-]{1,10}')]);
+    commandControl: FormControl = new FormControl('', [Validators.pattern('[a-zA-Z0-9_-]{1,10}')]);
 
     options: Tier[] = ['Tier 1', 'Tier 2', 'Tier 3'];
 
@@ -62,7 +62,7 @@ export class ConfigurationComponent {
     }
 
     get hasSpace(): boolean {
-        return this.command.value.includes(' ');
+        return this.commandControl.value.includes(' ');
     }
 
     constructor(private authentication: AuthenticationService, private storage: StorageService, private configuration: ConfigurationService, private backend: BackendService) {
@@ -94,7 +94,7 @@ export class ConfigurationComponent {
                     this.products = products;
                 });
             })
-            .catch(err => console.error(err))
+            .catch(err => console.error(err));
 
         // user?.getIdToken().then(idToken => {
         //     this.storage.update(Keys.ID_TOKEN, idToken);
@@ -165,20 +165,18 @@ export class ConfigurationComponent {
     }
 
     removeCommand(command: string) {
-        const startIndex = this.configuration.behaviour.commands.indexOf(command, 0);
-        if(!this.configuration.behaviour.commands.includes(command)) return;
+        const startIndex = this.commands.indexOf(command, 0);
+        if(!this.commands.includes(command)) return;
         if(startIndex === 0) return;
-        this.configuration.behaviour.commands.splice(startIndex, 1);
+        this.commands.splice(startIndex, 1);
+        this.forms.behaviour.patchValue({commands: this.commands});
         this.onSubmit(this.forms.behaviour);
-        this.forms.behaviour.patchValue(this.configuration.behaviour);
-        this.commands = this.configuration.behaviour.commands;
     }
 
     addCommand() {
-        if(this.command.value.trim() == '') return;
-        if(this.configuration.behaviour.commands.includes(this.command.value)) return;
-        this.configuration.behaviour.commands.push(this.command.value);
-        this.forms.behaviour.patchValue(this.configuration.behaviour);
-        this.commands = this.configuration.behaviour.commands
+        if(this.commandControl.value.trim() == '') return;
+        if(this.commands.includes(this.commandControl.value)) return;
+        this.commands.push(this.commandControl.value);
+        this.forms.behaviour.patchValue({commands: this.commands});
     }
 }
