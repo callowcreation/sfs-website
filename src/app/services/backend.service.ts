@@ -3,8 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-export enum Endpoints {
-    USER = '/v3/api/user'
+enum Endpoints {
+    USER = '/v3/api/user',
+    COMMON = '/v3/api/common',
+    PRODUCTS = '/v3/api/products',
+    CONFIGURATION = '/v3/api/configuration',
+    SHOUTOUTS = '/v3/api/shoutouts',
+    DASHBOARD = '/v3/api/dashboard',
+    EMBEDDED = '/v3/api/embedded',
 }
 
 @Injectable({
@@ -30,7 +36,7 @@ export class BackendService {
         return this.post<string>(Endpoints.USER, user);
     }
 
-    deleteUser(id: string): Observable<void> {
-        return this.delete<void>(`${Endpoints.USER}/${id}`);
+    deleteUser(): Observable<void> {
+        return this.delete<void>(Endpoints.USER);
     }
 }

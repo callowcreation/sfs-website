@@ -55,11 +55,8 @@ export class DashboardComponent {
     }
 
     onSubmit() {
-        this.backend.delete<any>(`/v3/api/shoutouts/${this.storage.user?.id}`, this.selected.map(x => x.value))
-            .subscribe(resource => {
-                console.log({ resource })
-                this.guests = this.guests.filter(x => !Object.values(resource.query).includes(x.login))
-            });
+        this.backend.delete<any>('/v3/api/shoutouts', this.selected.map(x => x.value))
+            .subscribe(() => this.guests = this.guests.filter(v => !this.selected.map(x => x.value).includes(v.login)));
     }
 
     onChange(ev: MatSelectionListChange) {
