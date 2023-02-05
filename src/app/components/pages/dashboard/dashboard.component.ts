@@ -34,7 +34,7 @@ export class DashboardComponent {
 
     canDelete: boolean = false;
 
-    constructor(private authentication: AuthenticationService, storage: StorageService, private backend: BackendService) {
+    constructor(private authentication: AuthenticationService, private storage: StorageService, private backend: BackendService) {
         this.backend.get<any>(`/v3/api/dashboard/${storage.user?.id}`)
             .pipe(map(({ guests }) => {
                 return {
@@ -55,9 +55,7 @@ export class DashboardComponent {
     }
 
     onSubmit() {
-        console.log(this.form.value);
-        console.log({ selected: this.selected });
-        this.backend.delete<any>('/v3/api/75987197/shoutouts', this.selected.map(x => x.value))
+        this.backend.delete<any>(`/v3/api/shoutouts/${this.storage.user?.id}`, this.selected.map(x => x.value))
             .subscribe(resource => {
                 console.log({ resource })
                 this.guests = this.guests.filter(x => !Object.values(resource.query).includes(x.login))
