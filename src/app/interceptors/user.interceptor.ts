@@ -20,7 +20,7 @@ export class UserInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<User>> {
 
-        console.log(req.url);
+        // console.log(req.url);
         if(req.url.includes(environment.api)) return next.handle(req);
 
         return next.handle(req).pipe(map((event: HttpEvent<User>) => {
