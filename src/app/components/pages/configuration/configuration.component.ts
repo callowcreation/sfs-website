@@ -76,6 +76,7 @@ export class ConfigurationComponent {
             this.forms.behaviour.setValue(configuration.behaviour);
             this.forms.bits.setValue(configuration.bits);
             this.commands = this.configuration.behaviour['commands'];
+            this.bitsTier();
         });
 
         objectVal<any>(this.refs.shoutouts).subscribe((value: any) => {
