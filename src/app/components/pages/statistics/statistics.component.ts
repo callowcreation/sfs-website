@@ -37,7 +37,7 @@ export class StatisticsComponent {
             statistics: true, // or object defining what parts of the [guests or any property, ie. features...] to return
         })
         .subscribe(({ statistics }) => {
-            console.log({ statistics });
+            // console.log({ statistics });
 
             this.statistics = statistics;
 

@@ -1,7 +1,9 @@
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Component, ViewChild } from '@angular/core';
 import { Database, DatabaseReference, getDatabase, objectVal, ref, update } from '@angular/fire/database';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatRipple, RippleRef } from '@angular/material/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSelectionListChange } from '@angular/material/list';
 import { Settings } from 'src/app/interfaces/settings';
 import { User } from 'src/app/interfaces/user';
@@ -9,6 +11,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { BackendService } from 'src/app/services/backend.service';
 import { ConfigurationService, Tier } from 'src/app/services/configuration.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 
 @Component({
     selector: 'app-configuration',
@@ -65,7 +68,7 @@ export class ConfigurationComponent {
         return this.commandControl.value.includes(' ');
     }
 
-    constructor(private authentication: AuthenticationService, private storage: StorageService, private configuration: ConfigurationService, private backend: BackendService) {
+    constructor(public dialog: MatDialog, private authentication: AuthenticationService, private storage: StorageService, private configuration: ConfigurationService, private backend: BackendService) {
 
         console.log({ configuration: this.configuration.behaviour })
 
@@ -143,10 +146,20 @@ export class ConfigurationComponent {
         }
     }
 
+    confirmRemove(name: string) {
+        if(this.commands.indexOf(name, 0) === 0) return;
+        const dialogRef = this.dialog.open(ConfirmDialogComponent, { data: { name } });
+        dialogRef.afterClosed().subscribe(result => {
+            if(coerceBooleanProperty(result) === true) {
+                this.removeCommand(name);
+            }
+        });
+    }
+
     onChange(ev: MatSelectionListChange) {
         this.canDelete = ev.source.selectedOptions.selected.length > 0 ? true : false;
     }
-    
+
     onSubmit(form: FormGroup) {
         this.configuration.update(form.value);
         update(this.doc, this.configuration.settings);
@@ -166,17 +179,18 @@ export class ConfigurationComponent {
 
     removeCommand(command: string) {
         const startIndex = this.commands.indexOf(command, 0);
-        if(!this.commands.includes(command)) return;
-        if(startIndex === 0) return;
+        if (!this.commands.includes(command)) return;
+        if (startIndex === 0) return;
         this.commands.splice(startIndex, 1);
-        this.forms.behaviour.patchValue({commands: this.commands});
+        this.forms.behaviour.patchValue({ commands: this.commands });
         this.onSubmit(this.forms.behaviour);
     }
 
     addCommand() {
-        if(this.commandControl.value.trim() == '') return;
-        if(this.commands.includes(this.commandControl.value)) return;
+        if (this.commandControl.value.trim() == '') return;
+        if (this.commands.includes(this.commandControl.value)) return;
         this.commands.push(this.commandControl.value);
-        this.forms.behaviour.patchValue({commands: this.commands});
+        this.forms.behaviour.patchValue({ commands: this.commands });
+        this.commandControl.setValue('');
     }
 }

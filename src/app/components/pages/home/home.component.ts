@@ -17,5 +17,4 @@ export class HomeComponent {
         console.log({ '-t': storage.id_token });
     }
     
-
 }

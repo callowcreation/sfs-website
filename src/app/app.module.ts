@@ -24,6 +24,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSortModule } from '@angular/material/sort';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -66,6 +67,7 @@ import { SupportComponent } from './components/pages/support/support.component';
 import { LoginComponent } from './components/pages/login/login.component';
 
 import { environment } from '../environments/environment';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -90,8 +92,10 @@ import { environment } from '../environments/environment';
         AppearanceComponent,
         LegacyComponent,
         ContactUsComponent,
-        FAQPanel
+        FAQPanel,
+        ConfirmDialogComponent
     ],
+    entryComponents: [ConfirmDialogComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,
@@ -117,7 +121,8 @@ import { environment } from '../environments/environment';
         MatExpansionModule,
         MatListModule,
         MatTabsModule,
-        MatSortModule
+        MatSortModule,
+        MatDialogModule
     ],
     providers: [
         AuthGuardService,
@@ -127,7 +132,7 @@ import { environment } from '../environments/environment';
         { provide: LocationStrategy, useClass: PathLocationStrategy },
         { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: TokenHeaderInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: UserInterceptor, multi: true }
+        { provide: HTTP_INTERCEPTORS, useClass: UserInterceptor, multi: true },
     ],
     bootstrap: [AppComponent]
 })

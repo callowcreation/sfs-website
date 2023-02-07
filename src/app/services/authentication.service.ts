@@ -19,7 +19,7 @@ export class AuthenticationService {
             this.backend.createUser(user).subscribe(token => {
                 signInWithCustomToken(this.auth, token)
                     .then(async (credential: any) => {
-                        console.log({credential})
+                        // console.log({credential})
                         const idToken = await getIdToken(credential.user);
                         this.storage.update(Keys.ID_TOKEN, idToken);
                         resolve();

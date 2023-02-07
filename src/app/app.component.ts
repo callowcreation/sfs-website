@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { Database, objectVal, ref } from '@angular/fire/database';
-import { Auth } from '@angular/fire/auth';
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -9,21 +7,7 @@ import { Auth } from '@angular/fire/auth';
 export class AppComponent {
     title = 'sfs-website';
 
-    constructor(auth: Auth, database: Database) {
+    constructor() { }
 
-        // const doc = ref(database, '75987197/posted_by');
-        // const v = objectVal(doc).subscribe(o => console.log({'----------------': o}));
-
-        // console.log({ val: v, auth });
-
-    }
-
-    ngOnInit() {
-
-        //const listRef = this.db.list('75987197/posted_by');
-
-        // setTimeout(() => {
-        //     this.loading = false;
-        // }, 1000);
-    }
+    ngOnInit() { }
 }
