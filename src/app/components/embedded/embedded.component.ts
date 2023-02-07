@@ -30,8 +30,8 @@ export class EmbeddedComponent {
 
         });
         this.interval = setInterval(async () => {
-            this.backend.get<any>('/v3/api/embedded').subscribe(({ featured, settings, guests }) => {
-                console.log({ featured, settings, guests });
+            this.backend.get<any>('/v3/api/embedded').subscribe(({ featured, settings, guests, retries }) => {
+                console.log({ featured, settings, guests, retries });
                 this.featured = featured;
                 this.guests = guests;
                 this.settings = settings;

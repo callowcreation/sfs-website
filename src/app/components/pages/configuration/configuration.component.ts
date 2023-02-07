@@ -56,12 +56,12 @@ export class ConfigurationComponent {
 
     canDelete: boolean = false;
 
-    private get db(): Database {
-        return getDatabase();
-    }
-
-    private get doc(): DatabaseReference {
-        return ref(this.db, `${this.storage.user?.id}/settings`);
+    private get refs() {
+        const db = getDatabase();
+        return {
+            settings: ref(db, `${this.storage.user?.id}/settings`),
+            shoutouts: ref(db, `${this.storage.user?.id}/shoutouts`)
+        };
     }
 
     get hasSpace(): boolean {
@@ -69,21 +69,16 @@ export class ConfigurationComponent {
     }
 
     constructor(public dialog: MatDialog, private authentication: AuthenticationService, private storage: StorageService, private configuration: ConfigurationService, private backend: BackendService) {
-
-        console.log({ configuration: this.configuration.behaviour })
-
-        this.forms.appearance.setValue(configuration.appearance);
-        this.forms.behaviour.setValue(configuration.behaviour);
-        this.forms.bits.setValue(configuration.bits);
-
-        objectVal<Settings>(ref(getDatabase(), `${this.storage.user?.id}/settings`)).subscribe((value: any) => {
+        
+        objectVal<Settings>(this.refs.settings).subscribe((value: any) => {
             this.configuration.update(value);
             this.forms.appearance.setValue(configuration.appearance);
             this.forms.behaviour.setValue(configuration.behaviour);
             this.forms.bits.setValue(configuration.bits);
+            this.commands = this.configuration.behaviour['commands'];
         });
 
-        objectVal<any>(ref(getDatabase(), `${this.storage.user?.id}/shoutouts`)).subscribe((value: any) => {
+        objectVal<any>(this.refs.shoutouts).subscribe((value: any) => {
             console.log({ value })
             this.backend.get<any>(`/v3/api/common/${this.storage.user?.id}`, {
                 guests: true, // or object defining what parts of the [guests or any property, ie. features...] to return
@@ -166,7 +161,7 @@ export class ConfigurationComponent {
 
     onSubmit(form: FormGroup) {
         this.configuration.update(form.value);
-        update(this.doc, this.configuration.settings);
+        update(this.refs.settings, this.configuration.settings);
     }
 
     reset() {
