@@ -76,18 +76,22 @@ export class ConfigurationComponent {
         this.forms.behaviour.setValue(configuration.behaviour);
         this.forms.bits.setValue(configuration.bits);
 
-        objectVal<Settings>(this.doc).subscribe((value: any) => {
+        objectVal<Settings>(ref(getDatabase(), `${this.storage.user?.id}/settings`)).subscribe((value: any) => {
             this.configuration.update(value);
             this.forms.appearance.setValue(configuration.appearance);
             this.forms.behaviour.setValue(configuration.behaviour);
             this.forms.bits.setValue(configuration.bits);
         });
 
-        this.backend.get<any>(`/v3/api/common/${this.storage.user?.id}`, {
-            guests: true, // or object defining what parts of the [guests or any property, ie. features...] to return
-        }).subscribe(({ guests }) => {
-            console.log({ guests });
-            this.guests = guests;
+        objectVal<any>(ref(getDatabase(), `${this.storage.user?.id}/shoutouts`)).subscribe((value: any) => {
+            console.log({ value })
+            this.backend.get<any>(`/v3/api/common/${this.storage.user?.id}`, {
+                guests: true, // or object defining what parts of the [guests or any property, ie. features...] to return
+            }).subscribe(({ guests }) => {
+                console.log({ guests });
+                this.guests = guests;
+                this.guests.reverse();
+            });
         });
 
         this.authentication.authenticte()
@@ -147,10 +151,10 @@ export class ConfigurationComponent {
     }
 
     confirmRemove(command: string) {
-        if(this.commands.indexOf(command, 0) === 0) return;
+        if (this.commands.indexOf(command, 0) === 0) return;
         const dialogRef = this.dialog.open(ConfirmDialogComponent, { data: { content: `Remove (${command}) command?` } });
         dialogRef.afterClosed().subscribe(result => {
-            if(coerceBooleanProperty(result) === true) {
+            if (coerceBooleanProperty(result) === true) {
                 this.removeCommand(command);
             }
         });

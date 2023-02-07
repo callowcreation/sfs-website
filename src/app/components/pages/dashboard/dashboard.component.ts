@@ -1,5 +1,6 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Component } from '@angular/core';
+import { getDatabase, objectVal, ref } from '@angular/fire/database';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatListOption, MatSelectionListChange } from '@angular/material/list';
@@ -38,7 +39,9 @@ export class DashboardComponent {
     canDelete: boolean = false;
 
     constructor(private authentication: AuthenticationService, private storage: StorageService, private backend: BackendService, public dialog: MatDialog, ) {
-        this.backend.get<any>(`/v3/api/dashboard/${storage.user?.id}`)
+        objectVal<any>(ref(getDatabase(), `${this.storage.user?.id}/shoutouts`)).subscribe((value: any) => {
+            console.log({value})
+            this.backend.get<any>(`/v3/api/dashboard/${storage.user?.id}`)
             .pipe(map(({ guests }) => {
                 return {
                     guests: guests.map((x: any) => ({ login: x.login, id: x.id, profile_image_url: x.profile_image_url, posted: { login: x.posted.login, timestamp: x.posted.timestamp } }))
@@ -47,9 +50,11 @@ export class DashboardComponent {
             .subscribe(({ guests }) => {
                 console.log({ guests });
                 this.guests = guests;
+                this.guests.reverse();
                 this.form.setValue({ guests });
             });
-
+        });
+        
         this.authentication.authenticte()
             .then(() => {
                 console.log('Authenticte')
