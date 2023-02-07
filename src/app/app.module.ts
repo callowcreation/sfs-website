@@ -65,6 +65,7 @@ import { FeaturesComponent } from './components/pages/features/features.componen
 import { ConfigurationComponent } from './components/pages/configuration/configuration.component';
 import { SupportComponent } from './components/pages/support/support.component';
 import { LoginComponent } from './components/pages/login/login.component';
+import { HelpPanelComponent } from './components/templates/help-panel/help-panel.component';
 
 import { environment } from '../environments/environment';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
@@ -93,7 +94,8 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
         LegacyComponent,
         ContactUsComponent,
         FAQPanel,
-        ConfirmDialogComponent
+        ConfirmDialogComponent,
+        HelpPanelComponent
     ],
     entryComponents: [ConfirmDialogComponent],
     imports: [
