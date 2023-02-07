@@ -1,10 +1,13 @@
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatListOption, MatSelectionListChange } from '@angular/material/list';
 import { map } from 'rxjs';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { BackendService } from 'src/app/services/backend.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 
 interface Posted {
     login: string;
@@ -34,7 +37,7 @@ export class DashboardComponent {
 
     canDelete: boolean = false;
 
-    constructor(private authentication: AuthenticationService, private storage: StorageService, private backend: BackendService) {
+    constructor(private authentication: AuthenticationService, private storage: StorageService, private backend: BackendService, public dialog: MatDialog, ) {
         this.backend.get<any>(`/v3/api/dashboard/${storage.user?.id}`)
             .pipe(map(({ guests }) => {
                 return {
@@ -55,8 +58,13 @@ export class DashboardComponent {
     }
 
     onSubmit() {
-        this.backend.delete<any>('/v3/api/shoutouts', this.selected.map(x => x.value))
-            .subscribe(() => this.guests = this.guests.filter(v => !this.selected.map(x => x.value).includes(v.login)));
+        const dialogRef = this.dialog.open(ConfirmDialogComponent, { data: { content: `Remove (${this.selected.length}) selected shoutout(s)?` } });
+        dialogRef.afterClosed().subscribe(result => {
+            if(coerceBooleanProperty(result) === true) {
+                this.backend.delete<any>('/v3/api/shoutouts', this.selected.map(x => x.value))
+                .subscribe(() => this.guests = this.guests.filter(v => !this.selected.map(x => x.value).includes(v.login)));
+            }
+        });
     }
 
     onChange(ev: MatSelectionListChange) {

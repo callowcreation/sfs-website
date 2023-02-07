@@ -146,12 +146,12 @@ export class ConfigurationComponent {
         }
     }
 
-    confirmRemove(name: string) {
-        if(this.commands.indexOf(name, 0) === 0) return;
-        const dialogRef = this.dialog.open(ConfirmDialogComponent, { data: { name } });
+    confirmRemove(command: string) {
+        if(this.commands.indexOf(command, 0) === 0) return;
+        const dialogRef = this.dialog.open(ConfirmDialogComponent, { data: { content: `Remove (${command}) command?` } });
         dialogRef.afterClosed().subscribe(result => {
             if(coerceBooleanProperty(result) === true) {
-                this.removeCommand(name);
+                this.removeCommand(command);
             }
         });
     }
