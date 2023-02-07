@@ -1,5 +1,26 @@
 <section class="page-section">
-    <div class="container">
-        <button class="twitch btn" (click)="login()"><i class="fa fa-twitch fa-fw"></i> Login with Twitch</button>
-    </div>
+    <mat-card class="page-card" style="margin-bottom: 10px;">
+        <mat-card-header>
+            <mat-card-title>Log in with a platform</mat-card-title>
+        </mat-card-header>
+        <mat-card-content style="text-align: justify;">
+            <p>
+                Allow access to ShoutoutsForStreamers.com to configure your installed extension.
+            </p>
+            <ul>
+                <li>Customize the apperance</li>
+                <li>Manage shoutouts</li>
+                <li>Modify bits and behaviour</li>
+                <li>View shoutout statistics</li>
+                <li>... and more</li>
+            </ul>
+
+            <div class="container">
+                <button class="twitch btn" (click)="login()"><i class="fa fa-twitch fa-fw"></i> Login with
+                    Twitch</button>
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+
 </section>
