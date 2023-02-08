@@ -16,28 +16,51 @@ img {
     transform: translateY(12px);
 }
 
-.profile-icon { 
+.profile-icon {
     transform: scale(1.5);
 }
 
-@media (max-width: 1200px) {
-    .logo h4 {
-        font-size: 30px;
+.menu-inline-line {
+    display: inline;
+}
+
+.menu-second-line {
+    display: none;
+}
+
+// custom - with of header title
+@media (max-width: 720px) {
+
+    .menu-inline-line {
+        display: none;
     }
 
-    .logo h4 img {
-        margin-left: 10px;
+    .menu-second-line {
+        display: inline-block;
     }
 }
 
-@media (max-width: 830px) {
-    .logo h4 {
-        font-size: 26px;
+// mobile
+@media (max-width: 320px) {
+
+    .menu-inline-line {
+        display: none;
     }
 
-    .logo h4 img {
-        /* max-width: 30px; */
-        margin-left: 5px;
+    .menu-second-line {
+        display: inline-block;
+    }
+}
+
+// tablets
+@media (max-width: 481px) {
+
+    .menu-inline-line {
+        display: none;
+    }
+
+    .menu-second-line {
+        display: inline-block;
     }
 }
 

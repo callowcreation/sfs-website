@@ -47,7 +47,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .page-section {
     margin: auto;
-    width: 640px;
+    min-width: 320px;
+    max-width: 640px;
     margin-top: 120px;
     position: relative;
     min-height: calc(100vh - 400px);

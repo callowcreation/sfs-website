@@ -4,7 +4,7 @@
             <a href="index.html" class="logo">
                 <h4><img src="logo_1.svg" /> Shoutouts for Streamers</h4>
             </a>
-        </span>        
+        </span>
         <!-- <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
             <mat-icon>help</mat-icon>
             <mat-icon>home</mat-icon>
@@ -14,13 +14,16 @@
         </button> -->
         <span class="example-spacer"></span>
 
-        <button [routerLink]="[route.path]" mat-icon-button class="example-icon" *ngFor="let route of routes['Navigation']" title="{{route.title}}">
-           <mat-icon *ngIf="route.data.icon">{{route.data.icon}}</mat-icon>
-        </button>
+        <span class="menu-inline-line">
+            <button [routerLink]="[route.path]" mat-icon-button class="example-icon"
+                *ngFor="let route of routes['Navigation']" title="{{route.title}}">
+                <mat-icon *ngIf="route.data.icon">{{route.data.icon}}</mat-icon>
+            </button>
+            <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="showProfile == true">
+                <img [src]="profilePic" class="profile-icon" />
+            </button>
+        </span>
 
-        <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="showProfile == true">
-            <img [src]="profilePic" class="profile-icon" />
-        </button>
         <mat-menu #menu="matMenu">
             <button mat-menu-item [disabled]="true">
                 <span>{{display_name}}</span>
@@ -30,7 +33,7 @@
                 <button mat-menu-item [routerLink]="[route.path]">
                     <mat-icon *ngIf="route.data.icon">{{route.data.icon}}</mat-icon>
                     <span>{{route.title}}</span>
-                </button>  
+                </button>
             </span>
             <button mat-menu-item (click)="logout()">
                 <mat-icon>logout</mat-icon>
@@ -39,14 +42,15 @@
         </mat-menu>
     </mat-toolbar-row>
 
-    <mat-toolbar-row *ngIf="false">
-        <span>Second Line</span>
-        <span class="example-spacer"></span>
-        <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-            <mat-icon>favorite</mat-icon>
-        </button>
-        <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-            <mat-icon>share</mat-icon>
-        </button>
+    <mat-toolbar-row class="menu-second-line">
+        <div style="text-align: center;">
+            <button [routerLink]="[route.path]" mat-icon-button class="example-icon"
+                *ngFor="let route of routes['Navigation']" title="{{route.title}}">
+                <mat-icon *ngIf="route.data.icon">{{route.data.icon}}</mat-icon>
+            </button>
+            <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="showProfile == true">
+                <img [src]="profilePic" class="profile-icon" />
+            </button>
+        </div>
     </mat-toolbar-row>
 </mat-toolbar>
