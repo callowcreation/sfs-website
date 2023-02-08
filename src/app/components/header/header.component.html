@@ -1,58 +1,52 @@
-<header class="_h my-custom-style">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="profile-container">
-                    <div class="profile-menu" *ngIf="showProfile == true">
-                        <button mat-icon-button [matMenuTriggerFor]="menu">
-                            <img [src]="profilePic" class="user-icon" />
-                        </button>
-                        <mat-menu #menu="matMenu">
-                            <!-- <button mat-menu-item [disabled]="true" class="btn-txt-align-center">
-                                <mat-icon class="user-icon">account_circle</mat-icon>
-                            </button> -->
-                            <button mat-menu-item [disabled]="true" class="btn-txt-align-center">
-                                <span>{{display_name}}</span>
-                            </button>
-                            <mat-divider></mat-divider>
-                            <span *ngFor="let route of routes['Profile']">
-                                <button mat-menu-item [routerLink]="[route.path]">
-                                    <mat-icon *ngIf="route.data.icon">{{route.data.icon}}</mat-icon>
-                                    <span>{{route.title}}</span>
-                                </button>  
-                            </span>
-                            <button mat-menu-item (click)="logout()">
-                                <mat-icon>exit_to_app</mat-icon>
-                                <span>Logout</span>
-                            </button>
-                        </mat-menu>
-                    </div>
-                </div>
-                <nav class="_n">
-                    <a href="index.html" class="logo">
-                        <h4><img src="logo_1.svg" /> Shoutouts for Streamers</h4>
-                    </a>
-                    <ul class="nav" [ngClass]="{'show': showMenu === true, 'hide': showMenu !== true}">
-                        <li *ngFor="let route of routes['Navigation']">
-                            <a [routerLink]="[route.path]" (click)="showMenu = false">{{route.title}}</a>
-                        </li>
-                    </ul>
-                    <a class='_m' (click)="showMenu = !showMenu">
-                        <span>Menu</span>
-                    </a>
-                </nav>
-            </div>
-        </div>
-    </div>
-    <!-- <section>
-        <div class="example-label">Raised</div>
-        <div class="example-button-row">
-          <button mat-raised-button>Basic</button>
-          <button mat-raised-button color="primary">Primary</button>
-          <button mat-raised-button color="accent">Accent</button>
-          <button mat-raised-button color="warn">Warn</button>
-          <button mat-raised-button disabled>Disabled</button>
-          <a mat-raised-button href="https://www.google.com/" target="_blank">Link</a>
-        </div>
-      </section> -->
-</header>
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <span>
+            <a href="index.html" class="logo">
+                <h4><img src="logo_1.svg" /> Shoutouts for Streamers</h4>
+            </a>
+        </span>        
+        <!-- <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+            <mat-icon>help</mat-icon>
+            <mat-icon>home</mat-icon>
+            <mat-icon>description</mat-icon>
+            <mat-icon>login</mat-icon>
+            <mat-icon>logout</mat-icon>
+        </button> -->
+        <span class="example-spacer"></span>
+
+        <button [routerLink]="[route.path]" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" *ngFor="let route of routes['Navigation']">
+           <mat-icon *ngIf="route.data.icon">{{route.data.icon}}</mat-icon>
+        </button>
+
+        <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="showProfile == true">
+            <img [src]="profilePic" class="user-icon" />
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item [disabled]="true" class="btn-txt-align-center">
+                <span>{{display_name}}</span>
+            </button>
+            <mat-divider></mat-divider>
+            <span *ngFor="let route of routes['Profile']">
+                <button mat-menu-item [routerLink]="[route.path]">
+                    <mat-icon *ngIf="route.data.icon">{{route.data.icon}}</mat-icon>
+                    <span>{{route.title}}</span>
+                </button>  
+            </span>
+            <button mat-menu-item (click)="logout()">
+                <mat-icon>logout</mat-icon>
+                <span>Logout</span>
+            </button>
+        </mat-menu>
+    </mat-toolbar-row>
+
+    <mat-toolbar-row *ngIf="false">
+        <span>Second Line</span>
+        <span class="example-spacer"></span>
+        <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+            <mat-icon>favorite</mat-icon>
+        </button>
+        <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+            <mat-icon>share</mat-icon>
+        </button>
+    </mat-toolbar-row>
+</mat-toolbar>

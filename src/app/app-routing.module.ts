@@ -16,10 +16,10 @@ import { StorageService } from './services/storage.service';
 
 const routes: Routes = [
     { data: { menu: false, name: MenuName.None, icon: null }, title: 'Home', path: '', redirectTo: 'home', pathMatch: 'full' }, 
-    { data: { menu: true, name: MenuName.Navigation, icon: null }, title: 'Home', path: 'home', component: HomeComponent }, 
-    { data: { menu: true, name: MenuName.Navigation, icon: null }, title: 'Features', path: 'features', component: FeaturesComponent },
-    { data: { menu: true, name: MenuName.Navigation, icon: null }, title: 'Help', path: 'support', component: SupportComponent },
-    { data: { menu: !StorageService.HasAuth(), name: MenuName.Navigation, icon: null }, title: 'Login', path: 'login', component: LoginComponent, canActivate: [LoginGuardService] },
+    { data: { menu: true, name: MenuName.Navigation, icon: 'home' }, title: 'Home', path: 'home', component: HomeComponent }, 
+    { data: { menu: true, name: MenuName.Navigation, icon: 'description' }, title: 'Features', path: 'features', component: FeaturesComponent },
+    { data: { menu: true, name: MenuName.Navigation, icon: 'help' }, title: 'Help', path: 'support', component: SupportComponent },
+    { data: { menu: !StorageService.HasAuth(), name: MenuName.Navigation, icon: 'login' }, title: 'Login', path: 'login', component: LoginComponent, canActivate: [LoginGuardService] },
     { data: { menu: StorageService.HasAuth(), name: MenuName.Profile, icon: 'settings' }, title: 'Configuration', path: 'configuration', component: ConfigurationComponent, canActivate: [AuthGuardService] },
     { data: { menu: StorageService.HasAuth(), name: MenuName.Profile, icon: 'editor' }, title: 'Dashboard', path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService] },
     { data: { menu: StorageService.HasAuth(), name: MenuName.Profile, icon: 'analytics' }, title: 'Statistics', path: 'statistics', component: StatisticsComponent, canActivate: [AuthGuardService] },

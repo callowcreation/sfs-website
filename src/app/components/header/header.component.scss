@@ -1,53 +1,9 @@
-/*
-
-TemplateMo 563 SEO Dream
-
-https://templatemo.com/tm-563-seo-dream
-
-/* 
----------------------------------------------
-reset
---------------------------------------------- 
-*/
-ul,
-li {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-}
-
-header,
-nav,
-hgroup {
-    display: block;
-}
-
-* {
-    box-sizing: border-box;
+.example-spacer {
+    flex: 1 1 auto;
 }
 
 a {
     text-decoration: none !important;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    margin-top: 0px;
-    margin-bottom: 0px;
-}
-
-ul {
-    margin-bottom: 0px;
-}
-
-p {
-    font-size: 15px;
-    line-height: 30px;
-    color: #2a2a2a;
 }
 
 img {
@@ -55,33 +11,33 @@ img {
     overflow: hidden;
 }
 
-/* 
----------------------------------------------
-header
---------------------------------------------- 
-*/
-
-._h {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    z-index: 100;
-    height: 100px;
-    transition: all .5s ease 0s;
+.logo h4 img {
+    max-width: 50px;
+    transform: translateY(12px);
 }
 
-._h ._n {
-    min-height: 80px;
-    background: transparent;
+@media (max-width: 1200px) {
+    .logo h4 {
+        font-size: 30px;
+    }
+
+    .logo h4 img {
+        margin-left: 10px;
+    }
 }
 
-._h ._n .logo {
-    float: left;
-    transition: all 0.3s ease 0s;
+@media (max-width: 830px) {
+    .logo h4 {
+        font-size: 26px;
+    }
+
+    .logo h4 img {
+        /* max-width: 30px; */
+        margin-left: 5px;
+    }
 }
 
-._h ._n .logo h4 {
+.logo h4 {
     margin-left: 50px;
     font-size: 30px;
     font-weight: 800;
@@ -90,274 +46,4 @@ header
     line-height: 100px;
     float: left;
     transition: all 0.3s ease 0s;
-}
-
-._h ._n .logo h4 img {
-    max-width: 50px;
-    transform: translateY(12px);
-}
-
-._h ._n .nav {
-    float: right;
-    margin-top: 30px;
-    margin-right: 0px;
-    background-color: transparent;
-    transition: all 0.3s ease 0s;
-    position: relative;
-    z-index: 999;
-}
-
-._h ._n .nav li {
-    padding-left: 20px;
-    padding-right: 20px;
-}
-
-._h ._n .nav li a {
-    display: block;
-    font-weight: 500;
-    font-size: 15px;
-    color: #fff;
-    text-transform: capitalize;
-    transition: all 0.3s ease 0s;
-    height: 40px;
-    line-height: 40px;
-    border: transparent;
-    letter-spacing: 1px;
-}
-
-._h ._n .nav li:hover a,
-._h ._n .nav li a.active {
-    color: #fff !important;
-}
-
-
-._h ._n .nav li a:hover {
-    color: #4771cb !important;
-}
-
-._h ._n ._m {
-    cursor: pointer;
-    display: block;
-    position: absolute;
-    top: 33px;
-    width: 32px;
-    height: 40px;
-    text-indent: -9999em;
-    z-index: 99;
-    right: 40px;
-    display: none;
-}
-
-._h ._n ._m span,
-._h ._n ._m span:before,
-._h ._n ._m span:after {
-    transition: all 0.4s;
-    background-color: #fff;
-    display: block;
-    position: absolute;
-    width: 30px;
-    height: 2px;
-    left: 0;
-}
-
-._h ._n ._m span:before,
-._h ._n ._m span:after {
-    transition: all 0.4s;
-    background-color: #fff;
-    display: block;
-    position: absolute;
-    width: 30px;
-    height: 2px;
-    left: 0;
-    width: 75%;
-}
-
-._h ._n ._m span:before,
-._h ._n ._m span:after {
-    content: "";
-}
-
-._h ._n ._m span {
-    top: 16px;
-}
-
-._h ._n ._m span:before {
-    transform-origin: 33% 100%;
-    top: -10px;
-    z-index: 10;
-}
-
-._h ._n ._m span:after {
-    transform-origin: 33% 0;
-    top: 10px;
-}
-
-/*_h=header _n=main-nav _m=menu-trigger*/
-._h ._n ._m.active span,
-._h ._n ._m.active span:before,
-._h ._n ._m.active span:after {
-    background-color: transparent;
-    width: 100%;
-}
-
-._h ._n ._m.active span:before {
-    transform: translateY(6px) translateX(1px) rotate(45deg);
-    background-color: #fff;
-}
-
-._h ._n ._m.active span:after {
-    transform: translateY(-6px) translateX(1px) rotate(-45deg);
-    background-color: #fff;
-}
-
-._h .nav {
-    margin-top: 30px;
-}
-
-
-@media (max-width: 1200px) {
-    ._h ._n .nav li {
-        padding-left: 12px;
-        padding-right: 12px;
-    }
-
-    ._h ._n:before {
-        display: none;
-    }
-}
-
-@media (max-width: 830px) {
-
-    ._h ._n .logo {
-        color: #1e1e1e;
-    }
-
-    ._h {
-        background-color: #33ccc5;
-        padding: 0px 15px;
-        height: 100px;
-        box-shadow: none;
-        text-align: center;
-    }
-
-    ._h .container {
-        padding: 0px;
-    }
-
-    ._h .logo {
-        margin-left: 30px;
-    }
-
-    ._h ._m {
-        display: block !important;
-        margin-right: 20px;
-    }
-
-    ._h ._n {
-        overflow: hidden;
-    }
-
-    ._h ._n .nav {
-        float: none;
-        width: 100%;
-        display: none;
-        transition: all 0s ease 0s;
-        margin-left: 0px;
-    }
-
-    ._h ._n .nav li {
-        width: 100%;
-        background: #fff;
-        border-bottom: 1px solid #e7e7e7;
-        padding-left: 0px !important;
-        padding-right: 0px !important;
-    }
-
-    ._h ._n .nav li a {
-        height: 50px !important;
-        line-height: 50px !important;
-        padding: 0px !important;
-        border: none !important;
-        background: #f7f7f7 !important;
-        color: #191a20 !important;
-    }
-
-    ._h ._n .nav li a:hover {
-        background: #eee !important;
-        color: #33ccc5 !important;
-    }
-}
-
-@media (min-width: 830px) {
-    ._h ._n .nav {
-        display: flex !important;
-    }
-}
-
-/* 
----------------------------------------------
-responsive
---------------------------------------------- 
-*/
-
-@media (max-width: 1200px) {
-    ._h ._n .logo h4 {
-        font-size: 30px;
-    }
-
-    ._h ._n .logo h4 img {
-        margin-left: 10px;
-    }
-}
-
-@media (max-width: 830px) {
-    ._h ._n .logo h4 {
-        font-size: 26px;
-    }
-
-    ._h ._n .logo h4 img {
-        /* max-width: 30px; */
-        margin-left: 5px;
-    }
-}
-
-@media (max-width: 620px) {
-    ._h ._n .logo h4 {
-        font-size: 32px;
-        margin-left: -35px;
-    }
-}
-
-.hide {
-    display: none;
-}
-
-.show {
-    display: flex !important;
-}
-
-.profile-containe { 
-    position: relative;
-}
-
-.btn-txt-align-center {
-    text-align: center;
-}
-
-.profile-menu {
-    color: white;
-    float: right;
-    position: relative;
-    top: 24px;
-}
-
-.user-icon {
-    margin-right: 0px !important;
-    transform: scale(2);
-    border-radius: 50%;
-}
-
-.logo-container {
-    margin: auto;
-    margin-left: -25vh;
 }

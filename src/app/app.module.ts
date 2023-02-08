@@ -25,6 +25,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSortModule } from '@angular/material/sort';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -124,7 +125,8 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
         MatListModule,
         MatTabsModule,
         MatSortModule,
-        MatDialogModule
+        MatDialogModule,
+        MatToolbarModule
     ],
     providers: [
         AuthGuardService,

@@ -2,7 +2,7 @@
 
 @include mat.core();
 
-$header-palette: (
+$header-palette: ( //obsolete
     100: #F5F5F5,
     500: #cc3333,
     700: #202020,
@@ -13,10 +13,10 @@ $header-palette: (
 
 $primary-palette: (
     100: #F5F5F5,
-    500: #808080,
+    500: #cc3333,
     700: #202020,
     contrast: (100: rgba(black, 0.87),
-        500: rgba(black, 0.87),
+        500: rgba(#F5F5F5, 0.87),
         700: rgba(black, 0.87))
 );
 
@@ -65,4 +65,10 @@ footer p a {
 
 footer p a:hover {
     color: mat.get-color-from-palette($my-header, 500);
+}
+
+// ---
+
+a h4 {
+    color: mat.get-color-from-palette($my-primary, '500-contrast');
 }
