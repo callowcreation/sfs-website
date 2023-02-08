@@ -14,15 +14,15 @@
         </button> -->
         <span class="example-spacer"></span>
 
-        <button [routerLink]="[route.path]" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" *ngFor="let route of routes['Navigation']">
+        <button [routerLink]="[route.path]" mat-icon-button class="example-icon" *ngFor="let route of routes['Navigation']" title="{{route.title}}">
            <mat-icon *ngIf="route.data.icon">{{route.data.icon}}</mat-icon>
         </button>
 
         <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="showProfile == true">
-            <img [src]="profilePic" class="user-icon" />
+            <img [src]="profilePic" class="profile-icon" />
         </button>
         <mat-menu #menu="matMenu">
-            <button mat-menu-item [disabled]="true" class="btn-txt-align-center">
+            <button mat-menu-item [disabled]="true">
                 <span>{{display_name}}</span>
             </button>
             <mat-divider></mat-divider>

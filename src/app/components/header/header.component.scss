@@ -16,6 +16,10 @@ img {
     transform: translateY(12px);
 }
 
+.profile-icon { 
+    transform: scale(1.5);
+}
+
 @media (max-width: 1200px) {
     .logo h4 {
         font-size: 30px;
