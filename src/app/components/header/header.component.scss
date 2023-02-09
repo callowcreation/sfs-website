@@ -21,10 +21,11 @@ img {
 }
 
 .logo h4 {
-    font-size: 36px;
+    font-size: 30px;
     font-weight: 800;
     transition: all 0.3s ease 0s;
     transform: translateY(-12px);
+    text-transform: capitalize;
 }
 
 .logo h4 img {
@@ -48,13 +49,14 @@ img {
 @media (max-width: 720px) {
 
     .logo-container {
+        margin-top: 18px;
         text-align: center;
         width: 100%;
         padding-left: 0px;
     }
 
     .logo h4 {
-        font-size: 30px;
+        font-size: 26px;
         font-weight: 700;
     }
     
