@@ -5,6 +5,7 @@ import { DashboardComponent } from './components/pages/dashboard/dashboard.compo
 import { FeaturesComponent } from './components/pages/features/features.component';
 import { HomeComponent } from './components/pages/home/home.component';
 import { LoginComponent } from './components/pages/login/login.component';
+import { NotAuthorizedComponent } from './components/pages/not-authorized/not-authorized.component';
 import { PrivacyPolicyComponent } from './components/pages/privacy-policy/privacy-policy.component';
 import { StatisticsComponent } from './components/pages/statistics/statistics.component';
 import { SupportComponent } from './components/pages/support/support.component';
@@ -19,6 +20,7 @@ const routes: Routes = [
     { data: { menu: true, name: MenuName.Navigation, icon: 'home' }, title: 'Home', path: 'home', component: HomeComponent }, 
     { data: { menu: true, name: MenuName.Navigation, icon: 'description' }, title: 'Features', path: 'features', component: FeaturesComponent },
     { data: { menu: true, name: MenuName.Navigation, icon: 'help' }, title: 'Help', path: 'support', component: SupportComponent },
+    { data: { menu: false, name: MenuName.None, icon: null }, title: 'Not Authorized', path: 'not-authorized', component: NotAuthorizedComponent, canActivate: [LoginGuardService] },
     { data: { menu: !StorageService.HasAuth(), name: MenuName.Navigation, icon: 'login' }, title: 'Login', path: 'login', component: LoginComponent, canActivate: [LoginGuardService] },
     { data: { menu: StorageService.HasAuth(), name: MenuName.Profile, icon: 'settings' }, title: 'Configuration', path: 'configuration', component: ConfigurationComponent, canActivate: [AuthGuardService] },
     { data: { menu: StorageService.HasAuth(), name: MenuName.Profile, icon: 'editor' }, title: 'Dashboard', path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService] },

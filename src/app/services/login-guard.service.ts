@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { AuthPayload } from '../interfaces/auth-payload';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { StorageService } from './storage.service';
 
 @Injectable({
@@ -8,9 +7,16 @@ import { StorageService } from './storage.service';
 })
 export class LoginGuardService {
 
-    constructor() { }
+    constructor(public router: Router) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-        return !StorageService.HasAuth();
+        
+        const value = !StorageService.HasAuth();
+        if(!value) {
+            this.router.navigateByUrl('/');
+            return false;
+        }
+
+        return true;
     }
 }

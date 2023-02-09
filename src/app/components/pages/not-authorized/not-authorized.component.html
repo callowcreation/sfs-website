@@ -1,0 +1,15 @@
+<section class="page-section">
+    <mat-card class="page-card" style="margin-bottom: 10px; margin: auto;">
+        <mat-card-header>
+            <mat-card-title>Not Logged In</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <p>
+                You are not authorized to view that page.  To view the page please login.
+            </p>
+            <div class="container">
+                <button mat-raised-button color="primary" (click)="router.navigateByUrl('/login')">Goto Login</button>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</section>

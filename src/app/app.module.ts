@@ -71,6 +71,7 @@ import { HelpPanelComponent } from './components/templates/help-panel/help-panel
 
 import { environment } from '../environments/environment';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { NotAuthorizedComponent } from './components/pages/not-authorized/not-authorized.component';
 
 const matModules: (any[] | Type<any> | ModuleWithProviders<{}>) = [
     MatRippleModule,
@@ -119,7 +120,8 @@ const matModules: (any[] | Type<any> | ModuleWithProviders<{}>) = [
         ContactUsComponent,
         FAQPanel,
         ConfirmDialogComponent,
-        HelpPanelComponent
+        HelpPanelComponent,
+        NotAuthorizedComponent
     ],
     entryComponents: [ConfirmDialogComponent],
     imports: [
