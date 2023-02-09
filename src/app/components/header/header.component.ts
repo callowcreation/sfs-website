@@ -25,6 +25,7 @@ export class HeaderComponent {
     }
 
     constructor(public router: Router, private storage: StorageService, private auth: Auth) {
+
         for (let i = 0; i < router.config.length; i++) {
             const route = router.config[i] as MenuRoute;
             if (route.data.menu == false) continue;
@@ -36,11 +37,14 @@ export class HeaderComponent {
 
     logout(): void {
         this.loggingOut = true;
-        signOut(this.auth).then(() => {
-            this.showProfile = false;
-            this.loggingOut = false;
-            this.storage.clear();
-            location.href = '/';
-        });
+        setTimeout(() => {
+            signOut(this.auth).then(() => {
+                this.showProfile = false;
+                this.loggingOut = false;
+                this.storage.clear();
+                location.href = '/';
+            });
+        }, 2500);
+
     }
 }

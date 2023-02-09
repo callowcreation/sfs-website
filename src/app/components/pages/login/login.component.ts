@@ -51,7 +51,7 @@ export class LoginComponent {
             })).subscribe(result => {
                 this.storage.update('user', result);
                 this.authentication.authenticte()
-                    .then(() => location.href = '/')
+                    .then(() => location.href = '/configuration')
                     .catch(err => console.error(err))
             });
         });

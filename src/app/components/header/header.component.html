@@ -14,7 +14,7 @@
         </button> -->
         <span class="example-spacer"></span>
 
-        <span class="menu-inline-line">
+        <span class="menu-line-inline">
             <button [routerLink]="[route.path]" mat-icon-button class="example-icon"
                 *ngFor="let route of routes['Navigation']" title="{{route.title}}">
                 <mat-icon *ngIf="route.data.icon">{{route.data.icon}}</mat-icon>
@@ -22,7 +22,6 @@
             <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="showProfile == true && loggingOut == false">
                 <img [src]="profilePic" class="profile-icon" />
             </button>
-            
         </span>
         <mat-spinner color="accent" style="width: 20px; margin: 0 14px;" *ngIf="loggingOut == true"></mat-spinner>
         <mat-menu #menu="matMenu">
@@ -43,13 +42,13 @@
         </mat-menu>
     </mat-toolbar-row>
 
-    <mat-toolbar-row class="menu-second-line">
+    <mat-toolbar-row class="menu-line-second">
         <div style="text-align: center;">
             <button [routerLink]="[route.path]" mat-icon-button class="example-icon"
                 *ngFor="let route of routes['Navigation']" title="{{route.title}}">
                 <mat-icon *ngIf="route.data.icon">{{route.data.icon}}</mat-icon>
             </button>
-            <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="showProfile == true">
+            <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="showProfile == true && loggingOut == false">
                 <img [src]="profilePic" class="profile-icon" />
             </button>
         </div>

@@ -9,12 +9,10 @@ export class AuthGuardService implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
         const value = localStorage.getItem('auth');
-        if (!value) return false;
-
-        // const auth: AuthPayload = JSON.parse(value) as AuthPayload;
-
-        // console.log({ auth });
-
+        if (!value) {
+            window.location.href = "/login";
+            return false;
+        }
         return true;
     }
 }
