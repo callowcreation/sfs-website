@@ -1,3 +1,7 @@
+* {
+    transition: all 0.25s ease-out;
+}
+
 .example-spacer {
     flex: 1 1 auto;
 }
@@ -9,6 +13,18 @@ a {
 img {
     width: 100%;
     overflow: hidden;
+}
+
+.logo-container {
+    text-align: left;
+    padding-left: 30px;
+}
+
+.logo h4 {
+    font-size: 36px;
+    font-weight: 800;
+    transition: all 0.3s ease 0s;
+    transform: translateY(-12px);
 }
 
 .logo h4 img {
@@ -31,6 +47,17 @@ img {
 // custom - with of header title
 @media (max-width: 720px) {
 
+    .logo-container {
+        text-align: center;
+        width: 100%;
+        padding-left: 0px;
+    }
+
+    .logo h4 {
+        font-size: 30px;
+        font-weight: 700;
+    }
+    
     .menu-inline-line {
         display: none;
     }
@@ -62,15 +89,4 @@ img {
     .menu-second-line {
         display: inline-block;
     }
-}
-
-.logo h4 {
-    margin-left: 50px;
-    font-size: 30px;
-    font-weight: 800;
-    text-transform: capitalize;
-    color: #fff;
-    line-height: 100px;
-    float: left;
-    transition: all 0.3s ease 0s;
 }
