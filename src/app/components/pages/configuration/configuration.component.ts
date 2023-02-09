@@ -125,20 +125,20 @@ export class ConfigurationComponent {
         switch (this.forms.bits.value['bits-tier']) {
             case 'Tier 1': {
                 this.bits = {
-                    'move-up': this.products.find(x => x.sku === 'move-up-t1').cost.amount,
-                    'pin-item': this.products.find(x => x.sku === 'pin-item-t1').cost.amount
+                    'move-up': this.products.find(x => x.sku === 'move-up-t1')?.cost.amount,
+                    'pin-item': this.products.find(x => x.sku === 'pin-item-t1')?.cost.amount
                 };
             } break;
             case 'Tier 2': {
                 this.bits = {
-                    'move-up': this.products.find(x => x.sku === 'move-up-t2').cost.amount,
-                    'pin-item': this.products.find(x => x.sku === 'pin-item-t2').cost.amount
+                    'move-up': this.products.find(x => x.sku === 'move-up-t2')?.cost.amount,
+                    'pin-item': this.products.find(x => x.sku === 'pin-item-t2')?.cost.amount
                 };
             } break;
             case 'Tier 3': {
                 this.bits = {
-                    'move-up': this.products.find(x => x.sku === 'move-up-t3').cost.amount,
-                    'pin-item': this.products.find(x => x.sku === 'pin-item-t3').cost.amount
+                    'move-up': this.products.find(x => x.sku === 'move-up-t3')?.cost.amount,
+                    'pin-item': this.products.find(x => x.sku === 'pin-item-t3')?.cost.amount
                 };
             } break;
             default:
