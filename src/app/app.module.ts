@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule, Type } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -26,6 +26,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatSortModule } from '@angular/material/sort';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -70,6 +71,28 @@ import { HelpPanelComponent } from './components/templates/help-panel/help-panel
 
 import { environment } from '../environments/environment';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+
+const matModules: (any[] | Type<any> | ModuleWithProviders<{}>) = [
+    MatRippleModule,
+    MatButtonModule,
+    MatMenuModule,
+    MatIconModule,
+    MatDividerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatSelectModule,
+    MatSliderModule,
+    MatCardModule,
+    MatExpansionModule,
+    MatListModule,
+    MatTabsModule,
+    MatSortModule,
+    MatDialogModule,
+    MatToolbarModule,
+    MatProgressSpinnerModule
+];
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -110,23 +133,7 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
         provideAuth(() => getAuth()),
         provideDatabase(() => getDatabase()),
         BrowserAnimationsModule,
-        MatRippleModule,
-        MatButtonModule,
-        MatMenuModule,
-        MatIconModule,
-        MatDividerModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatCheckboxModule,
-        MatSelectModule,
-        MatSliderModule,
-        MatCardModule,
-        MatExpansionModule,
-        MatListModule,
-        MatTabsModule,
-        MatSortModule,
-        MatDialogModule,
-        MatToolbarModule
+        matModules
     ],
     providers: [
         AuthGuardService,

@@ -14,6 +14,7 @@ export class HeaderComponent {
     routes: Record<string, MenuRoute[]> = {};
     showMenu: boolean = false;
     showProfile = false;
+    loggingOut = false;
 
     get profilePic(): string {
         return this.storage.user?.profile_image_url || '';
@@ -24,7 +25,6 @@ export class HeaderComponent {
     }
 
     constructor(public router: Router, private storage: StorageService, private auth: Auth) {
-
         for (let i = 0; i < router.config.length; i++) {
             const route = router.config[i] as MenuRoute;
             if (route.data.menu == false) continue;
@@ -35,8 +35,11 @@ export class HeaderComponent {
     }
 
     logout(): void {
-        this.storage.clear();
+        this.loggingOut = true;
         signOut(this.auth).then(() => {
+            this.showProfile = false;
+            this.loggingOut = false;
+            this.storage.clear();
             location.href = '/';
         });
     }
