@@ -1,7 +1,12 @@
 <section class="page-section">
     <app-section-header>Configuration</app-section-header>
+<div [ngClass]="{'twitch-theme-dark' : isDarkMode, 'twitch-theme-light': !isDarkMode}" style="padding: 5px;">
 
-    <app-legacy [dataSource]="{legacy: forms.appearance, guests}"></app-legacy>
+    <app-legacy [dataSource]="{legacy: forms.appearance, guests}"><span  style="position: absolute; right: 0; padding-right: 5px;">
+        <span style="font-size: 80%; padding-right: 5px;">Twitch {{isDarkMode ? 'Dark Mode' : 'Light Mode'}}</span>
+        <mat-slide-toggle [(ngModel)]="isDarkMode"></mat-slide-toggle>
+    </span></app-legacy>
+</div>
     <app-appearance [buttonsTemplate]="altButtonsTemplate"
         [dataSource]="{form: forms.appearance, description: 'Configure your branding colors.', expanded: false}"></app-appearance>
 

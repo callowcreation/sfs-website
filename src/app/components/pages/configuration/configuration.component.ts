@@ -55,7 +55,7 @@ export class ConfigurationComponent {
     guests: User[] = [];
 
     canDelete: boolean = false;
-
+    isDarkMode: boolean = false;
     private get refs() {
         const db = getDatabase();
         return {

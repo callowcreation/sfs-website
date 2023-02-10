@@ -1,11 +1,13 @@
 <section class="page-section">
     <app-section-header>Features</app-section-header>
     <mat-accordion>
-        <app-help-panel title="Customize" descriptionOpened="Branding colors" descriptionClosed="Customizable branding colors">
+        <app-help-panel title="Customize" descriptionOpened="Branding colors"
+            descriptionClosed="Customizable branding colors">
             <mat-panel-description>
-                <p>Make Shoutouts for Streamers fit your branding. Modify the extension typography. Change the colors of the
+                <p>Make Shoutouts for Streamers fit your branding. Modify the extension typography. Change the colors of
+                    the
                     font, borders and background. <br /><br />
-                Try out your branding colors below in the section marked 'Try it for yourself'</p>
+                    Try out your branding colors below in the section marked 'Try it for yourself'</p>
             </mat-panel-description>
         </app-help-panel>
         <app-help-panel title="Commands" descriptionOpened="!so caLLowCreation" descriptionClosed="!so [username]">
@@ -24,16 +26,23 @@
             <app-install></app-install>
         </app-help-panel>
     </mat-accordion>
-    <mat-card style="margin-bottom: 10px; margin-top: 10px;">
+    <mat-card style="margin-bottom: 10px; margin-top: 10px;"
+        [ngClass]="{'twitch-theme-dark' : isDarkMode, 'twitch-theme-light': !isDarkMode}">
         <mat-card-header>
-            <mat-card-title>Try it for yourself</mat-card-title>
+            <mat-card-title>
+                Try it for yourself
+                <span  style="position: absolute; right: 0; padding-right: 5px;">
+                    <span style="font-size: 80%; padding-right: 5px;">Twitch {{isDarkMode ? 'Dark Mode' : 'Light Mode'}}</span>
+                    <mat-slide-toggle [(ngModel)]="isDarkMode"></mat-slide-toggle>
+                </span>
+            </mat-card-title>
         </mat-card-header>
         <mat-card-content style="text-align: center; padding: 20px;">
             <div>
                 Are you curious about how it would look on your Twitch page?
             </div>
         </mat-card-content>
-
+        
         <app-legacy-view></app-legacy-view>
 
     </mat-card>

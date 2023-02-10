@@ -3,6 +3,7 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'app-legacy',
   template: `
+      <ng-content></ng-content>
       <div [ngStyle]="{'background-color': dataSource.legacy.value['background-color'], 'color': dataSource.legacy.value['color']}"
         style="margin: auto; height: 300px; width: 300px; margin-top: 20px; margin-bottom: 15px;">
         <header>

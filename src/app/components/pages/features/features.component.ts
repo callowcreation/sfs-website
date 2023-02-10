@@ -6,7 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./features.component.scss']
 })
 export class FeaturesComponent {
+    
     panelOpenStates: boolean[] = [];
+    isDarkMode: boolean = false;
 
     ngOnInit() {
         this.panelOpenStates = [false, false, false];
