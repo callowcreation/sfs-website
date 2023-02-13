@@ -1,7 +1,9 @@
 export const environment = {
     production: true,
     version: '0.3.1',
+    cycle: 'prod',
     api: 'https://us-central1-shoutoutsdev-38a1d.cloudfunctions.net/app',
+    useEmulators: false,
     firebase: {
         projectId: 'shoutoutsdev-38a1d',
         appId: '1:755014112663:web:457a853890bd93a56220d2',

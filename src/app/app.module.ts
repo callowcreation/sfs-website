@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
-import { provideDatabase, getDatabase } from '@angular/fire/database';
+import { provideDatabase, getDatabase, connectDatabaseEmulator } from '@angular/fire/database';
 
 import { MatRippleModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -135,7 +135,13 @@ const matModules: (any[] | Type<any> | ModuleWithProviders<{}>) = [
         provideFirebaseApp(() => initializeApp(environment.firebase)),
 
         provideAuth(() => getAuth()),
-        provideDatabase(() => getDatabase()),
+        provideDatabase(() => {
+            const db = getDatabase();
+            if(environment.useEmulators === true) {
+                connectDatabaseEmulator(db, 'localhost', 9001);
+            }
+            return db;
+        }),
         BrowserAnimationsModule,
         matModules
     ],

@@ -1,4 +1,4 @@
-export interface Settings {
+export interface Settings extends Record<string, string | number | boolean | string[]> {
     'background-color': string;
     'border-color': string;
     'color': string;

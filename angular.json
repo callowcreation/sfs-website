@@ -65,10 +65,47 @@
                 }
               },
               "fileReplacements": [
-                  {
-                      "replace": "src/environments/environment.dev.ts",
-                      "with": "src/environments/environment.ts"
-                  }
+                {
+                    "replace": "src/environments/environment.dev.ts",
+                    "with": "src/environments/environment.ts"
+                },
+                {
+                    "replace": "src/environments/environment.staged.ts",
+                    "with": "src/environments/environment.ts"
+                }
+              ]
+            },
+            "staged": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "1mb",
+                  "maximumError": "2mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "64kb",
+                  "maximumError": "124kb"
+                }
+              ],
+              "outputHashing": "all",
+              "optimization": {
+                "scripts": true,
+                "fonts": true,
+                "styles": {
+                    "minify": true,
+                    "inlineCritical": false
+                }
+              },
+              "fileReplacements": [
+                {
+                    "replace": "src/environments/environment.dev.ts",
+                    "with": "src/environments/environment.staged.ts"
+                },
+                {
+                    "replace": "src/environments/environment.ts",
+                    "with": "src/environments/environment.staged.ts"
+                }
               ]
             },
             "development": {
@@ -79,10 +116,14 @@
               "sourceMap": true,
               "namedChunks": true,
               "fileReplacements": [
-                  {
-                      "replace": "src/environments/environment.ts",
-                      "with": "src/environments/environment.dev.ts"
-                  }
+                {
+                    "replace": "src/environments/environment.ts",
+                    "with": "src/environments/environment.dev.ts"
+                },
+                {
+                    "replace": "src/environments/environment.staged.ts",
+                    "with": "src/environments/environment.dev.ts"
+                }
               ]
             }
           },

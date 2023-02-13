@@ -1,6 +1,6 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Component, ViewChild } from '@angular/core';
-import { Database, DatabaseReference, getDatabase, objectVal, ref, update } from '@angular/fire/database';
+import { Database, objectVal, ref, update } from '@angular/fire/database';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatRipple, RippleRef } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -57,10 +57,9 @@ export class ConfigurationComponent {
     canDelete: boolean = false;
     isDarkMode: boolean = false;
     private get refs() {
-        const db = getDatabase();
         return {
-            settings: ref(db, `${this.storage.user?.id}/settings`),
-            shoutouts: ref(db, `${this.storage.user?.id}/shoutouts`)
+            settings: ref(this.db, `${this.storage.user?.id}/settings`),
+            shoutouts: ref(this.db, `${this.storage.user?.id}/shoutouts`)
         };
     }
 
@@ -68,8 +67,8 @@ export class ConfigurationComponent {
         return this.commandControl.value.includes(' ');
     }
 
-    constructor(public dialog: MatDialog, private authentication: AuthenticationService, private storage: StorageService, private configuration: ConfigurationService, private backend: BackendService) {
-        
+    constructor(private db: Database, public dialog: MatDialog, private authentication: AuthenticationService, private storage: StorageService, private configuration: ConfigurationService, private backend: BackendService) {
+    
         objectVal<Settings>(this.refs.settings).subscribe((value: any) => {
             this.configuration.update(value);
             this.forms.appearance.setValue(configuration.appearance);
@@ -147,7 +146,8 @@ export class ConfigurationComponent {
     }
 
     confirmRemove(command: string) {
-        if (this.commands.indexOf(command, 0) === 0) return;
+        const index: number = this.commands.indexOf(command, 0);
+        if (index === 0 || index === 1) return;
         const dialogRef = this.dialog.open(ConfirmDialogComponent, { data: { content: `Remove (${command}) command?` } });
         dialogRef.afterClosed().subscribe(result => {
             if (coerceBooleanProperty(result) === true) {

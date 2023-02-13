@@ -35,9 +35,9 @@
                 Commands
             </mat-card-title>
             <mat-selection-list #commandsList formControlName="commands" (selectionChange)="onChange($event)">
-                <mat-list-item *ngFor="let command of commands" [disabled]="command == 'so'"
+                <mat-list-item *ngFor="let command of commands" [disabled]="command == 'so' || command == 'shoutout'"
                     (click)="confirmRemove(command)">
-                    {{command}}<mat-icon *ngIf="command != 'so'" style="float: right;">delete</mat-icon>
+                    {{command}}<mat-icon *ngIf="command != 'so' && command != 'shoutout'" style="float: right;">delete</mat-icon>
                 </mat-list-item>
             </mat-selection-list>
             <mat-form-field class="example-form-field form-fit">

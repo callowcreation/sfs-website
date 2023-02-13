@@ -1,6 +1,6 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Component } from '@angular/core';
-import { getDatabase, objectVal, ref } from '@angular/fire/database';
+import { Database, objectVal, ref } from '@angular/fire/database';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatListOption, MatSelectionListChange } from '@angular/material/list';
@@ -38,8 +38,8 @@ export class DashboardComponent {
 
     canDelete: boolean = false;
 
-    constructor(private authentication: AuthenticationService, private storage: StorageService, private backend: BackendService, public dialog: MatDialog, ) {
-        objectVal<any>(ref(getDatabase(), `${this.storage.user?.id}/shoutouts`)).subscribe((value: any) => {
+    constructor(db: Database, private authentication: AuthenticationService, private storage: StorageService, private backend: BackendService, public dialog: MatDialog, ) {
+        objectVal<any>(ref(db, `${this.storage.user?.id}/shoutouts`)).subscribe((value: any) => {
             console.log({value})
             this.backend.get<any>(`/v3/api/dashboard/${storage.user?.id}`)
             .pipe(map(({ guests }) => {

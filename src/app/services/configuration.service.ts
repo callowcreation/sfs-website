@@ -30,32 +30,32 @@ export class ConfigurationService {
 
     get appearance(): Appearance {
         return {
-            'background-color': this.settings['background-color'],
-            'border-color': this.settings['border-color'],
-            'color': this.settings['color'],
+            'background-color': this.notUndefined('background-color'),
+            'border-color': this.notUndefined('border-color'),
+            'color': this.notUndefined('color')
         };
     }
 
     get behaviour(): Behaviour {
         return {
-            'auto-shoutouts': this.settings['auto-shoutouts'],
-            'badge-vip': this.settings['badge-vip'],
-            'commands': this.settings['commands']
+            'auto-shoutouts': this.notUndefined('auto-shoutouts'),
+            'badge-vip': this.notUndefined('badge-vip'),
+            'commands': this.notUndefined('commands')
         };
     }
 
     get bits(): Bits {
         return {
-            'enable-bits': this.settings['enable-bits'],
-            'bits-tier': this.settings['bits-tier'],
-            'pin-days': this.settings['pin-days'],
+            'enable-bits': this.notUndefined('enable-bits'),
+            'bits-tier': this.notUndefined('bits-tier'),
+            'pin-days': this.notUndefined('pin-days')
         };
     }
 
     get version(): string {
         return environment.version;
     }
-    
+
     constructor(private storage: StorageService, private backend: BackendService) {
         this.settings = this.storage.value<Settings>(Keys.SETTINGS) || this.defaultSettings;
         this.backend.get<any>(`/v3/api/common/${this.storage.user?.id}`, {
@@ -65,40 +65,29 @@ export class ConfigurationService {
             this.settings = settings;
         });
     }
+    
+    private notUndefined(key: string): any {
+        return this.settings[key] || this.defaultSettings[key];
+    }
 
     rndColor(): string {
         let found: boolean = false;
         let val = '';
-        while(!found) {
+        while (!found) {
             val = `${(Math.floor(Math.random() * 16777215).toString(16))}`;
-            if(val.length !== 3 && val.length !== 6) continue;
+            if (val.length !== 3 && val.length !== 6) continue;
             found = true;
             return `#${val}`;
         }
         return '#000';
     }
 
-    update(value: any): void {               
-        const vals: any[] = [];
-        Object.keys(value).forEach((key: any) => {
+    update(value: any): void {
+        Object.keys(value).forEach((key: string) => {
             if (Object.keys(this.settings).includes(key)) {
-                vals[key] = value[key];
+                this.settings[key] = value[key];
             }
         });
-        this.settings = Object.assign(this.settings, vals);
         this.storage.update('settings', this.settings);
     }
-    
-    // update(key: Index, value: any): void {     
-        
-    //     this.settings[key].valueOf = value;
-
-    //     const vals: any[] = [];
-    //     Object.keys(value).forEach((key) => {
-    //             if (Object.keys(this.settings).includes(key)) {
-    //             vals[key] = value[key];
-    //         }
-    //     });
-    //     this.settings = Object.assign(this.settings, vals);
-    // }
 }
