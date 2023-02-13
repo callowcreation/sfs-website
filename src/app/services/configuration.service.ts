@@ -71,15 +71,7 @@ export class ConfigurationService {
     }
 
     rndColor(): string {
-        let found: boolean = false;
-        let val = '';
-        while (!found) {
-            val = `${(Math.floor(Math.random() * 16777215).toString(16))}`;
-            if (val.length !== 3 && val.length !== 6) continue;
-            found = true;
-            return `#${val}`;
-        }
-        return '#000';
+        return `#${Math.floor(Math.random()*16777215).toString(16).padStart(6, '0').toUpperCase()}`;
     }
 
     update(value: any): void {
