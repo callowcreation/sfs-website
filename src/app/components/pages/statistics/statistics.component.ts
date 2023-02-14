@@ -10,6 +10,11 @@ export interface Dessert {
     protein: number;
 }
 
+interface Statistics {
+    guests: any[];
+    posted_bys: any[];
+}
+
 @Component({
     selector: 'app-statistics',
     templateUrl: './statistics.component.html',
@@ -26,22 +31,25 @@ export class StatisticsComponent {
 
     sortedData: Dessert[];
 
-    statistics: any[] = [];
-    sortedStatistics: any[] = [];
+    statistics: Statistics;
+    sortedGuests: any[] = [];
+    sortedPostedBys: any[] = [];
 
     constructor(private storage: StorageService, private backend: BackendService) {
         this.sortedData = this.desserts.slice();
 
+        this.statistics = {guests: [], posted_bys: []};
 
         this.backend.get<any>(`/v3/api/common/${this.storage.user?.id}`, {
             statistics: true, // or object defining what parts of the [guests or any property, ie. features...] to return
         })
         .subscribe(({ statistics }) => {
-            // console.log({ statistics });
+            console.log({ statistics });
 
             this.statistics = statistics;
 
-            this.sortedStatistics = this.statistics.slice();
+            this.sortedGuests = this.statistics.guests.slice();
+            this.sortedPostedBys = this.statistics.posted_bys.slice();
         });
     }
 
@@ -70,14 +78,41 @@ export class StatisticsComponent {
             }
         });
     }
-    sortStatistics(sort: any) {
-        const data = this.statistics.slice();
+
+    sortShoutouts(sort: any) {
+        const data = this.statistics.guests.slice();
         if (!sort.active || sort.direction === '') {
-            this.sortedStatistics = data;
+            this.sortedGuests = data;
             return;
         }
 
-        this.sortedStatistics = data.sort((a, b) => {
+        this.sortedGuests = data.sort((a, b) => {
+            const isAsc = sort.direction === 'asc';
+            switch (sort.active) {
+                case 'login':
+                    return compare(a.login, b.login, isAsc);
+                case 'total':
+                    return compare(a.total, b.total, isAsc);
+                case 'fat':
+                    return compare(a.fat, b.fat, isAsc);
+                case 'carbs':
+                    return compare(a.carbs, b.carbs, isAsc);
+                case 'protein':
+                    return compare(a.protein, b.protein, isAsc);
+                default:
+                    return 0;
+            }
+        });
+    }
+
+    sortPostedBy(sort: any) {
+        const data = this.statistics.posted_bys.slice();
+        if (!sort.active || sort.direction === '') {
+            this.sortedPostedBys = data;
+            return;
+        }
+
+        this.sortedPostedBys = data.sort((a, b) => {
             const isAsc = sort.direction === 'asc';
             switch (sort.active) {
                 case 'login':

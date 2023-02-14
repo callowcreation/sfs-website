@@ -3,19 +3,34 @@
     <div [@.disabled]="true">
         <mat-tab-group dynamicHeight>
             <mat-tab label="Shoutouts">
-                <table matSort (matSortChange)="sortStatistics($event)" style="width: 100%;">
+                <table matSort (matSortChange)="sortShoutouts($event)" style="width: 100%;">
                     <tr>
                       <th mat-sort-header="login">Streamer</th>
                       <th mat-sort-header="total">Total</th>
                     </tr>
                   
-                    <tr *ngFor="let statistic of sortedStatistics">
+                    <tr *ngFor="let statistic of sortedGuests">
                       <td>{{statistic.login}}</td>
                       <td>{{statistic.total}}</td>
                     </tr>
                   </table>
             </mat-tab>
-            <mat-tab label="Pie Chart">
+            
+            <mat-tab label="Posted By">
+                <table matSort (matSortChange)="sortPostedBy($event)" style="width: 100%;">
+                    <tr>
+                      <th mat-sort-header="login">Poster</th>
+                      <th mat-sort-header="total">Total</th>
+                    </tr>
+                  
+                    <tr *ngFor="let statistic of sortedPostedBys">
+                      <td>{{statistic.login}}</td>
+                      <td>{{statistic.total}}</td>
+                    </tr>
+                  </table>
+            </mat-tab>
+
+            <!-- <mat-tab label="Pie Chart">
                 <table matSort (matSortChange)="sortData($event)">
                     <tr>
                       <th mat-sort-header="name">Dessert (100g)</th>
@@ -36,7 +51,7 @@
             </mat-tab>
             <mat-tab label="Line Chart">
                 <p>works</p>
-            </mat-tab>
+            </mat-tab> -->
         </mat-tab-group>
     </div>
 </section>
