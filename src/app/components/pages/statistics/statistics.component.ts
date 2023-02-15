@@ -30,83 +30,59 @@ export class StatisticsComponent {
 
     constructor(private storage: StorageService, private backend: BackendService) {
 
-        this.statistics = {guests: [], posted_bys: [], recents: []};
+        this.statistics = { guests: [], posted_bys: [], recents: [] };
 
         this.backend.get<any>(`/v3/api/common/${this.storage.user?.id}`, {
             statistics: true, // or object defining what parts of the [guests or any property, ie. features...] to return
         })
-        .subscribe(({ statistics }) => {
-            console.log({ statistics });
+            .subscribe(({ statistics }) => {
+                console.log({ statistics });
 
-            this.statistics = statistics;
+                this.statistics = statistics;
 
-            this.sortedGuests = this.statistics.guests.slice().sort((a, b) => compare(a.total, b.total, false));
-            this.sortedPostedBys = this.statistics.posted_bys.slice().sort((a, b) => compare(a.total, b.total, false));
-            this.sortedRecents = this.statistics.recents.slice().sort((a, b) => compare(a.timestamp, b.timestamp, false));
-        });
+                this.sortedGuests = this.statistics.guests.slice().sort((a, b) => compare(a.total, b.total, false));
+                this.sortedPostedBys = this.statistics.posted_bys.slice().sort((a, b) => compare(a.total, b.total, false));
+                this.sortedRecents = this.statistics.recents.slice().sort((a, b) => compare(a.timestamp, b.timestamp, false));
+            });
     }
 
     sortShoutouts(sort: any) {
         const data = this.statistics.guests.slice();
-        if (!sort.active || sort.direction === '') {
-            this.sortedGuests = data;
-            return;
-        }
+
+        if (firstInit(this.sortedGuests, sort, data)) return;
 
         this.sortedGuests = data.sort((a, b) => {
-            const isAsc = sort.direction === 'asc';
-            switch (sort.active) {
-                case 'login':
-                    return compare(a.login, b.login, isAsc);
-                case 'total':
-                    return compare(a.total, b.total, isAsc);
-                default:
-                    return 0;
-            }
+            return compare(a[sort.active], b[sort.active], sort.direction === 'asc');
         });
     }
 
     sortPostedBys(sort: any) {
         const data = this.statistics.posted_bys.slice();
-        if (!sort.active || sort.direction === '') {
-            this.sortedPostedBys = data;
-            return;
-        }
+
+        if (firstInit(this.sortedPostedBys, sort, data)) return;
 
         this.sortedPostedBys = data.sort((a, b) => {
-            const isAsc = sort.direction === 'asc';
-            switch (sort.active) {
-                case 'login':
-                    return compare(a.login, b.login, isAsc);
-                case 'total':
-                    return compare(a.total, b.total, isAsc);
-                default:
-                    return 0;
-            }
+            return compare(a[sort.active], b[sort.active], sort.direction === 'asc');
         });
     }
 
     sortRecents(sort: any) {
         const data = this.statistics.recents.slice();
-        if (!sort.active || sort.direction === '') {
-            this.sortedRecents = data;
-            return;
-        }
+
+        if (firstInit(this.sortedRecents, sort, data)) return;
 
         this.sortedRecents = data.sort((a, b) => {
-            const isAsc = sort.direction === 'asc';
-            switch (sort.active) {
-                case 'login':
-                    return compare(a.login, b.login, isAsc);
-                case 'guest':
-                    return compare(a.guest, b.guest, isAsc);
-                case 'timestamp':
-                    return compare(a.timestamp, b.timestamp, isAsc);
-                default:
-                    return 0;
-            }
+            return compare(a[sort.active], b[sort.active], sort.direction === 'asc');
         });
     }
+}
+
+function firstInit(sorted: any[], sort: any, data: any): boolean {
+    if (!sort.active || sort.direction === '') {
+        sorted = data;
+        return true;
+    }
+    return false;
 }
 
 function compare(a: number | string, b: number | string, isAsc: boolean) {

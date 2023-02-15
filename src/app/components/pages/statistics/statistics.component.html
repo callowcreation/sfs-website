@@ -34,13 +34,13 @@
                 <table matSort (matSortChange)="sortRecents($event)" style="width: 100%;">
                     <tr>
                       <th mat-sort-header="login">Poster</th>
-                      <th mat-sort-header="guest">Guest</th>
+                      <th mat-sort-header="streamer">Streamer</th>
                       <th mat-sort-header="timestamp">Timestamp</th>
                     </tr>
                   
                     <tr *ngFor="let statistic of sortedRecents">
                       <td>{{statistic.login}}</td>
-                      <td>{{statistic.guest}}</td>
+                      <td>{{statistic.streamer}}</td>
                       <td>{{statistic.timestamp | date}}</td>
                     </tr>
                   </table>
