@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Settings } from 'src/app/interfaces/settings';
 import { User } from 'src/app/interfaces/user';
 import { BackendService } from 'src/app/services/backend.service';
@@ -19,6 +19,8 @@ export class EmbeddedComponent {
     settings: Settings;
 
     interval: any;
+
+    @Input() isDarkMode: boolean = false;
 
     constructor(private storage: StorageService, configuration: ConfigurationService, private backend: BackendService) {
         this.settings = this.storage.value<Settings>(Keys.SETTINGS) || configuration.defaultSettings;

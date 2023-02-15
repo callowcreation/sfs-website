@@ -1,6 +1,6 @@
 <div style="padding-top: 10px; margin: auto;">
 
-    <mat-card class="page-card">
+    <mat-card style="padding-top: 12px;" class="page-card" [ngClass]="{'twitch-theme-dark' : isDarkMode, 'twitch-theme-light': !isDarkMode}">
         <mat-card-header>
             <div mat-card-avatar class="example-header-image"><img
                     src="{{featured.profile_image_url}}" class="user-icon" /></div>
@@ -10,7 +10,7 @@
             -webkit-box-orient: vertical;  
             overflow: hidden;">{{featured.description}}</mat-card-subtitle>
         </mat-card-header>
-
+        <ng-content></ng-content>
         <div 
             [ngStyle]="{'background-color': settings['background-color'], 'color': settings['color']}"
             style="margin: auto; height: 300px; width: 300px; margin-top: 20px; margin-bottom: 15px;">

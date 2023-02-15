@@ -20,7 +20,12 @@
         </mat-card-content>
     </mat-card>
     
-    <app-embedded></app-embedded>
+    <app-embedded [isDarkMode]="isDarkMode">
+        <span style="position: absolute; right: 0; padding-right: 5px;">
+            <span style="font-size: 80%; padding-right: 5px;">Twitch {{isDarkMode ? 'Dark Mode' : 'Light Mode'}}</span>
+            <mat-slide-toggle [(ngModel)]="isDarkMode"></mat-slide-toggle>
+        </span>
+    </app-embedded>
 
     <mat-card style="margin-bottom: 20px;">
         <mat-card-content>

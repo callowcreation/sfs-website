@@ -8,7 +8,7 @@ import { StorageService } from 'src/app/services/storage.service';
     styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-
+    isDarkMode: boolean = false;
     topic: string = "";
     constructor(storage: StorageService, public configuration: ConfigurationService) {
         console.log({ '-a': storage.auth });
