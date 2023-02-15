@@ -8,7 +8,7 @@
             <mat-card-subtitle style="margin-top: 10px; height: 34px;   display: -webkit-box;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;  
-            overflow: hidden;">{{featured.description}}</mat-card-subtitle>
+            overflow: hidden;"><span [ngClass]="{'twitch-theme-dark' : isDarkMode, 'twitch-theme-light': !isDarkMode}">{{featured.description}}</span></mat-card-subtitle>
         </mat-card-header>
         <ng-content></ng-content>
         <div 
