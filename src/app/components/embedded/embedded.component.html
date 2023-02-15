@@ -4,13 +4,16 @@
         <mat-card-header>
             <div mat-card-avatar class="example-header-image"><img
                     src="{{featured.profile_image_url}}" class="user-icon" /></div>
-            <mat-card-title>{{featured.display_name}}</mat-card-title>
+            <mat-card-title><span [ngClass]="{'twitch-theme-dark-font' : isDarkMode, 'twitch-theme-light-font': !isDarkMode}">{{featured.display_name}}</span></mat-card-title>
             <mat-card-subtitle style="margin-top: 10px; height: 34px;   display: -webkit-box;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;  
-            overflow: hidden;"><span [ngClass]="{'twitch-theme-dark' : isDarkMode, 'twitch-theme-light': !isDarkMode}">{{featured.description}}</span></mat-card-subtitle>
+            overflow: hidden;"><span [ngClass]="{'twitch-theme-dark-font' : isDarkMode, 'twitch-theme-light-font': !isDarkMode}">{{featured.description}}</span></mat-card-subtitle>
         </mat-card-header>
-        <ng-content></ng-content>
+        <span style="position: absolute; right: 0; padding-right: 5px;">
+            <span style="font-size: 80%; padding-right: 5px;">Twitch {{isDarkMode ? 'Dark Mode' : 'Light Mode'}}</span>
+            <mat-slide-toggle [(ngModel)]="isDarkMode"></mat-slide-toggle>
+        </span>
         <div 
             [ngStyle]="{'background-color': settings['background-color'], 'color': settings['color']}"
             style="margin: auto; height: 300px; width: 300px; margin-top: 20px; margin-bottom: 15px;">

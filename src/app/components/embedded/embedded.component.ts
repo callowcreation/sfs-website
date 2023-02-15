@@ -20,16 +20,16 @@ export class EmbeddedComponent {
 
     interval: any;
 
-    @Input() isDarkMode: boolean = false;
+    isDarkMode: boolean = false;
 
     constructor(private storage: StorageService, configuration: ConfigurationService, private backend: BackendService) {
         this.settings = this.storage.value<Settings>(Keys.SETTINGS) || configuration.defaultSettings;
+
         this.backend.get<any>('/v3/api/embedded').subscribe(({ featured, settings, guests }) => {
             console.log({ featured, settings, guests });
             this.featured = featured;
             this.guests = guests;
             this.settings = settings;
-
         });
         this.interval = setInterval(async () => {
             this.backend.get<any>('/v3/api/embedded').subscribe(({ featured, settings, guests, retries }) => {
