@@ -17,7 +17,7 @@
             </mat-tab>
             
             <mat-tab label="Posted By">
-                <table matSort (matSortChange)="sortPostedBy($event)" style="width: 100%;">
+                <table matSort (matSortChange)="sortPostedBys($event)" style="width: 100%;">
                     <tr>
                       <th mat-sort-header="login">Poster</th>
                       <th mat-sort-header="total">Total</th>
@@ -26,6 +26,22 @@
                     <tr *ngFor="let statistic of sortedPostedBys">
                       <td>{{statistic.login}}</td>
                       <td>{{statistic.total}}</td>
+                    </tr>
+                  </table>
+            </mat-tab>
+
+            <mat-tab label="Recent">
+                <table matSort (matSortChange)="sortRecents($event)" style="width: 100%;">
+                    <tr>
+                      <th mat-sort-header="login">Poster</th>
+                      <th mat-sort-header="guest">Guest</th>
+                      <th mat-sort-header="timestamp">Timestamp</th>
+                    </tr>
+                  
+                    <tr *ngFor="let statistic of sortedRecents">
+                      <td>{{statistic.login}}</td>
+                      <td>{{statistic.guest}}</td>
+                      <td>{{statistic.timestamp | date}}</td>
                     </tr>
                   </table>
             </mat-tab>
