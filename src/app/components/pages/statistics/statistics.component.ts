@@ -13,6 +13,7 @@ export interface Dessert {
 interface Statistics {
     guests: any[];
     posted_bys: any[];
+    firsts: any[];
     recents: any[];
 }
 
@@ -26,11 +27,12 @@ export class StatisticsComponent {
     statistics: Statistics;
     sortedGuests: any[] = [];
     sortedPostedBys: any[] = [];
+    sortedFirsts: any[] = [];
     sortedRecents: any[] = [];
 
     constructor(private storage: StorageService, private backend: BackendService) {
 
-        this.statistics = { guests: [], posted_bys: [], recents: [] };
+        this.statistics = { guests: [], posted_bys: [], firsts: [], recents: [] };
 
         this.backend.get<any>(`/v3/api/common/${this.storage.user?.id}`, {
             statistics: true, // or object defining what parts of the [guests or any property, ie. features...] to return
@@ -42,6 +44,7 @@ export class StatisticsComponent {
 
                 this.sortedGuests = this.statistics.guests.slice().sort((a, b) => compare(a.total, b.total, false));
                 this.sortedPostedBys = this.statistics.posted_bys.slice().sort((a, b) => compare(a.total, b.total, false));
+                this.sortedFirsts = this.statistics.firsts.slice().sort((a, b) => compare(a.timestamp, b.timestamp, true));
                 this.sortedRecents = this.statistics.recents.slice().sort((a, b) => compare(a.timestamp, b.timestamp, false));
             });
     }
@@ -62,6 +65,16 @@ export class StatisticsComponent {
         if (firstInit(this.sortedPostedBys, sort, data)) return;
 
         this.sortedPostedBys = data.sort((a, b) => {
+            return compare(a[sort.active], b[sort.active], sort.direction === 'asc');
+        });
+    }
+
+    sortFirsts(sort: any) {
+        const data = this.statistics.firsts.slice();
+
+        if (firstInit(this.sortedFirsts, sort, data)) return;
+
+        this.sortedFirsts = data.sort((a, b) => {
             return compare(a[sort.active], b[sort.active], sort.direction === 'asc');
         });
     }

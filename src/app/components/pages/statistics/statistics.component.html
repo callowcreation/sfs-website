@@ -30,6 +30,22 @@
                   </table>
             </mat-tab>
 
+            <mat-tab label="First">
+                <table matSort (matSortChange)="sortFirsts($event)" style="width: 100%;">
+                    <tr>
+                      <th mat-sort-header="login">Poster</th>
+                      <th mat-sort-header="streamer">Streamer</th>
+                      <th mat-sort-header="timestamp">Timestamp</th>
+                    </tr>
+                  
+                    <tr *ngFor="let statistic of sortedFirsts">
+                      <td>{{statistic.login}}</td>
+                      <td>{{statistic.streamer}}</td>
+                      <td>{{statistic.timestamp | date}}</td>
+                    </tr>
+                  </table>
+            </mat-tab>
+
             <mat-tab label="Recent">
                 <table matSort (matSortChange)="sortRecents($event)" style="width: 100%;">
                     <tr>
