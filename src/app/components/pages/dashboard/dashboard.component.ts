@@ -38,23 +38,23 @@ export class DashboardComponent {
 
     canDelete: boolean = false;
 
-    constructor(db: Database, private authentication: AuthenticationService, private storage: StorageService, private backend: BackendService, public dialog: MatDialog, ) {
+    constructor(db: Database, private authentication: AuthenticationService, private storage: StorageService, private backend: BackendService, public dialog: MatDialog,) {
         objectVal<any>(ref(db, `${this.storage.user?.id}/shoutouts`)).subscribe((value: any) => {
-            console.log({value})
+            console.log({ value })
             this.backend.get<any>(`/v3/api/dashboard/${storage.user?.id}`)
-            .pipe(map(({ guests }) => {
-                return {
-                    guests: guests.map((x: any) => ({ login: x.login, id: x.id, profile_image_url: x.profile_image_url, posted: { login: x.posted.login, timestamp: x.posted.timestamp } }))
-                };
-            }))
-            .subscribe(({ guests }) => {
-                console.log({ guests });
-                this.guests = guests;
-                this.guests.reverse();
-                this.form.setValue({ guests });
-            });
+                .pipe(map(({ guests }) => {
+                    return {
+                        guests: guests.map((x: any) => ({ login: x.login, id: x.id, profile_image_url: x.profile_image_url, posted: { login: x.posted.login, timestamp: x.posted.timestamp } }))
+                    };
+                }))
+                .subscribe(({ guests }) => {
+                    console.log({ guests });
+                    this.guests = guests;
+                    this.guests.reverse();
+                    this.form.setValue({ guests });
+                });
         });
-        
+
         this.authentication.authenticte()
             .then(() => {
                 console.log('Authenticte')
@@ -65,9 +65,13 @@ export class DashboardComponent {
     onSubmit() {
         const dialogRef = this.dialog.open(ConfirmDialogComponent, { data: { content: `Remove (${this.selected.length}) selected shoutout(s)?` } });
         dialogRef.afterClosed().subscribe(result => {
-            if(coerceBooleanProperty(result) === true) {
+            if (coerceBooleanProperty(result) === true) {
+                this.canDelete = false;
                 this.backend.delete<any>('/v3/api/shoutouts', this.selected.map(x => x.value))
-                .subscribe(() => this.guests = this.guests.filter(v => !this.selected.map(x => x.value).includes(v.login)));
+                    .subscribe(() => {
+                        this.guests = this.guests.filter(v => !this.selected.map(x => x.value).includes(v.login));
+                        this.selected = [];
+                    });
             }
         });
     }
