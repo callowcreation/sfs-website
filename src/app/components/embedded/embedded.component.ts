@@ -26,14 +26,12 @@ export class EmbeddedComponent {
         this.settings = this.storage.value<Settings>(Keys.SETTINGS) || configuration.defaultSettings;
 
         this.backend.get<any>('/v3/api/embedded').subscribe(({ featured, settings, guests }) => {
-            console.log({ featured, settings, guests });
             this.featured = featured;
             this.guests = guests;
             this.settings = settings;
         });
         this.interval = setInterval(async () => {
             this.backend.get<any>('/v3/api/embedded').subscribe(({ featured, settings, guests, retries }) => {
-                console.log({ featured, settings, guests, retries });
                 this.featured = featured;
                 this.guests = guests;
                 this.settings = settings;

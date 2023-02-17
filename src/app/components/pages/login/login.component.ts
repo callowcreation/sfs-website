@@ -46,7 +46,6 @@ export class LoginComponent {
             this.storage.update('auth', payload);
 
             this.http.get<User>('https://api.twitch.tv/helix/users').pipe(map(x => {
-                // console.log(x);
                 return x;
             })).subscribe(result => {
                 this.storage.update('user', result);
@@ -70,14 +69,10 @@ export class LoginComponent {
                         }
 
                         if (popup.location && popup.location?.href) {
-                            //console.log({...popup.location});
-
                             const payload: AuthPayload = popup.location.hash.substring(1)
                                 .split("&")
                                 .map(v => v.split("="))
                                 .reduce((pre, [key, value]) => ({ ...pre, [key]: value }), {}) as AuthPayload;
-
-                            //console.log(popup.location?.href);
                             popup?.close();
                             clearInterval(interval);
                             resolve(payload);

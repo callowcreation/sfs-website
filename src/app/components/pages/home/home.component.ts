@@ -10,9 +10,9 @@ import { StorageService } from 'src/app/services/storage.service';
 export class HomeComponent {
     topic: string = "";
     constructor(storage: StorageService, public configuration: ConfigurationService) {
-        console.log({ '-a': storage.auth });
-        console.log({ '-u': storage.user });
-        console.log({ '-t': storage.id_token });
+        // console.log({ '-a': storage.auth });
+        // console.log({ '-u': storage.user });
+        // console.log({ '-t': storage.id_token });
     }
     
 }

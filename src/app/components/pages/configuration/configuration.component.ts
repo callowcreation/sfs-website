@@ -79,11 +79,9 @@ export class ConfigurationComponent {
         });
 
         objectVal<any>(this.refs.shoutouts).subscribe((value: any) => {
-            console.log({ value })
             this.backend.get<any>(`/v3/api/common/${this.storage.user?.id}`, {
                 guests: true, // or object defining what parts of the [guests or any property, ie. features...] to return
             }).subscribe(({ guests }) => {
-                console.log({ guests });
                 this.guests = guests;
                 this.guests.reverse();
             });
@@ -92,7 +90,6 @@ export class ConfigurationComponent {
         this.authentication.authenticte()
             .then(() => {
                 this.backend.get<any>(`/v3/api/products`).subscribe(({ products }) => {
-                    console.log({ products })
                     this.products = products;
                 });
             })

@@ -40,7 +40,6 @@ export class DashboardComponent {
 
     constructor(db: Database, private authentication: AuthenticationService, private storage: StorageService, private backend: BackendService, public dialog: MatDialog,) {
         objectVal<any>(ref(db, `${this.storage.user?.id}/shoutouts`)).subscribe((value: any) => {
-            console.log({ value })
             this.backend.get<any>(`/v3/api/dashboard/${storage.user?.id}`)
                 .pipe(map(({ guests }) => {
                     return {
@@ -48,7 +47,6 @@ export class DashboardComponent {
                     };
                 }))
                 .subscribe(({ guests }) => {
-                    console.log({ guests });
                     this.guests = guests;
                     this.guests.reverse();
                     this.form.setValue({ guests });
@@ -56,9 +54,7 @@ export class DashboardComponent {
         });
 
         this.authentication.authenticte()
-            .then(() => {
-                console.log('Authenticte')
-            })
+            .then()
             .catch(err => console.error(err));
     }
 

@@ -61,7 +61,6 @@ export class ConfigurationService {
         this.backend.get<any>(`/v3/api/common/${this.storage.user?.id}`, {
             settings: true,
         }).subscribe(({ settings }) => {
-            // console.log({ settings });
             this.settings = settings;
         });
     }

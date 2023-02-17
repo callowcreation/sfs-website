@@ -38,8 +38,6 @@ export class StatisticsComponent {
             statistics: true, // or object defining what parts of the [guests or any property, ie. features...] to return
         })
             .subscribe(({ statistics }) => {
-                console.log({ statistics });
-
                 this.statistics = statistics;
 
                 this.sortedGuests = this.statistics.guests.slice().sort((a, b) => compare(a.total, b.total, false));
