@@ -1,7 +1,7 @@
 <section class="page-section">
     <app-section-header>Statistics</app-section-header>
     <div [@.disabled]="true">
-        <mat-tab-group dynamicHeight>
+        <mat-tab-group #tabGroup dynamicHeight (selectedTabChange)="tabChanged($event)">
             <mat-tab label="Shoutouts">
                 <table matSort (matSortChange)="sortShoutouts($event)" style="width: 100%;">
                     <tr>
@@ -86,4 +86,22 @@
             </mat-tab> -->
         </mat-tab-group>
     </div>
+
+    <mat-paginator #paginator
+               class="demo-paginator"
+               (page)="handlePageEvent($event)"
+               [length]="length"
+               [pageSize]="pageSize"
+               [disabled]="disabled"
+               [showFirstLastButtons]="showFirstLastButtons"
+               [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []"
+               [hidePageSize]="hidePageSize"
+               [pageIndex]="pageIndex"
+               aria-label="Select page">
+</mat-paginator>
+
+<div class="demo-data">
+  <div> Output event: {{(pageEvent | json) || 'No events dispatched yet'}} </div>
+  <div> getNumberOfPages: {{paginator.getNumberOfPages()}} </div>
+</div>
 </section>
