@@ -63,10 +63,14 @@
             </mat-tab>
         </mat-tab-group>
     </div>
+    <mat-card class="page-card" style="margin-bottom: 10px;">
+        <mat-card-content style="text-align: justify;">
+            <mat-paginator #paginator class="demo-paginator" (page)="handlePageEvent($event)" [length]="length"
+            [pageSize]="pageSize" [disabled]="disabled" [showFirstLastButtons]="showFirstLastButtons"
+            [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []" [hidePageSize]="hidePageSize"
+            [pageIndex]="pageIndex" aria-label="Select page">
+        </mat-paginator>
+        </mat-card-content>
+    </mat-card>
 
-    <mat-paginator #paginator class="demo-paginator" (page)="handlePageEvent($event)" [length]="length"
-        [pageSize]="pageSize" [disabled]="disabled" [showFirstLastButtons]="showFirstLastButtons"
-        [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []" [hidePageSize]="hidePageSize"
-        [pageIndex]="pageIndex" aria-label="Select page">
-    </mat-paginator>
 </section>
