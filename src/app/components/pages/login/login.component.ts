@@ -36,7 +36,7 @@ export class LoginComponent {
 
         const urlQuery: string = urlParams.join('&');
 
-        const url: string = `https://id.twitch.tv/oauth2/authorize?${urlQuery}`;
+        const url: string = `${environment.twitch.urls.oauth}/authorize?${urlQuery}`;
 
 
         this.open(url).then(payload => {
@@ -45,10 +45,10 @@ export class LoginComponent {
 
             this.storage.update('auth', payload);
 
-            this.http.get<User>('https://api.twitch.tv/helix/users').pipe(map(x => {
+            this.http.get<User[]>(`${environment.twitch.urls.api}/users`).pipe(map(x => {
                 return x;
             })).subscribe(result => {
-                this.storage.update('user', result);
+                this.storage.update('user', result[0]);
                 this.authentication.authenticte()
                     .then(() => location.href = '/configuration')
                     .catch(err => console.error(err))

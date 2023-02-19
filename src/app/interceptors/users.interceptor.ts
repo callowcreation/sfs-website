@@ -9,19 +9,20 @@ import {
 import { Observable } from 'rxjs';
 
 import { map } from 'rxjs/operators';
-import { User } from 'firebase/auth';
-import { BackendService } from '../services/backend.service';
 import { environment } from 'src/environments/environment';
+import { User } from '../interfaces/user';
 
 @Injectable()
-export class UserInterceptor implements HttpInterceptor {
+export class UsersInterceptor implements HttpInterceptor {
 
-    constructor(private backend: BackendService) { }
+    constructor() { }
 
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<User>> {
+    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<User[]>> {
+
         if(req.url.includes(environment.api)) return next.handle(req);
+        if(req.url.replace(environment.twitch.urls.api, '').split('?')[0] != '/users') return next.handle(req);
 
-        return next.handle(req).pipe(map((event: HttpEvent<User>) => {
+        return next.handle(req).pipe(map((event: HttpEvent<User[]>) => {
             if (event instanceof HttpResponse) {
                 event = event.clone({ body: this.modifyBody(event.body) });
             }
@@ -29,7 +30,7 @@ export class UserInterceptor implements HttpInterceptor {
         }));
     }
     
-    modifyBody(body: any): User | null {
-        return body.data ? body.data[0] : body;
+    modifyBody(body: any): User[] | null {
+        return body.data ? body.data : body;
     }
 }

@@ -1,30 +1,31 @@
 <section class="page-section">
     <app-section-header>Statistics</app-section-header>
+    
     <div [@.disabled]="true" style="min-height: 310px;">
         <mat-tab-group #tabGroup dynamicHeight (selectedTabChange)="tabChanged($event)">
             <mat-tab label="Shoutouts">
-                <table matSort (matSortChange)="sortTab($event, 'guests')" style="width: 100%;">
+                <table matSort (matSortChange)="sortTab($event, 'streamers')" style="width: 100%;">
                     <tr>
-                        <th mat-sort-header="login">Streamer</th>
+                        <th mat-sort-header="streamer_id">Streamer</th>
                         <th mat-sort-header="total">Total</th>
                     </tr>
 
-                    <tr *ngFor="let statistic of sorted.guests">
-                        <td>{{statistic.login}}</td>
+                    <tr *ngFor="let statistic of sorted.streamers">
+                        <td>{{statistic.streamer_id | display_name:users}}</td>
                         <td>{{statistic.total}}</td>
                     </tr>
                 </table>
             </mat-tab>
 
             <mat-tab label="Posted By">
-                <table matSort (matSortChange)="sortTab($event, 'posted_bys')" style="width: 100%;">
+                <table matSort (matSortChange)="sortTab($event, 'posters')" style="width: 100%;">
                     <tr>
-                        <th mat-sort-header="login">Poster</th>
+                        <th mat-sort-header="poster_id">Poster</th>
                         <th mat-sort-header="total">Total</th>
                     </tr>
 
-                    <tr *ngFor="let statistic of sorted.posted_bys">
-                        <td>{{statistic.login}}</td>
+                    <tr *ngFor="let statistic of sorted.posters">
+                        <td>{{statistic.poster_id | display_name:users}}</td>
                         <td>{{statistic.total}}</td>
                     </tr>
                 </table>
@@ -33,14 +34,14 @@
             <mat-tab label="First">
                 <table matSort (matSortChange)="sortTab($event, 'firsts')" style="width: 100%;">
                     <tr>
-                        <th mat-sort-header="login">Poster</th>
-                        <th mat-sort-header="streamer">Streamer</th>
+                        <th mat-sort-header="poster_id">Poster</th>
+                        <th mat-sort-header="streamer_id">Streamer</th>
                         <th mat-sort-header="timestamp">Timestamp</th>
                     </tr>
 
                     <tr *ngFor="let statistic of sorted.firsts">
-                        <td>{{statistic.login}}</td>
-                        <td>{{statistic.streamer}}</td>
+                        <td>{{statistic.poster_id | display_name:users}}</td>
+                        <td>{{statistic.streamer_id | display_name:users}}</td>
                         <td>{{statistic.timestamp | date}}</td>
                     </tr>
                 </table>
@@ -50,13 +51,13 @@
                 <table matSort (matSortChange)="sortTab($event, 'recents')" style="width: 100%;">
                     <tr>
                         <th mat-sort-header="login">Poster</th>
-                        <th mat-sort-header="streamer">Streamer</th>
-                        <th mat-sort-header="timestamp">Timestamp</th>
+                        <th mat-sort-header="streamer_id">Streamer</th>
+                        <th mat-sort-header="timestamp_id">Timestamp</th>
                     </tr>
 
                     <tr *ngFor="let statistic of sorted.recents">
-                        <td>{{statistic.login}}</td>
-                        <td>{{statistic.streamer}}</td>
+                        <td>{{statistic.poster_id | display_name:users}}</td>
+                        <td>{{statistic.streamer_id | display_name:users}}</td>
                         <td>{{statistic.timestamp | date}}</td>
                     </tr>
                 </table>
@@ -65,11 +66,14 @@
     </div>
     <mat-card class="page-card" style="margin-bottom: 10px;">
         <mat-card-content style="text-align: justify;">
+            <div style="height: 3px;">
+                <mat-progress-bar mode="indeterminate" [color]="color" *ngIf="requesting"></mat-progress-bar>
+            </div>
             <mat-paginator #paginator class="demo-paginator" (page)="handlePageEvent($event)" [length]="length"
-            [pageSize]="pageSize" [disabled]="disabled" [showFirstLastButtons]="showFirstLastButtons"
-            [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []" [hidePageSize]="hidePageSize"
-            [pageIndex]="pageIndex" aria-label="Select page">
-        </mat-paginator>
+                [pageSize]="pageSize" [disabled]="disabled" [showFirstLastButtons]="showFirstLastButtons"
+                [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []" [hidePageSize]="hidePageSize"
+                [pageIndex]="pageIndex" aria-label="Select page">
+            </mat-paginator>
         </mat-card-content>
     </mat-card>
 

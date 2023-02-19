@@ -21,7 +21,11 @@ export const environment = {
     twitch: {
         client_id: 'l86frxm6zlfuj2sd7a8i7r751vuc7o',
         redirect_uri: 'http://localhost:4200',
-        scopes: 'user:read:email'
+        scopes: 'user:read:email',
+        urls: {
+            api: 'https://api.twitch.tv/helix',
+            oauth: 'https://id.twitch.tv/oauth2',
+        }
     }
 };
 

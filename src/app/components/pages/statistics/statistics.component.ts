@@ -1,8 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
+import { ThemePalette } from '@angular/material/core';
 import { PageEvent } from '@angular/material/paginator';
 import { MatTabChangeEvent, MatTabGroup } from '@angular/material/tabs';
+import { User } from 'src/app/interfaces/user';
 import { BackendService } from 'src/app/services/backend.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { TwitchApiService } from 'src/app/services/twitch-api.service';
 
 export interface Dessert {
     calories: number;
@@ -13,8 +16,8 @@ export interface Dessert {
 }
 
 interface Statistics extends Record<string, any> {
-    guests: any[];
-    posted_bys: any[];
+    streamers: any[];
+    posters: any[];
     firsts: any[];
     recents: any[];
 }
@@ -31,8 +34,8 @@ export class StatisticsComponent {
 
     @ViewChild(MatTabGroup) tabGroup!: MatTabGroup;
 
-    length = 50;
-    pageSize = 10;
+    length = 0;
+    pageSize = 0;
     pageIndex = 0;
     pageSizeOptions = [5, 10, 25, 50];
 
@@ -43,25 +46,58 @@ export class StatisticsComponent {
 
     pageEvent: PageEvent = PageEvent.prototype;
 
-    constructor(private storage: StorageService, private backend: BackendService) {
+    color: ThemePalette = 'primary';
+    requesting: boolean = true;
+    users: User[] = [];
 
-        this.statistics = { guests: [], posted_bys: [], firsts: [], recents: [] };
-        this.sorted = { guests: [], posted_bys: [], firsts: [], recents: [] };
+    constructor(private storage: StorageService, private backend: BackendService, private twitchApi: TwitchApiService) {
+
+        this.statistics = { streamers: [], posters: [], firsts: [], recents: [] };
+        this.sorted = { streamers: [], posters: [], firsts: [], recents: [] };
+        this.users = [];
 
         this.backend.get<any>(`/v3/api/common/${this.storage.user?.id}`, {
-            statistics: true, // or object defining what parts of the [guests or any property, ie. features...] to return
+            statistics: true, // or object defining what parts of the [streamers or any property, ie. features...] to return
         })
             .subscribe(({ statistics }) => {
                 this.statistics = statistics;
                 console.log({ statistics });
 
-                this.length = this.statistics.guests.length;
-                this.sorted = { 
-                    guests: this.statistics.guests.slice(0, this.pageSize), 
-                    posted_bys: this.statistics.posted_bys.slice(0, this.pageSize), 
-                    firsts: this.statistics.firsts.slice(0, this.pageSize), 
-                    recents: this.statistics.recents.slice(0, this.pageSize) 
-                };
+                this.length = this.statistics.streamers.length;
+                this.pageSize = this.pageSizeOptions[1];
+
+                new Promise<void>((resolve) => {
+                    const ids = removeDuplicates([
+                        ...this.statistics.streamers.map(x => x.streamer_id),
+                        ...this.statistics.posters.map(x => x.poster_id),
+                        ...this.statistics.firsts.map(x => x.streamer_id),
+                        ...this.statistics.firsts.map(x => x.poster_id),
+                        ...this.statistics.recents.map(x => x.streamer_id),
+                        ...this.statistics.recents.map(x => x.poster_id),
+                    ]);
+    
+                    const chunkSize = 100;
+                    for (let i = 0; i < ids.length; i += chunkSize) {
+                        const chunk = ids.slice(i, i + chunkSize);
+                        twitchApi.usersById(chunk)
+                            .subscribe(result => {
+                                this.users.push(...result);
+                                if(this.users.length === ids.length) {
+                                    resolve();
+                                }
+                            });
+                    }
+                })
+                .then(() => {
+                    this.requesting = false;
+                    console.log("DONE");
+                    this.sorted = {
+                        streamers: this.statistics.streamers.slice(0, this.pageSize),
+                        posters: this.statistics.posters.slice(0, this.pageSize),
+                        firsts: this.statistics.firsts.slice(0, this.pageSize),
+                        recents: this.statistics.recents.slice(0, this.pageSize)
+                    };
+                });
             });
     }
 
@@ -106,7 +142,8 @@ export class StatisticsComponent {
 
         const keys = Object.keys(this.statistics);   
         const key = keys[this.tabGroup.selectedIndex || 0];
-        this.sorted[key] = this.pageSlice(this.statistics[key]);
+        this.sorted[key] = this.pageSlice(this.statistics[key])
+
     }
 
     setPageSizeOptions(setPageSizeOptionsInput: string): void {
@@ -114,6 +151,10 @@ export class StatisticsComponent {
             this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
         }
     }
+}
+
+function removeDuplicates(arr: any[]) {
+    return arr.filter((item, index) => arr.indexOf(item) === index);
 }
 
 function firstInit(sorted: any[], sort: any, data: any): boolean {

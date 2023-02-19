@@ -29,6 +29,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -40,7 +41,6 @@ import { StorageService } from './services/storage.service';
 import { LoaderService } from './services/loader.service';
 import { PopupService } from './services/popup.service';
 
-import { UserInterceptor } from './interceptors/user.interceptor';
 import { LoaderInterceptor } from './interceptors/loader.interceptor';
 import { TokenHeaderInterceptor } from './interceptors/token-header.interceptor';
 
@@ -74,6 +74,8 @@ import { HelpPanelComponent } from './components/templates/help-panel/help-panel
 import { environment } from '../environments/environment';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { NotAuthorizedComponent } from './components/pages/not-authorized/not-authorized.component';
+import { UsersInterceptor } from './interceptors/users.interceptor';
+import { DisplayNamePipe } from './pipes/display-name.pipe';
 
 const matModules: (any[] | Type<any> | ModuleWithProviders<{}>) = [
     MatRippleModule,
@@ -95,7 +97,8 @@ const matModules: (any[] | Type<any> | ModuleWithProviders<{}>) = [
     MatToolbarModule,
     MatProgressSpinnerModule,
     MatSlideToggleModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatProgressBarModule
 ];
 
 @NgModule({
@@ -125,7 +128,8 @@ const matModules: (any[] | Type<any> | ModuleWithProviders<{}>) = [
         FAQPanel,
         ConfirmDialogComponent,
         HelpPanelComponent,
-        NotAuthorizedComponent
+        NotAuthorizedComponent,
+        DisplayNamePipe
     ],
     entryComponents: [ConfirmDialogComponent],
     imports: [
@@ -139,7 +143,7 @@ const matModules: (any[] | Type<any> | ModuleWithProviders<{}>) = [
         provideAuth(() => getAuth()),
         provideDatabase(() => {
             const db = getDatabase();
-            if(environment.useEmulators === true) {
+            if (environment.useEmulators === true) {
                 connectDatabaseEmulator(db, 'localhost', 9001);
             }
             return db;
@@ -155,7 +159,7 @@ const matModules: (any[] | Type<any> | ModuleWithProviders<{}>) = [
         { provide: LocationStrategy, useClass: PathLocationStrategy },
         { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: TokenHeaderInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: UserInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: UsersInterceptor, multi: true },
     ],
     bootstrap: [AppComponent]
 })
