@@ -7,8 +7,8 @@
                 <mat-list-option *ngFor="let guest of guests" style="margin: 8px 0px;" value="{{guest.login}}">
                     <mat-icon matListItemIcon style="width: 80px; height: 80px; margin-top: 0;"><img style="width: 72px; height: 72px;"
                         src="{{guest.profile_image_url}}"></mat-icon>
-                    <div matListItemTitle>{{guest.login}}</div>
-                    <div matListItemLine>{{guest.posted.login}} {{guest.posted.timestamp | date}}</div>
+                    <div matListItemTitle>{{guest.display_name}}</div>
+                    <div matListItemLine>{{guest.posted.display_name}} {{guest.posted.timestamp | date}}</div>
                 </mat-list-option>
               </mat-selection-list>
         </mat-list>            

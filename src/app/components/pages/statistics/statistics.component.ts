@@ -89,14 +89,13 @@ export class StatisticsComponent {
                     }
                 })
                 .then(() => {
-                    this.requesting = false;
-                    console.log("DONE");
                     this.sorted = {
                         streamers: this.statistics.streamers.slice(0, this.pageSize),
                         posters: this.statistics.posters.slice(0, this.pageSize),
                         firsts: this.statistics.firsts.slice(0, this.pageSize),
                         recents: this.statistics.recents.slice(0, this.pageSize)
                     };
+                    this.requesting = false;
                 });
             });
     }
