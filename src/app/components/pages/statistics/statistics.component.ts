@@ -68,35 +68,38 @@ export class StatisticsComponent {
 
                 new Promise<void>((resolve) => {
                     const ids = removeDuplicates([
-                        ...this.statistics.streamers.map(x => x.streamer_id),
-                        ...this.statistics.posters.map(x => x.poster_id),
-                        ...this.statistics.firsts.map(x => x.streamer_id),
-                        ...this.statistics.firsts.map(x => x.poster_id),
-                        ...this.statistics.recents.map(x => x.streamer_id),
-                        ...this.statistics.recents.map(x => x.poster_id),
+                        ...this.statistics.streamers.map(x => ({ lagacy: x.lagacy, id: x.streamer_id })),
+                        ...this.statistics.posters.map(x => ({ lagacy: x.lagacy, id: x.poster_id })),
+                        ...this.statistics.firsts.map(x => ({ lagacy: x.lagacy, id: x.streamer_id })),
+                        ...this.statistics.firsts.map(x => ({ lagacy: x.lagacy, id: x.poster_id })),
+                        ...this.statistics.recents.map(x => ({ lagacy: x.lagacy, id: x.streamer_id })),
+                        ...this.statistics.recents.map(x => ({ lagacy: x.lagacy, id: x.poster_id })),
                     ]);
-    
+
                     const chunkSize = 100;
+                    const chunksAmount = Math.floor(ids.length / chunkSize);
+                    let chunksCounter = 0;
                     for (let i = 0; i < ids.length; i += chunkSize) {
                         const chunk = ids.slice(i, i + chunkSize);
-                        twitchApi.usersById(chunk)
+                        const pred = (value: any): string => {
+                            return value.lagacy === true ? `login=${value.id}` : `id=${value.id}`;
+                        };
+                        twitchApi.users(chunk.map(pred))
                             .subscribe(result => {
                                 this.users.push(...result);
-                                if(this.users.length === ids.length) {
-                                    resolve();
-                                }
+                                if (++chunksCounter === chunksAmount) resolve();
                             });
                     }
                 })
-                .then(() => {
-                    this.sorted = {
-                        streamers: this.statistics.streamers.slice(0, this.pageSize),
-                        posters: this.statistics.posters.slice(0, this.pageSize),
-                        firsts: this.statistics.firsts.slice(0, this.pageSize),
-                        recents: this.statistics.recents.slice(0, this.pageSize)
-                    };
-                    this.requesting = false;
-                });
+                    .then(() => {
+                        this.sorted = {
+                            streamers: this.statistics.streamers.slice(0, this.pageSize),
+                            posters: this.statistics.posters.slice(0, this.pageSize),
+                            firsts: this.statistics.firsts.slice(0, this.pageSize),
+                            recents: this.statistics.recents.slice(0, this.pageSize)
+                        };
+                        this.requesting = false;
+                    });
             });
     }
 
@@ -139,7 +142,7 @@ export class StatisticsComponent {
         this.pageSize = e.pageSize;
         this.pageIndex = e.pageIndex;
 
-        const keys = Object.keys(this.statistics);   
+        const keys = Object.keys(this.statistics);
         const key = keys[this.tabGroup.selectedIndex || 0];
         this.sorted[key] = this.pageSlice(this.statistics[key])
 

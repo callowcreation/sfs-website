@@ -14,7 +14,10 @@ export class TwitchApiService {
     constructor(private http: HttpClient, private authentication: AuthenticationService, private storage: StorageService) { }
 
     usersById(ids: string[]) {
-        const params = ids.map(x => `id=${x}`).join('&')
-        return this.http.get<User[]>(`${environment.twitch.urls.api}/users?${params}`);
+        return this.http.get<User[]>(`${environment.twitch.urls.api}/users?${ids.map(x => `id=${x}`).join('&')}`);
+    }
+
+    users(values: string[]) {
+        return this.http.get<User[]>(`${environment.twitch.urls.api}/users?${values.join('&')}`);
     }
 }
