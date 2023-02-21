@@ -50,9 +50,9 @@
             <mat-tab label="Recent">
                 <table matSort (matSortChange)="sortTab($event, 'recents')" style="width: 100%;">
                     <tr>
-                        <th mat-sort-header="login">Poster</th>
+                        <th mat-sort-header="poster_id">Poster</th>
                         <th mat-sort-header="streamer_id">Streamer</th>
-                        <th mat-sort-header="timestamp_id">Timestamp</th>
+                        <th mat-sort-header="timestamp">Timestamp</th>
                     </tr>
 
                     <tr *ngFor="let statistic of sorted.recents">
