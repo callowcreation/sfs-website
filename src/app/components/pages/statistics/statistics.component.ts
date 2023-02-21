@@ -68,12 +68,12 @@ export class StatisticsComponent {
 
                 new Promise<void>((resolve) => {
                     const ids = removeDuplicates([
-                        ...this.statistics.streamers.map(x => ({ lagacy: x.lagacy, id: x.streamer_id })),
-                        ...this.statistics.posters.map(x => ({ lagacy: x.lagacy, id: x.poster_id })),
-                        ...this.statistics.firsts.map(x => ({ lagacy: x.lagacy, id: x.streamer_id })),
-                        ...this.statistics.firsts.map(x => ({ lagacy: x.lagacy, id: x.poster_id })),
-                        ...this.statistics.recents.map(x => ({ lagacy: x.lagacy, id: x.streamer_id })),
-                        ...this.statistics.recents.map(x => ({ lagacy: x.lagacy, id: x.poster_id })),
+                        ...this.statistics.streamers.map(x => ({ legacy: x.legacy, id: x.streamer_id })),
+                        ...this.statistics.posters.map(x => ({ legacy: x.legacy, id: x.poster_id })),
+                        ...this.statistics.firsts.map(x => ({ legacy: x.legacy, id: x.streamer_id })),
+                        ...this.statistics.firsts.map(x => ({ legacy: x.legacy, id: x.poster_id })),
+                        ...this.statistics.recents.map(x => ({ legacy: x.legacy, id: x.streamer_id })),
+                        ...this.statistics.recents.map(x => ({ legacy: x.legacy, id: x.poster_id })),
                     ]);
 
                     const chunkSize = 100;
@@ -82,7 +82,7 @@ export class StatisticsComponent {
                     for (let i = 0; i < ids.length; i += chunkSize) {
                         const chunk = ids.slice(i, i + chunkSize);
                         const pred = (value: any): string => {
-                            return value.lagacy === true ? `login=${value.id}` : `id=${value.id}`;
+                            return value.legacy === true ? `login=${value.id}` : `id=${value.id}`;
                         };
                         twitchApi.users(chunk.map(pred))
                             .subscribe(result => {
