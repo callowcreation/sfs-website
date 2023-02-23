@@ -1,9 +1,11 @@
 import { Component, Input } from '@angular/core';
+import { Guest } from 'src/app/interfaces/guest';
 import { Settings } from 'src/app/interfaces/settings';
-import { User } from 'src/app/interfaces/user';
 import { BackendService } from 'src/app/services/backend.service';
 import { ConfigurationService } from 'src/app/services/configuration.service';
 import { Keys, StorageService } from 'src/app/services/storage.service';
+import { TwitchUsersService } from 'src/app/services/twitch-users.service';
+
 
 @Component({
     selector: 'app-embedded',
@@ -13,8 +15,8 @@ import { Keys, StorageService } from 'src/app/services/storage.service';
 export class EmbeddedComponent {
 
     ids: string[] = [];
-    featured: User = {};
-    guests: User[] = [];
+    featured_id: string = '';
+    guests: Guest[] = [];
 
     settings: Settings;
 
@@ -22,19 +24,41 @@ export class EmbeddedComponent {
 
     isDarkMode: boolean = false;
 
-    constructor(private storage: StorageService, configuration: ConfigurationService, private backend: BackendService) {
+    constructor(private storage: StorageService, configuration: ConfigurationService, private backend: BackendService, private twitchUser: TwitchUsersService) {
         this.settings = this.storage.value<Settings>(Keys.SETTINGS) || configuration.defaultSettings;
 
-        this.backend.get<any>('/v3/api/embedded').subscribe(({ featured, settings, guests }) => {
-            this.featured = featured;
-            this.guests = guests;
-            this.settings = settings;
+        this.backend.get<any>('/v3/api/embedded').subscribe(({ featured_id, settings, guests }) => {
+
+            const params = [
+                `id=${featured_id}`,
+                guests.map((x: any) => {
+                    return Object.values(x).map(v => `login=${v}`);
+                }).flat()
+            ].flat();
+
+            twitchUser.append(params)
+                .then(() => {
+                    this.featured_id = featured_id;
+                    this.guests = guests;
+                    this.settings = settings;
+
+                })
         });
         this.interval = setInterval(async () => {
-            this.backend.get<any>('/v3/api/embedded').subscribe(({ featured, settings, guests, retries }) => {
-                this.featured = featured;
-                this.guests = guests;
-                this.settings = settings;
+            this.backend.get<any>('/v3/api/embedded').subscribe(({ featured_id, settings, guests, retries }) => {
+                const params = [
+                    `id=${featured_id}`,
+                    guests.map((x: any) => {
+                        return Object.values(x).map(v => `login=${v}`);
+                    }).flat()
+                ].flat();
+
+                twitchUser.append(params)
+                    .then(() => {
+                        this.featured_id = featured_id;
+                        this.guests = guests;
+                        this.settings = settings;
+                    })
             });
         }, 1000 * 10); // set to 45
     }
@@ -44,7 +68,9 @@ export class EmbeddedComponent {
     }
 
     visit(username: string | undefined) {
-        if(!username) return;
-        window.open(`https://www.twitch.tv/${username}`);
+        if (!username) return;
+        const user: any = this.twitchUser.user(username);
+        if(!user) return;
+        window.open(`https://www.twitch.tv/${user.login}`);
     }
 }

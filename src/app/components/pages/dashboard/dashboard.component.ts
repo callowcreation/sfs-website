@@ -8,6 +8,7 @@ import { map } from 'rxjs';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { BackendService } from 'src/app/services/backend.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { TwitchUsersService } from 'src/app/services/twitch-users.service';
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 
 interface Posted {
@@ -22,6 +23,7 @@ interface Guest {
     display_name: string;
     profile_image_url: string;
     posted: Posted;
+    is_pin: boolean;
 }
 @Component({
     selector: 'app-dashboard',
@@ -30,7 +32,6 @@ interface Guest {
 })
 export class DashboardComponent {
 
-    pinned: string = 'streamer0';
     guests: Guest[] = [];
     selected: MatListOption[] = []
 
@@ -40,13 +41,37 @@ export class DashboardComponent {
 
     canDelete: boolean = false;
 
-    constructor(db: Database, private authentication: AuthenticationService, private storage: StorageService, private backend: BackendService, public dialog: MatDialog,) {
+    constructor(db: Database, private authentication: AuthenticationService, private storage: StorageService, private backend: BackendService, public dialog: MatDialog, private twitchUsers: TwitchUsersService) {
         objectVal<any>(ref(db, `${this.storage.user?.id}/shoutouts`)).subscribe((value: any) => {
             this.backend.get<any>(`/v3/api/dashboard/${storage.user?.id}`)
-                .subscribe(({ guests }) => {
-                    this.guests = guests;
-                    this.guests.reverse();
-                    this.form.setValue({ guests });
+                .subscribe(({ guests, pinned }) => {
+                    console.log({pinned})
+                    if(pinned) {
+                        const pin: Guest = { 
+                            display_name: pinned.username,
+                            id: '',
+                            login: pinned.username,
+                            posted: {
+                                display_name: pinned.posted_by,
+                                login: pinned.posted_by,
+                                timestamp: pinned.timestamp
+                            },
+                            profile_image_url: '',
+                            is_pin: true
+                        };
+                        guests.unshift(pin);
+                    }
+
+                    const pred = (value: any): string => {
+                        return `login=${value.login}`;
+                    };
+                    twitchUsers.append(guests.map(pred))
+                        .then(() => {
+                            this.guests = guests;
+                            this.guests.reverse();
+                            this.form.setValue({ guests });
+                        });
+
                 });
         });
 

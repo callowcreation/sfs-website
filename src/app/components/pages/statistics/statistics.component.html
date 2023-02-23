@@ -11,7 +11,7 @@
                     </tr>
 
                     <tr *ngFor="let statistic of sorted.streamers">
-                        <td>{{statistic.streamer_id | display_name:users}}</td>
+                        <td>{{statistic.streamer_id | twitch_user:'display_name'}}</td>
                         <td>{{statistic.total}}</td>
                     </tr>
                 </table>
@@ -25,7 +25,7 @@
                     </tr>
 
                     <tr *ngFor="let statistic of sorted.posters">
-                        <td>{{statistic.poster_id | display_name:users}}</td>
+                        <td>{{statistic.poster_id | twitch_user:'display_name'}}</td>
                         <td>{{statistic.total}}</td>
                     </tr>
                 </table>
@@ -40,8 +40,8 @@
                     </tr>
 
                     <tr *ngFor="let statistic of sorted.firsts">
-                        <td>{{statistic.poster_id | display_name:users}}</td>
-                        <td>{{statistic.streamer_id | display_name:users}}</td>
+                        <td>{{statistic.poster_id | twitch_user:'display_name'}}</td>
+                        <td>{{statistic.streamer_id | twitch_user:'display_name'}}</td>
                         <td>{{statistic.timestamp | date}}</td>
                     </tr>
                 </table>
@@ -56,8 +56,8 @@
                     </tr>
 
                     <tr *ngFor="let statistic of sorted.recents">
-                        <td>{{statistic.poster_id | display_name:users}}</td>
-                        <td>{{statistic.streamer_id | display_name:users}}</td>
+                        <td>{{statistic.poster_id | twitch_user:'display_name'}}</td>
+                        <td>{{statistic.streamer_id | twitch_user:'display_name'}}</td>
                         <td>{{statistic.timestamp | date}}</td>
                     </tr>
                 </table>

@@ -75,7 +75,7 @@ import { environment } from '../environments/environment';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { NotAuthorizedComponent } from './components/pages/not-authorized/not-authorized.component';
 import { UsersInterceptor } from './interceptors/users.interceptor';
-import { DisplayNamePipe } from './pipes/display-name.pipe';
+import { UserPipe } from './pipes/user.pipe';
 
 const matModules: (any[] | Type<any> | ModuleWithProviders<{}>) = [
     MatRippleModule,
@@ -129,7 +129,7 @@ const matModules: (any[] | Type<any> | ModuleWithProviders<{}>) = [
         ConfirmDialogComponent,
         HelpPanelComponent,
         NotAuthorizedComponent,
-        DisplayNamePipe
+        UserPipe
     ],
     entryComponents: [ConfirmDialogComponent],
     imports: [

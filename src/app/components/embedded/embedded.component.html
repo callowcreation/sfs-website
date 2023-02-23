@@ -3,12 +3,12 @@
     <mat-card style="padding-top: 12px;" class="page-card" [ngClass]="{'twitch-theme-dark' : isDarkMode, 'twitch-theme-light': !isDarkMode}">
         <mat-card-header>
             <div mat-card-avatar class="example-header-image"><img
-                    src="{{featured.profile_image_url}}" class="user-icon" /></div>
-            <mat-card-title><span [ngClass]="{'twitch-theme-dark-font' : isDarkMode, 'twitch-theme-light-font': !isDarkMode}">{{featured.display_name}}</span></mat-card-title>
+                    src="{{featured_id | twitch_user:'profile_image_url'}}" class="user-icon" /></div>
+            <mat-card-title><span [ngClass]="{'twitch-theme-dark-font' : isDarkMode, 'twitch-theme-light-font': !isDarkMode}">{{featured_id | twitch_user:'display_name'}}</span></mat-card-title>
             <mat-card-subtitle style="margin-top: 10px; height: 34px;   display: -webkit-box;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;  
-            overflow: hidden;"><span [ngClass]="{'twitch-theme-dark-font' : isDarkMode, 'twitch-theme-light-font': !isDarkMode}">{{featured.description}}</span></mat-card-subtitle>
+            overflow: hidden;"><span [ngClass]="{'twitch-theme-dark-font' : isDarkMode, 'twitch-theme-light-font': !isDarkMode}">{{featured_id | twitch_user:'description'}}</span></mat-card-subtitle>
         </mat-card-header>
         <span style="position: absolute; right: 0; padding-right: 5px;">
             <span style="font-size: 80%; padding-right: 5px;">Twitch {{isDarkMode ? 'Dark Mode' : 'Light Mode'}}</span>
@@ -29,16 +29,16 @@
                             class="item"
                             title="naivebot" [ngStyle]="{'border-color': settings['border-color']}">
                             <div class="item-image"><a
-                                    target="_blank" href="https://www.twitch.tv/{{guest.login}}"><img
-                                        src="{{guest.profile_image_url}}"></a>
+                                    target="_blank" href="https://www.twitch.tv/{{guest.streamer_id | twitch_user:'login'}}"><img
+                                        src="{{guest.streamer_id | twitch_user:'profile_image_url'}}"></a>
                             </div>
                             <div class="item-info">
-                                <div class="item-info-display_name">{{guest.display_name}}
+                                <div class="item-info-display_name">{{guest.streamer_id | twitch_user:'display_name'}}
                                 </div>
-                                <div class="item-info-description">{{guest.description}}</div>
+                                <div class="item-info-description">{{guest.streamer_id| twitch_user:'description'}}</div>
                                 <div class="item-info-posted_by ng-star-inserted"
                                     [ngStyle]="{'background-color': settings['background-color'], 'border-color': settings['border-color']}">
-                                    {{guest.posted_by}}</div>
+                                    {{guest.poster_id | twitch_user:'display_name'}}</div>
                             </div>
                         </div>
                     </div>
@@ -46,7 +46,7 @@
             </ul>
         </div>
         <mat-card-actions>
-            <button class="twitch btn" (click)="visit(featured.login)">Visit {{featured.display_name}} on Twitch</button>
+            <button class="twitch btn" (click)="visit(featured_id)">Visit {{featured_id | twitch_user:'display_name'}} on Twitch</button>
         </mat-card-actions>
     </mat-card>
 </div>

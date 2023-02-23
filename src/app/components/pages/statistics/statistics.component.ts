@@ -2,18 +2,9 @@ import { Component, ViewChild } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { PageEvent } from '@angular/material/paginator';
 import { MatTabChangeEvent, MatTabGroup } from '@angular/material/tabs';
-import { User } from 'src/app/interfaces/user';
 import { BackendService } from 'src/app/services/backend.service';
 import { StorageService } from 'src/app/services/storage.service';
-import { TwitchApiService } from 'src/app/services/twitch-api.service';
-
-export interface Dessert {
-    calories: number;
-    carbs: number;
-    fat: number;
-    name: string;
-    protein: number;
-}
+import { TwitchUsersService } from 'src/app/services/twitch-users.service';
 
 interface Statistics extends Record<string, any> {
     streamers: any[];
@@ -34,27 +25,25 @@ export class StatisticsComponent {
 
     @ViewChild(MatTabGroup) tabGroup!: MatTabGroup;
 
-    length = 0;
-    pageSize = 0;
-    pageIndex = 0;
-    pageSizeOptions = [5, 10, 25, 50];
+    length: number = 0;
+    pageSize: number = 0;
+    pageIndex: number = 0;
+    pageSizeOptions: number[] = [5, 10, 25, 50];
 
-    hidePageSize = false;
-    showPageSizeOptions = true;
-    showFirstLastButtons = true;
-    disabled = false;
+    hidePageSize: boolean = false;
+    showPageSizeOptions: boolean = true;
+    showFirstLastButtons: boolean = true;
+    disabled: boolean = false;
 
     pageEvent: PageEvent = PageEvent.prototype;
 
     color: ThemePalette = 'primary';
     requesting: boolean = true;
-    users: User[] = [];
 
-    constructor(private storage: StorageService, private backend: BackendService, private twitchApi: TwitchApiService) {
+    constructor(private storage: StorageService, private backend: BackendService, twitchUsers: TwitchUsersService) {
 
         this.statistics = { streamers: [], posters: [], firsts: [], recents: [] };
         this.sorted = { streamers: [], posters: [], firsts: [], recents: [] };
-        this.users = [];
 
         this.backend.get<any>(`/v3/api/common/${this.storage.user?.id}`, {
             statistics: true, // or object defining what parts of the [streamers or any property, ie. features...] to return
@@ -66,31 +55,19 @@ export class StatisticsComponent {
                 this.length = this.statistics.streamers.length;
                 this.pageSize = this.pageSizeOptions[1];
 
-                new Promise<void>((resolve) => {
-                    const ids = removeDuplicates([
-                        ...this.statistics.streamers.map(x => ({ legacy: x.legacy, id: x.streamer_id })),
-                        ...this.statistics.posters.map(x => ({ legacy: x.legacy, id: x.poster_id })),
-                        ...this.statistics.firsts.map(x => ({ legacy: x.legacy, id: x.streamer_id })),
-                        ...this.statistics.firsts.map(x => ({ legacy: x.legacy, id: x.poster_id })),
-                        ...this.statistics.recents.map(x => ({ legacy: x.legacy, id: x.streamer_id })),
-                        ...this.statistics.recents.map(x => ({ legacy: x.legacy, id: x.poster_id })),
-                    ]);
+                const ids: string[] = removeDuplicates([
+                    ...this.statistics.streamers.map(x => ({ legacy: x.legacy, id: x.streamer_id })),
+                    ...this.statistics.posters.map(x => ({ legacy: x.legacy, id: x.poster_id })),
+                    ...this.statistics.firsts.map(x => ({ legacy: x.legacy, id: x.streamer_id })),
+                    ...this.statistics.firsts.map(x => ({ legacy: x.legacy, id: x.poster_id })),
+                    ...this.statistics.recents.map(x => ({ legacy: x.legacy, id: x.streamer_id })),
+                    ...this.statistics.recents.map(x => ({ legacy: x.legacy, id: x.poster_id })),
+                ]);
 
-                    const chunkSize = 100;
-                    const chunksAmount = Math.floor(ids.length / chunkSize);
-                    let chunksCounter = 0;
-                    for (let i = 0; i < ids.length; i += chunkSize) {
-                        const chunk = ids.slice(i, i + chunkSize);
-                        const pred = (value: any): string => {
-                            return value.legacy === true ? `login=${value.id}` : `id=${value.id}`;
-                        };
-                        twitchApi.users(chunk.map(pred))
-                            .subscribe(result => {
-                                this.users.push(...result);
-                                if (++chunksCounter === chunksAmount) resolve();
-                            });
-                    }
-                })
+                const pred = (value: any): string => {
+                    return value.legacy === true ? `login=${value.id}` : `id=${value.id}`;
+                };
+                twitchUsers.append(ids.map(pred))
                     .then(() => {
                         this.sorted = {
                             streamers: this.statistics.streamers.slice(0, this.pageSize),
