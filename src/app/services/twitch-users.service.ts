@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 import { User } from '../interfaces/user';
 import { TwitchApiService } from './twitch-api.service';
 
@@ -9,15 +10,15 @@ const CHUNK_SIZE: number = 100;
 })
 export class TwitchUsersService {
 
-    private users: Record<string, User> = {};
+    private items: Record<string, User> = {};
 
     constructor(private twitchApi: TwitchApiService) { }
 
     private update(users: User[]) {
         for (let i = 0; i < users.length; i++) {
             const user: User = users[i];
-            if(!this.users[user.id]) this.users[user.id] = user;
-            if(!this.users[user.login]) this.users[user.login] = user;
+            if (!this.items[user.id]) this.items[user.id] = user;
+            if (!this.items[user.login]) this.items[user.login] = user;
         }
     }
 
@@ -32,13 +33,12 @@ export class TwitchUsersService {
             let chunksCounter: number = 0;
             for (let i = 0; i < params.length; i += CHUNK_SIZE) {
                 const chunk: string[] = params.slice(i, i + CHUNK_SIZE);
-                this.twitchApi.users(chunk)
-                    .subscribe((users: User[]) => {
-                        this.update(users);
-                        if (++chunksCounter >= chunksAmount) resolve();
-                    });
+                this.twitchApi.users(chunk).subscribe((users: User[]) => {
+                    this.update(users);
+                    if (++chunksCounter >= chunksAmount) resolve();
+                });
             }
-        })
+        });
     }
 
     /**
@@ -47,6 +47,6 @@ export class TwitchUsersService {
      * @returns Twitch user object
      */
     user(value: string): User {
-        return this.users[value];
+        return this.items[value];
     }
 }

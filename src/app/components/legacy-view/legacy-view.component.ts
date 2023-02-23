@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormsModule } from '@angular/forms';
 import { Appearance } from 'src/app/interfaces/configuration';
+import { Guest } from 'src/app/interfaces/guest';
 import { User } from 'src/app/interfaces/user';
 import { ConfigurationService } from 'src/app/services/configuration.service';
+import { TwitchUsersService } from 'src/app/services/twitch-users.service';
 
 @Component({
     selector: 'app-legacy-view',
@@ -11,7 +13,9 @@ import { ConfigurationService } from 'src/app/services/configuration.service';
 })
 export class LegacyViewComponent {
 
-    guests: User[] = [
+    guests: Guest[] = [];
+
+    /*guests0: User[] = [
 
         {
             'id': '134571761',
@@ -62,7 +66,7 @@ export class LegacyViewComponent {
             'posted_by': 'supertaliadx'
         }
 
-    ];
+    ];*/
 
     private appearance: Appearance = {
         'background-color': this.configuration.defaultSettings['background-color'],
@@ -78,8 +82,31 @@ export class LegacyViewComponent {
         })
     };
 
-    constructor(private configuration: ConfigurationService) {
+    constructor(private configuration: ConfigurationService, twitchUsers: TwitchUsersService) {
+        const data = [
+            {
+                streamer_id: 'karafruit',
+                poster_id: 'supertaliadx'
+            },
+            {
+                streamer_id: 'bisectedbrioche',
+                poster_id: 'supertaliadx'
+            },
+            {
+                streamer_id: 'ikifoo',
+                poster_id: 'defenderofthebean'
+            },
+            {
+                streamer_id: 'thewanderer1990',
+                poster_id: 'supertaliadx'
+            },
+        ];
+        const params = data.map((x: any) => [`login=${x.streamer_id}`, `login=${x.poster_id}`]).flat();
 
+        twitchUsers.append(params)
+            .then(() => {
+                this.guests = data;
+            });
     }
 
     reset() {

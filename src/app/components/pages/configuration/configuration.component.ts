@@ -11,6 +11,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { BackendService } from 'src/app/services/backend.service';
 import { ConfigurationService, Tier } from 'src/app/services/configuration.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { TwitchUsersService } from 'src/app/services/twitch-users.service';
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 
 @Component({
@@ -67,8 +68,14 @@ export class ConfigurationComponent {
         return this.commandControl.value.includes(' ');
     }
 
-    constructor(private db: Database, public dialog: MatDialog, private authentication: AuthenticationService, private storage: StorageService, private configuration: ConfigurationService, private backend: BackendService) {
-    
+    constructor(private db: Database,
+        public dialog: MatDialog,
+        private authentication: AuthenticationService,
+        private storage: StorageService,
+        private configuration: ConfigurationService,
+        private backend: BackendService,
+        twitchUsers: TwitchUsersService) {
+
         objectVal<Settings>(this.refs.settings).subscribe((value: any) => {
             this.configuration.update(value);
             this.forms.appearance.setValue(configuration.appearance);
@@ -82,8 +89,15 @@ export class ConfigurationComponent {
             this.backend.get<any>(`/v3/api/common/${this.storage.user?.id}`, {
                 guests: true, // or object defining what parts of the [guests or any property, ie. features...] to return
             }).subscribe(({ guests }) => {
-                this.guests = guests;
-                this.guests.reverse();
+
+                const pred = (x: any): string[] => {
+                    return [`login=${x.streamer_id}`, `login=${x.poster_id}`];
+                };
+                twitchUsers.append(guests.map(pred).flat())
+                    .then(() => {
+                        this.guests = guests;
+                        this.guests.reverse();
+                    });
             });
         });
 

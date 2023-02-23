@@ -15,16 +15,16 @@ import { Component, Input } from '@angular/core';
             <li *ngFor="let guest of dataSource.guests" class="ng-star-inserted">
                 <div>
                     <div class="item" title="naivebot" [ngStyle]="{'border-color': dataSource.legacy.value['border-color']}">
-                        <div class="item-image"><a target="_blank" href="https://www.twitch.tv/{{guest.login}}"><img
-                                    src="{{guest.profile_image_url}}"></a>
+                        <div class="item-image"><a target="_blank" href="https://www.twitch.tv/{{guest.streamer_id | twitch_user:'login'}}"><img
+                                    src="{{guest.streamer_id | twitch_user:'profile_image_url'}}"></a>
                         </div>
                         <div class="item-info">
-                            <div class="item-info-display_name">{{guest.display_name}}
+                            <div class="item-info-display_name">{{guest.streamer_id | twitch_user:'display_name'}}
                             </div>
-                            <div class="item-info-description">{{guest.description}}</div>
+                            <div class="item-info-description">{{guest.streamer_id | twitch_user:'description'}}</div>
                             <div class="item-info-posted_by ng-star-inserted"
                                 [ngStyle]="{'background-color': dataSource.legacy.value['background-color'], 'border-color': dataSource.legacy.value['border-color']}">
-                                {{guest.posted_by}}</div>
+                                {{guest.poster_id | twitch_user:'display_name'}}</div>
                         </div>
                     </div>
                 </div>

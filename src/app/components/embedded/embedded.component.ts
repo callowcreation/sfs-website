@@ -24,7 +24,7 @@ export class EmbeddedComponent {
 
     isDarkMode: boolean = false;
 
-    constructor(private storage: StorageService, configuration: ConfigurationService, private backend: BackendService, private twitchUser: TwitchUsersService) {
+    constructor(private storage: StorageService, configuration: ConfigurationService, private backend: BackendService, private twitchUsers: TwitchUsersService) {
         this.settings = this.storage.value<Settings>(Keys.SETTINGS) || configuration.defaultSettings;
 
         this.backend.get<any>('/v3/api/embedded').subscribe(({ featured_id, settings, guests }) => {
@@ -36,7 +36,7 @@ export class EmbeddedComponent {
                 }).flat()
             ].flat();
 
-            twitchUser.append(params)
+            twitchUsers.append(params)
                 .then(() => {
                     this.featured_id = featured_id;
                     this.guests = guests;
@@ -53,7 +53,7 @@ export class EmbeddedComponent {
                     }).flat()
                 ].flat();
 
-                twitchUser.append(params)
+                twitchUsers.append(params)
                     .then(() => {
                         this.featured_id = featured_id;
                         this.guests = guests;
@@ -69,7 +69,7 @@ export class EmbeddedComponent {
 
     visit(username: string | undefined) {
         if (!username) return;
-        const user: any = this.twitchUser.user(username);
+        const user: any = this.twitchUsers.user(username);
         if(!user) return;
         window.open(`https://www.twitch.tv/${user.login}`);
     }

@@ -5,11 +5,11 @@
         <mat-list style="max-width: 400px; margin: auto;">
             <div mat-subheader><h3>Shoutouts</h3></div>
             <mat-selection-list #guestsList formControlName="guests" (selectionChange)="onChange($event)">
-                <mat-list-option *ngFor="let guest of guests" style="margin: 8px 0px;" value="{{guest.login}}" [disabled]="guest.is_pin">
+                <mat-list-option *ngFor="let guest of guests" style="margin: 8px 0px;" value="{{guest.streamer_id | twitch_user:'login'}}" [disabled]="guest.is_pin">
                     <mat-icon matListItemIcon style="width: 80px; height: 80px; margin-top: 0;"><img style="width: 72px; height: 72px;"
-                        src="{{guest.login | twitch_user:'profile_image_url'}}"></mat-icon>
-                    <div matListItemTitle>{{guest.display_name}}</div>
-                    <div matListItemLine>{{guest.posted.display_name}} {{guest.posted.timestamp | date}}</div>
+                        src="{{guest.streamer_id | twitch_user:'profile_image_url'}}"></mat-icon>
+                    <div matListItemTitle>{{guest.streamer_id | twitch_user:'display_name'}}</div>
+                    <div matListItemLine>{{guest.poster_id | twitch_user:'display_name'}} {{guest.timestamp | date}}</div>
                 </mat-list-option>
               </mat-selection-list>
         </mat-list>

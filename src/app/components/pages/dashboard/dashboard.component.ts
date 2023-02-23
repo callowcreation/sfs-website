@@ -5,24 +5,14 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatListOption, MatSelectionListChange } from '@angular/material/list';
 import { map } from 'rxjs';
+import { Guest } from 'src/app/interfaces/guest';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { BackendService } from 'src/app/services/backend.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { TwitchUsersService } from 'src/app/services/twitch-users.service';
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 
-interface Posted {
-    login: string;
-    display_name: string;
-    timestamp: number;
-}
-
-interface Guest {
-    login: string;
-    id: string;
-    display_name: string;
-    profile_image_url: string;
-    posted: Posted;
+interface GuestPinned extends Guest {
     is_pin: boolean;
 }
 @Component({
@@ -32,7 +22,7 @@ interface Guest {
 })
 export class DashboardComponent {
 
-    guests: Guest[] = [];
+    guests: GuestPinned[] = [];
     selected: MatListOption[] = []
 
     form = new FormGroup({
@@ -45,27 +35,18 @@ export class DashboardComponent {
         objectVal<any>(ref(db, `${this.storage.user?.id}/shoutouts`)).subscribe((value: any) => {
             this.backend.get<any>(`/v3/api/dashboard/${storage.user?.id}`)
                 .subscribe(({ guests, pinned }) => {
-                    console.log({pinned})
-                    if(pinned) {
-                        const pin: Guest = { 
-                            display_name: pinned.username,
-                            id: '',
-                            login: pinned.username,
-                            posted: {
-                                display_name: pinned.posted_by,
-                                login: pinned.posted_by,
-                                timestamp: pinned.timestamp
-                            },
-                            profile_image_url: '',
-                            is_pin: true
-                        };
-                        guests.unshift(pin);
+                    console.log({ guests, pinned })
+
+                    if (pinned) {
+                        guests = guests.filter((x: GuestPinned) => x.streamer_id != pinned.streamer_id);
+                        pinned.is_pin = true;
+                        guests.push(pinned);
                     }
 
-                    const pred = (value: any): string => {
-                        return `login=${value.login}`;
+                    const pred = (x: any): string[] => {
+                        return [`login=${x.streamer_id}`, `login=${x.poster_id}`];
                     };
-                    twitchUsers.append(guests.map(pred))
+                    twitchUsers.append(guests.map(pred).flat())
                         .then(() => {
                             this.guests = guests;
                             this.guests.reverse();
@@ -87,7 +68,7 @@ export class DashboardComponent {
                 this.canDelete = false;
                 this.backend.delete<any>('/v3/api/shoutouts', this.selected.map(x => x.value))
                     .subscribe(() => {
-                        this.guests = this.guests.filter(v => !this.selected.map(x => x.value).includes(v.login));
+                        this.guests = this.guests.filter(v => !this.selected.map(x => x.value).includes(v.streamer_id));
                         this.selected = [];
                     });
             }
