@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
 import { User } from '../interfaces/user';
 import { TwitchApiService } from './twitch-api.service';
 
@@ -14,7 +13,7 @@ export class TwitchUsersService {
 
     constructor(private twitchApi: TwitchApiService) { }
 
-    private update(users: User[]) {
+    private update(users: User[]): void {
         for (let i = 0; i < users.length; i++) {
             const user: User = users[i];
             if (!this.items[user.id]) this.items[user.id] = user;
@@ -27,7 +26,7 @@ export class TwitchUsersService {
      * @param params 'login=username' or 'id=user-id'
      * Example: 'login=caLLowcreation' or 'id=75987197'
      */
-    append(params: string[]) {
+    append(params: string[]): Promise<void> {
         return new Promise<void>(resolve => {
             const chunksAmount: number = Math.floor(params.length / CHUNK_SIZE);
             let chunksCounter: number = 0;

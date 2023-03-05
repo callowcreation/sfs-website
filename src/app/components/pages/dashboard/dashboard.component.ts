@@ -33,29 +33,34 @@ export class DashboardComponent {
 
     constructor(db: Database, private authentication: AuthenticationService, private storage: StorageService, private backend: BackendService, public dialog: MatDialog, private twitchUsers: TwitchUsersService) {
         objectVal<any>(ref(db, `${this.storage.user?.id}/shoutouts`)).subscribe((value: any) => {
-            this.backend.get<any>(`/v3/api/dashboard/${storage.user?.id}`)
-                .subscribe(({ guests, pinned }) => {
-                    console.log({ guests, pinned })
-
-                    if (pinned) {
-                        guests = guests.filter((x: GuestPinned) => x.streamer_id != pinned.streamer_id);
-                        pinned.is_pin = true;
-                        guests.push(pinned);
-                    }
-
-                    const pred = (x: any): string[] => {
-                        return [`login=${x.streamer_id}`, `login=${x.poster_id}`];
-                    };
-                    twitchUsers.append(guests.map(pred).flat())
-                        .then(() => {
-                            this.guests = guests;
-                            this.guests.reverse();
-                            this.form.setValue({ guests });
-                        });
-
-                });
+            console.log({ value })
         });
+        this.backend.get<any>(`/v3/api/dashboard/${storage.user?.id}`)
+            .subscribe(({ guests, pinned }) => {
+                console.log({ guests, pinned })
 
+                if (pinned) {
+                    guests = guests.filter((x: GuestPinned) => x.streamer_id != pinned.streamer_id);
+                    pinned.is_pin = true;
+                    guests.push(pinned);
+                }
+
+                const guestParams = (pre: 'id' | 'login', { streamer_id, poster_id }: { streamer_id: string, poster_id: string }): string[] => {
+                    return [`${pre}=${streamer_id}`, `${pre}=${poster_id}`];
+                };
+
+                const paramsLegacy = (guest: any): string[] => {
+                    return guest.legacy === true ? guestParams('login', guest) : guestParams('id', guest);
+                };
+                const flat = guests.map(paramsLegacy).flat();
+                console.log({ flat })
+                twitchUsers.append(flat)
+                    .then(() => {
+                        this.guests = this.removeDuplicates(guests);
+                        this.form.setValue({ guests });
+                    });
+
+            });
         this.authentication.authenticte()
             .then()
             .catch(err => console.error(err));
@@ -78,5 +83,17 @@ export class DashboardComponent {
     onChange(ev: MatSelectionListChange) {
         this.canDelete = ev.source.selectedOptions.selected.length > 0 ? true : false;
         this.selected = ev.source.selectedOptions.selected;
+    }
+
+    removeDuplicates(arr: any[]) {
+        return arr.filter((value: Guest, index, self) =>
+            index === self.findIndex((t: Guest) => {
+                const u1 = this.twitchUsers.user(t.streamer_id);
+                const u2 = this.twitchUsers.user(value.streamer_id);
+                return (
+                    u1.id === u2.id
+                )
+            })
+        );
     }
 }
