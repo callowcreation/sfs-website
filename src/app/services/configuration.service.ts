@@ -58,7 +58,7 @@ export class ConfigurationService {
 
     constructor(private storage: StorageService, private backend: BackendService) {
         this.settings = this.storage.value<Settings>(Keys.SETTINGS) || this.defaultSettings;
-        this.backend.get<any>(`/v3/api/common/${this.storage.user?.id}`, {
+        this.backend.get<any>(`/settings/${this.storage.user?.id}`, {
             settings: true,
         }).subscribe(({ settings }) => {
             this.settings = settings;

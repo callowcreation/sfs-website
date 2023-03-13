@@ -86,9 +86,7 @@ export class ConfigurationComponent {
         });
 
         objectVal<any>(this.refs.shoutouts).subscribe((value: any) => {
-            this.backend.get<any>(`/v3/api/common/${this.storage.user?.id}`, {
-                guests: true, // or object defining what parts of the [guests or any property, ie. features...] to return
-            }).subscribe(({ guests }) => {
+            this.backend.get<any>(`/shoutouts/${this.storage.user?.id}`).subscribe(({ guests }) => {
 
                 const pred = (x: any): string[] => {
                     return [`login=${x.streamer_id}`, `login=${x.poster_id}`];
@@ -103,9 +101,9 @@ export class ConfigurationComponent {
 
         this.authentication.authenticte()
             .then(() => {
-                this.backend.get<any>(`/v3/api/products`).subscribe(({ products }) => {
-                    this.products = products;
-                });
+                // this.backend.get<any>(`/v3/api/products`).subscribe(({ products }) => {
+                //     this.products = products;
+                // });
             })
             .catch(err => console.error(err));
 

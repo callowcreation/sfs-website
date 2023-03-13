@@ -6,7 +6,7 @@ export const environment = {
     production: false,
     version: '0.3.1',
     cycle: 'dev',
-    api: 'http://localhost:5000',
+    api: 'http://127.0.0.1:5001/shoutoutsdev-38a1d/us-central1/app',
     useEmulators: true,
     firebase: {
         projectId: 'shoutoutsdev-38a1d',

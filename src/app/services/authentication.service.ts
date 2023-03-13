@@ -16,15 +16,16 @@ export class AuthenticationService {
         const { user } = this.storage;
         if (!user) return Promise.reject('No user to authenticate');
         return new Promise((resolve, reject) => {
-            this.backend.createUser(user).subscribe(token => {
-                signInWithCustomToken(this.auth, token)
-                    .then(async (credential: any) => {
-                        const idToken = await getIdToken(credential.user);
-                        this.storage.update(Keys.ID_TOKEN, idToken);
-                        resolve();
-                    })
-                    .catch(err => reject(err));
-            });
+            resolve();
+            // this.backend.createUser(user).subscribe(token => {
+            //     signInWithCustomToken(this.auth, token)
+            //         .then(async (credential: any) => {
+            //             const idToken = await getIdToken(credential.user);
+            //             this.storage.update(Keys.ID_TOKEN, idToken);
+            //             resolve();
+            //         })
+            //         .catch(err => reject(err));
+            // });
         });
     }
 }

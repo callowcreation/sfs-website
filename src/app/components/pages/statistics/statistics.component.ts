@@ -45,7 +45,7 @@ export class StatisticsComponent {
         this.statistics = { streamers: [], posters: [], firsts: [], recents: [] };
         this.sorted = { streamers: [], posters: [], firsts: [], recents: [] };
 
-        this.backend.get<any>(`/v3/api/common/${this.storage.user?.id}`, {
+        this.backend.get<any>(`/stats/${this.storage.user?.id}`, {
             statistics: true, // or object defining what parts of the [streamers or any property, ie. features...] to return
         })
             .subscribe(({ statistics }) => {

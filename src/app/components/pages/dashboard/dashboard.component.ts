@@ -35,7 +35,7 @@ export class DashboardComponent {
         objectVal<any>(ref(db, `${this.storage.user?.id}/shoutouts`)).subscribe((value: any) => {
             console.log({ value })
         });
-        this.backend.get<any>(`/v3/api/dashboard/${storage.user?.id}`)
+        /*this.backend.get<any>(`/v3/api/dashboard/${storage.user?.id}`)
             .subscribe(({ guests, pinned }) => {
                 console.log({ guests, pinned })
 
@@ -60,7 +60,7 @@ export class DashboardComponent {
                         this.form.setValue({ guests });
                     });
 
-            });
+            });*/
         this.authentication.authenticte()
             .then()
             .catch(err => console.error(err));
@@ -71,11 +71,11 @@ export class DashboardComponent {
         dialogRef.afterClosed().subscribe(result => {
             if (coerceBooleanProperty(result) === true) {
                 this.canDelete = false;
-                this.backend.delete<any>('/v3/api/shoutouts', this.selected.map(x => x.value))
+                /*this.backend.delete<any>('/v3/api/shoutouts', this.selected.map(x => x.value))
                     .subscribe(() => {
                         this.guests = this.guests.filter(v => !this.selected.map(x => x.value).includes(v.streamer_id));
                         this.selected = [];
-                    });
+                    });*/
             }
         });
     }

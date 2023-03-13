@@ -26,7 +26,7 @@ export class EmbeddedComponent {
 
     constructor(private storage: StorageService, configuration: ConfigurationService, private backend: BackendService, private twitchUsers: TwitchUsersService) {
         this.settings = this.storage.value<Settings>(Keys.SETTINGS) || configuration.defaultSettings;
-
+        /*
         this.backend.get<any>('/v3/api/embedded').subscribe(({ featured_id, settings, guests }) => {
 
             const params = [
@@ -61,6 +61,7 @@ export class EmbeddedComponent {
                     })
             });
         }, 1000 * 10); // set to 45
+        */
     }
 
     ngOnDestroy() {
