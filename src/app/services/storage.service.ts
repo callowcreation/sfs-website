@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AuthPayload } from '../interfaces/auth-payload';
 import { User } from '../interfaces/user';
 
-export type StorageKey = 'auth'| 'user' | 'id_token' | 'settings';
+export type StorageKey = 'auth' | 'user' | 'id_token' | 'settings';
 export enum Keys {
     AUTH = 'auth',
     USER = 'user',
@@ -16,7 +16,8 @@ export enum Keys {
 export class StorageService {
 
     static HasAuth(): boolean {
-        return !localStorage.getItem(Keys.ID_TOKEN) ? false : true;
+        return !!(localStorage.getItem(Keys.AUTH)
+                || localStorage.getItem(Keys.ID_TOKEN));
     }
 
     get auth(): AuthPayload | null {
@@ -43,16 +44,16 @@ export class StorageService {
         return localStorage.getItem(key) === null ? false : true;
     }
 
-    value<T>(key: StorageKey): T | null{
+    value<T>(key: StorageKey): T | null {
         const item = localStorage.getItem(key);
-        if(!item) return null;
+        if (!item) return null;
         return JSON.parse(item) as T;
     }
 
     update(key: StorageKey, value: any) {
         localStorage.setItem(key, JSON.stringify(value));
     }
-    
+
     clear() {
         Object.values(Keys).forEach(x => localStorage.removeItem(x));
     }
